@@ -1,1136 +1,193 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест по алгоритмам и программированию - 50 вопросов</title>
-    <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: 'Arial', sans-serif;
-    }
-    
+  <meta charset="UTF-8">
+  <title>Тест по динамическому программированию</title>
+  <style>
     body {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        padding: 15px;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(120deg, #1a1a2e, #16213e);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    
-    .container {
-        max-width: 100%;
-        margin: 0 auto;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        overflow: hidden;
+
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      color: #00adb5;
     }
-    
-    .header {
-        background: #2c3e50;
-        color: white;
-        padding: 20px 15px;
-        text-align: center;
+
+    .quiz-container {
+      width: 90%;
+      max-width: 700px;
+      background: #0f3460;
+      border-radius: 15px;
+      padding: 20px 30px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      margin-top: 20px;
     }
-    
-    .header h1 {
-        font-size: 20px;
-        margin-bottom: 8px;
-        line-height: 1.3;
-    }
-    
-    .progress-bar {
-        height: 5px;
-        background: #34495e;
-        margin: 12px 0;
-        border-radius: 3px;
-        overflow: hidden;
-    }
-    
-    .progress {
-        height: 100%;
-        background: #e74c3c;
-        width: 0%;
-        transition: width 0.3s ease;
-    }
-    
-    .question-container {
-        padding: 20px 15px;
-    }
-    
+
     .question {
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 15px;
-        color: #2c3e50;
-        line-height: 1.4;
+      font-size: 18px;
+      margin-bottom: 15px;
     }
-    
-    .options {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+
+    .answers label {
+      display: block;
+      background: #16213e;
+      padding: 10px;
+      border-radius: 8px;
+      margin: 8px 0;
+      cursor: pointer;
+      transition: 0.2s;
     }
-    
-    .option {
-        padding: 12px 15px;
-        border: 2px solid #bdc3c7;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        background: #f8f9fa;
-        font-size: 14px;
-        line-height: 1.4;
+
+    .answers label:hover {
+      background: #1a1a2e;
     }
-    
-    .option:hover {
-        background: #e9ecef;
-        border-color: #95a5a6;
-    }
-    
-    .option.selected {
-        background: #3498db;
-        color: white;
-        border-color: #2980b9;
-    }
-    
-    .option.correct {
-        background: #27ae60;
-        color: white;
-        border-color: #219652;
-    }
-    
-    .option.incorrect {
-        background: #e74c3c;
-        color: white;
-        border-color: #c0392b;
-    }
-    
-    .option:disabled {
-        cursor: not-allowed;
-    }
-    
-    .navigation {
-        padding: 15px;
-        background: #ecf0f1;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-    }
-    
+
     button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        flex: 1;
-    }
-    
-    .prev-btn {
-        background: #95a5a6;
-        color: white;
-    }
-    
-    .prev-btn:hover:not(:disabled) {
-        background: #7f8c8d;
-    }
-    
-    .next-btn {
-        background: #3498db;
-        color: white;
-    }
-    
-    .next-btn:hover:not(:disabled) {
-        background: #2980b9;
-    }
-    
-    button:disabled {
-        background: #bdc3c7;
-        cursor: not-allowed;
-    }
-    
-    .results {
-        padding: 30px 20px;
-        text-align: center;
-        display: none;
-    }
-    
-    .score {
-        font-size: 36px;
-        font-weight: bold;
-        color: #2c3e50;
-        margin: 15px 0;
-    }
-    
-    .restart-btn {
-        background: #e74c3c;
-        color: white;
-        margin-top: 20px;
-        padding: 12px 25px;
-        font-size: 16px;
-    }
-    
-    .restart-btn:hover {
-        background: #c0392b;
-    }
-    
-    .question-number {
-        color: #7f8c8d;
-        font-size: 12px;
-        margin-bottom: 8px;
-    }
-    
-    .feedback {
-        margin-top: 12px;
-        padding: 8px;
-        border-radius: 5px;
-        font-weight: bold;
-        display: none;
-        font-size: 14px;
-    }
-    
-    .feedback.correct {
-        background: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-    }
-    
-    .feedback.incorrect {
-        background: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-    }
-    
-    .explanation {
-        margin-top: 10px;
-        padding: 8px;
-        background: #e3f2fd;
-        border-radius: 5px;
-        border-left: 4px solid #2196f3;
-        display: none;
-        font-size: 13px;
-        line-height: 1.4;
-    }
-    
-    .theme-indicator {
-        background: #f39c12;
-        color: white;
-        padding: 4px 8px;
-        border-radius: 12px;
-        font-size: 11px;
-        display: inline-block;
-        margin-bottom: 8px;
+      background-color: #00adb5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      margin: 10px 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
     }
 
-    /* Адаптивность для очень маленьких экранов */
-    @media (max-width: 360px) {
-        body {
-            padding: 10px;
-        }
-        
-        .header {
-            padding: 15px 10px;
-        }
-        
-        .header h1 {
-            font-size: 18px;
-        }
-        
-        .question-container {
-            padding: 15px 10px;
-        }
-        
-        .question {
-            font-size: 15px;
-        }
-        
-        .option {
-            padding: 10px 12px;
-            font-size: 13px;
-        }
-        
-        button {
-            padding: 8px 15px;
-            font-size: 13px;
-        }
+    button:hover {
+      background-color: #03c9d7;
     }
 
-    /* Портретная ориентация */
-    @media (max-height: 600px) and (orientation: portrait) {
-        body {
-            padding: 10px;
-        }
-        
-        .question-container {
-            padding: 15px;
-        }
-        
-        .options {
-            gap: 6px;
-        }
-        
-        .option {
-            padding: 10px 12px;
-        }
+    #result {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+      text-align: center;
     }
 
-    /* Ландшафтная ориентация */
-    @media (max-height: 500px) and (orientation: landscape) {
-        .container {
-            max-height: 95vh;
-            overflow-y: auto;
-        }
-        
-        .question {
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-        
-        .options {
-            gap: 5px;
-        }
-        
-        .option {
-            padding: 8px 10px;
-            font-size: 13px;
-        }
+    .progress {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 14px;
+      color: #ddd;
     }
-</style>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#667eea">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Тест по алгоритмам и программированию</h1>
-            <div class="progress-bar">
-                <div class="progress" id="progress"></div>
-            </div>
-            <div id="stats">Вопрос 1 из 50</div>
-        </div>
-        
-        <div class="question-container">
-            <div class="question-number" id="questionNumber">Вопрос 1/50</div>
-            <div class="theme-indicator" id="themeIndicator"></div>
-            <div class="question" id="question"></div>
-            <div class="options" id="options"></div>
-            <div class="feedback" id="feedback"></div>
-            <div class="explanation" id="explanation"></div>
-        </div>
-        
-        <div class="navigation">
-            <button class="prev-btn" id="prevBtn" disabled>Назад</button>
-            <button class="next-btn" id="nextBtn">Следующий</button>
-        </div>
-        
-        <div class="results" id="results">
-            <h2>Тест завершен!</h2>
-            <div class="score" id="finalScore">0/50</div>
-            <p id="resultMessage"></p>
-            <button class="restart-btn" id="restartBtn">Пройти тест снова</button>
-        </div>
+
+  <h1>🧠 Тест по динамическому программированию</h1>
+  <div class="quiz-container">
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <div style="text-align:center;">
+      <button id="prevBtn">Назад</button>
+      <button id="nextBtn">Следующий</button>
+      <button id="submitBtn" class="hidden">Показать результат</button>
     </div>
+    <div id="result"></div>
+  </div>
 
-    <script>
-            const questions = [
-        // 🧩 1. Topic: Algorithms (basics)
-        {
-            question: "1. What is an algorithm?",
-            options: [
-                "A) A sequence of random actions",
-                "B) A sequence of actions that leads to solving a problem", 
-                "C) A program in Python language",
-                "D) Random data distribution"
-            ],
-            correctAnswers: [1],
-            explanation: "An algorithm is a precise sequence of actions that leads to solving a problem.",
-            theme: "Algorithms (basics)"
-        },
-        {
-            question: "2. The main properties of an algorithm are:",
-            options: [
-                "A) Precision, brevity, randomness",
-                "B) Understandability, randomness, repeatability", 
-                "C) Discreteness, definiteness, effectiveness",
-                "D) Speed, memory, parallelism"
-            ],
-            correctAnswers: [2],
-            explanation: "Main properties: discreteness (steps), definiteness (clarity), effectiveness (result).",
-            theme: "Algorithms (basics)"
-        },
-        {
-            question: "3. What does the 'discreteness' property of an algorithm mean?",
-            options: [
-                "A) Each step must be logically connected",
-                "B) The algorithm must have a finite number of steps", 
-                "C) The algorithm must be executed by a computer",
-                "D) The algorithm consists of separate, clearly defined steps"
-            ],
-            correctAnswers: [3],
-            explanation: "Discreteness means the algorithm consists of separate, clearly defined steps.",
-            theme: "Algorithms (basics)"
-        },
-        {
-            question: "4. What does a flowchart do?",
-            options: [
-                "A) Executes the algorithm",
-                "B) Represents the algorithm graphically", 
-                "C) Stores arrays",
-                "D) Calculates complexity"
-            ],
-            correctAnswers: [1],
-            explanation: "A flowchart is a graphical representation of an algorithm using special symbols.",
-            theme: "Algorithms (basics)"
-        },
-        {
-            question: "5. What is branching in algorithms?",
-            options: [
-                "A) Repeating actions",
-                "B) Switching to different actions depending on a condition", 
-                "C) End of program",
-                "D) Outputting data"
-            ],
-            correctAnswers: [1],
-            explanation: "Branching is choosing different execution paths based on a condition.",
-            theme: "Algorithms (basics)"
-        },
-        {
-            question: "6. What does a loop do in an algorithm?",
-            options: [
-                "A) Repeats actions while a condition is true",
-                "B) Ends the algorithm", 
-                "C) Speeds up calculations",
-                "D) Changes the order of steps"
-            ],
-            correctAnswers: [0],
-            explanation: "A loop repeats certain actions while a given condition is true.",
-            theme: "Algorithms (basics)"
-        },
-        {
-            question: "7. Which symbol usually denotes the start and end of a flowchart?",
-            options: [
-                "A) Square",
-                "B) Diamond", 
-                "C) Ellipse",
-                "D) Parallelogram"
-            ],
-            correctAnswers: [2],
-            explanation: "Ellipse (oval) is used to denote the start and end of an algorithm in a flowchart.",
-            theme: "Algorithms (basics)"
-        },
-        {
-            question: "8. What does the 'input/output' block do in an algorithm?",
-            options: [
-                "A) Describes a loop",
-                "B) Allows working with user data", 
-                "C) Divides an array",
-                "D) Defines branching"
-            ],
-            correctAnswers: [1],
-            explanation: "Input/output block allows receiving data from user and outputting results.",
-            theme: "Algorithms (basics)"
-        },
-        {
-            question: "9. An algorithm that never ends is called:",
-            options: [
-                "A) Recursive",
-                "B) Incorrect", 
-                "C) Infinite",
-                "D) Iterative"
-            ],
-            correctAnswers: [2],
-            explanation: "Infinite algorithm - an algorithm that never completes.",
-            theme: "Algorithms (basics)"
-        },
-        {
-            question: "10. What is pseudocode used for?",
-            options: [
-                "A) For describing Python code",
-                "B) For visualizing arrays", 
-                "C) For describing an algorithm in understandable language before programming",
-                "D) For testing programs"
-            ],
-            correctAnswers: [2],
-            explanation: "Pseudocode is used to describe an algorithm in understandable language before writing code.",
-            theme: "Algorithms (basics)"
-        },
-
-        // 🧮 2. Topic: Arrays
-        {
-            question: "11. What is an array?",
-            options: [
-                "A) A data structure for storing one value",
-                "B) A collection of variables of the same type, united by a common name", 
-                "C) A separate variable for each memory cell",
-                "D) A table of strings"
-            ],
-            correctAnswers: [1],
-            explanation: "Array - a collection of elements of the same type, united by a common name and accessible by index.",
-            theme: "Arrays"
-        },
-        {
-            question: "12. Array element indexing usually starts from:",
-            options: [
-                "A) 1",
-                "B) -1", 
-                "C) 0",
-                "D) 2"
-            ],
-            correctAnswers: [2],
-            explanation: "In most programming languages, array indexing starts from 0.",
-            theme: "Arrays"
-        },
-        {
-            question: "13. How to access the 3rd element of array A?",
-            options: [
-                "A) A[3]",
-                "B) A(3)", 
-                "C) A[2]",
-                "D) A<3>"
-            ],
-            correctAnswers: [2],
-            explanation: "Since indexing starts from 0, the third element has index 2: A[2].",
-            theme: "Arrays"
-        },
-        {
-            question: "14. What happens when accessing beyond array bounds?",
-            options: [
-                "A) The last value is returned",
-                "B) An access error occurs", 
-                "C) The array automatically expands",
-                "D) The index is ignored"
-            ],
-            correctAnswers: [1],
-            explanation: "Accessing a non-existent index causes an out-of-bounds error.",
-            theme: "Arrays"
-        },
-        {
-            question: "15. Which loop type is most commonly used for array traversal?",
-            options: [
-                "A) while",
-                "B) for", 
-                "C) repeat",
-                "D) if"
-            ],
-            correctAnswers: [1],
-            explanation: "For loop is most commonly used for array traversal as it's convenient for working with indexes.",
-            theme: "Arrays"
-        },
-        {
-            question: "16. What does the len(A) function return?",
-            options: [
-                "A) Maximum element",
-                "B) Sum of elements", 
-                "C) Number of array elements",
-                "D) Minimum element"
-            ],
-            correctAnswers: [2],
-            explanation: "The len(A) function returns the number of elements in array A.",
-            theme: "Arrays"
-        },
-        {
-            question: "17. What does the operation A[i] = A[i] + 1 do?",
-            options: [
-                "A) Deletes an element",
-                "B) Increases the value of the i-th element by 1", 
-                "C) Changes the index",
-                "D) Copies the array"
-            ],
-            correctAnswers: [1],
-            explanation: "This operation increases the value of the element with index i by 1.",
-            theme: "Arrays"
-        },
-        {
-            question: "18. What is a two-dimensional array?",
-            options: [
-                "A) A list of strings",
-                "B) A table (matrix) of elements", 
-                "C) A one-dimensional array",
-                "D) A set of numbers"
-            ],
-            correctAnswers: [1],
-            explanation: "Two-dimensional array - a table (matrix) of elements organized in rows and columns.",
-            theme: "Arrays"
-        },
-        {
-            question: "19. How to write an array of 5 elements?",
-            options: [
-                "A) A = [1, 2, 3, 4, 5]",
-                "B) A = (1;2;3;4;5)", 
-                "C) A = {1 2 3 4 5}",
-                "D) A = 1,2,3,4,5"
-            ],
-            correctAnswers: [0],
-            explanation: "In most languages, arrays are written in square brackets separated by commas.",
-            theme: "Arrays"
-        },
-        {
-            question: "20. How to get the last element of array A?",
-            options: [
-                "A) A[0]",
-                "B) A[-1]", 
-                "C) A[len(A)]",
-                "D) A[last]"
-            ],
-            correctAnswers: [1],
-            explanation: "A[-1] - common way to get the last array element in many languages.",
-            theme: "Arrays"
-        },
-
-        // ⚙️ 3. Topic: Sorting
-        {
-            question: "21. What does sorting do?",
-            options: [
-                "A) Divides array into two parts",
-                "B) Deletes elements", 
-                "C) Arranges elements in a specific order",
-                "D) Adds elements"
-            ],
-            correctAnswers: [2],
-            explanation: "Sorting orders array elements according to specific criteria (ascending, descending, etc.).",
-            theme: "Sorting"
-        },
-        {
-            question: "22. What does bubble sort do?",
-            options: [
-                "A) Exchanges adjacent elements if they are in wrong order",
-                "B) Divides array into parts", 
-                "C) Compares first and last elements",
-                "D) Reverses the array"
-            ],
-            correctAnswers: [0],
-            explanation: "Bubble sort repeatedly passes through the array, comparing and exchanging adjacent elements.",
-            theme: "Sorting"
-        },
-        {
-            question: "23. Which sorting is usually considered the simplest to understand?",
-            options: [
-                "A) Quick sort",
-                "B) Merge sort", 
-                "C) Bubble sort",
-                "D) Shaker sort"
-            ],
-            correctAnswers: [2],
-            explanation: "Bubble sort is considered the simplest to understand due to its straightforward algorithm.",
-            theme: "Sorting"
-        },
-        {
-            question: "24. What happens in each iteration of bubble sort?",
-            options: [
-                "A) The largest element moves to the end",
-                "B) The smallest element is deleted", 
-                "C) Elements are multiplied",
-                "D) The array is reversed"
-            ],
-            correctAnswers: [0],
-            explanation: "In each iteration, the largest element 'bubbles up' to the end of the array.",
-            theme: "Sorting"
-        },
-        {
-            question: "25. Which sorting selects the minimum element and puts it at the beginning?",
-            options: [
-                "A) Insertion sort",
-                "B) Selection sort", 
-                "C) Merge sort",
-                "D) Bubble sort"
-            ],
-            correctAnswers: [1],
-            explanation: "Selection sort finds the minimum element on each step and puts it at the beginning of unsorted part.",
-            theme: "Sorting"
-        },
-        {
-            question: "26. Which sorting divides the array into two parts and recursively sorts each?",
-            options: [
-                "A) Quick sort",
-                "B) Insertion sort", 
-                "C) Selection sort",
-                "D) Bubble sort"
-            ],
-            correctAnswers: [0],
-            explanation: "Quick sort uses 'divide and conquer' strategy, recursively sorting array parts.",
-            theme: "Sorting"
-        },
-        {
-            question: "27. What is the main advantage of quick sort?",
-            options: [
-                "A) Simple implementation",
-                "B) High speed with large data", 
-                "C) No recursion",
-                "D) Less memory"
-            ],
-            correctAnswers: [1],
-            explanation: "Main advantage of quick sort - high performance on large arrays.",
-            theme: "Sorting"
-        },
-        {
-            question: "28. Which sorting is most stable with equal elements?",
-            options: [
-                "A) Merge sort",
-                "B) Quick sort", 
-                "C) Selection sort",
-                "D) Bubble sort"
-            ],
-            correctAnswers: [0],
-            explanation: "Merge sort is stable - preserves the order of equal elements.",
-            theme: "Sorting"
-        },
-        {
-            question: "29. What is 'stable sorting'?",
-            options: [
-                "A) Doesn't depend on input data",
-                "B) Doesn't change the order of equal elements", 
-                "C) The fastest",
-                "D) Requires less memory"
-            ],
-            correctAnswers: [1],
-            explanation: "Stable sorting preserves the relative order of elements with equal keys.",
-            theme: "Sorting"
-        },
-        {
-            question: "30. What is the average complexity of quick sort?",
-            options: [
-                "A) O(n)",
-                "B) O(n²)", 
-                "C) O(n log n)",
-                "D) O(log n)"
-            ],
-            correctAnswers: [2],
-            explanation: "Average time complexity of quick sort is O(n log n).",
-            theme: "Sorting"
-        },
-
-        // 🔢 4. Topic: Number Algorithms
-        {
-            question: "31. What does Euclid's algorithm do?",
-            options: [
-                "A) Finds sum of numbers",
-                "B) Finds GCD (Greatest Common Divisor)", 
-                "C) Finds LCM",
-                "D) Checks for primality"
-            ],
-            correctAnswers: [1],
-            explanation: "Euclid's algorithm finds the greatest common divisor of two numbers.",
-            theme: "Number Algorithms"
-        },
-        {
-            question: "32. What does LCM algorithm through GCD do?",
-            options: [
-                "A) LCM = (a*b)/GCD(a,b)",
-                "B) LCM = a+b", 
-                "C) LCM = (a+b)/GCD",
-                "D) LCM = GCD*a*b"
-            ],
-            correctAnswers: [0],
-            explanation: "LCM can be calculated through GCD using formula: LCM(a,b) = (a × b) / GCD(a,b).",
-            theme: "Number Algorithms"
-        },
-        {
-            question: "33. Which algorithm is used to find Fibonacci numbers?",
-            options: [
-                "A) Loop",
-                "B) Recursion", 
-                "C) Sorting",
-                "D) Merging"
-            ],
-            correctAnswers: [0],
-            explanation: "For efficient Fibonacci number calculation, loop (iterative method) is usually used.",
-            theme: "Number Algorithms"
-        },
-        {
-            question: "34. What returns the 10th Fibonacci number counting from 1 and 1?",
-            options: [
-                "A) 34",
-                "B) 55", 
-                "C) 89",
-                "D) 21"
-            ],
-            correctAnswers: [1],
-            explanation: "Sequence: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55. 10th number - 55.",
-            theme: "Number Algorithms"
-        },
-        {
-            question: "35. What does fast exponentiation algorithm do?",
-            options: [
-                "A) Calculates sum of numbers",
-                "B) Multiplies number by itself several times efficiently", 
-                "C) Divides number by 2",
-                "D) Finds factorial"
-            ],
-            correctAnswers: [1],
-            explanation: "Fast exponentiation algorithm efficiently computes a^n in O(log n) operations.",
-            theme: "Number Algorithms"
-        },
-        {
-            question: "36. What does O(log n) mean for an algorithm?",
-            options: [
-                "A) Algorithm grows linearly",
-                "B) Time increases logarithmically", 
-                "C) Algorithm doesn't depend on input data",
-                "D) Executes instantly"
-            ],
-            correctAnswers: [1],
-            explanation: "O(log n) means execution time grows logarithmically relative to input size.",
-            theme: "Number Algorithms"
-        },
-        {
-            question: "37. What does primality testing algorithm do?",
-            options: [
-                "A) Checks if number is divisible by others",
-                "B) Counts number of digits", 
-                "C) Multiplies number by 2",
-                "D) Divides array"
-            ],
-            correctAnswers: [0],
-            explanation: "Algorithm checks if number is divisible only by 1 and itself.",
-            theme: "Number Algorithms"
-        },
-        {
-            question: "38. Which algorithm calculates factorial?",
-            options: [
-                "A) Repeated multiplication by previous numbers",
-                "B) Division", 
-                "C) Addition",
-                "D) Recursive division"
-            ],
-            correctAnswers: [0],
-            explanation: "Factorial is calculated as product of all integers from 1 to n.",
-            theme: "Number Algorithms"
-        },
-        {
-            question: "39. What does binary search algorithm do?",
-            options: [
-                "A) Iterates through all elements",
-                "B) Divides array in half and searches in the needed part", 
-                "C) Checks for primality",
-                "D) Finds sum"
-            ],
-            correctAnswers: [1],
-            explanation: "Binary search works only on sorted array, dividing search area in half on each step.",
-            theme: "Number Algorithms"
-        },
-        {
-            question: "40. What condition is necessary for binary search?",
-            options: [
-                "A) Array must be sorted",
-                "B) Array must be random", 
-                "C) Array must contain only zeros",
-                "D) Array must be two-dimensional"
-            ],
-            correctAnswers: [0],
-            explanation: "Binary search requires the array to be sorted.",
-            theme: "Number Algorithms"
-        },
-
-        // 🧠 5. Topic: Algorithm Complexity and Analysis
-        {
-            question: "41. What does 'time complexity' mean?",
-            options: [
-                "A) Number of code lines",
-                "B) Number of steps needed to execute the algorithm", 
-                "C) Memory volume",
-                "D) Number of variables"
-            ],
-            correctAnswers: [1],
-            explanation: "Time complexity shows how algorithm execution time depends on input data size.",
-            theme: "Algorithm Complexity"
-        },
-        {
-            question: "42. Which complexity is considered linear?",
-            options: [
-                "A) O(1)",
-                "B) O(n)", 
-                "C) O(n²)",
-                "D) O(log n)"
-            ],
-            correctAnswers: [1],
-            explanation: "O(n) - linear complexity, time grows proportionally to input size.",
-            theme: "Algorithm Complexity"
-        },
-        {
-            question: "43. Which complexity is considered constant?",
-            options: [
-                "A) O(1)",
-                "B) O(n)", 
-                "C) O(n²)",
-                "D) O(log n)"
-            ],
-            correctAnswers: [0],
-            explanation: "O(1) - constant complexity, time doesn't depend on input size.",
-            theme: "Algorithm Complexity"
-        },
-        {
-            question: "44. How is asymptotic complexity denoted?",
-            options: [
-                "A) P(n)",
-                "B) F(n)", 
-                "C) O(n)",
-                "D) K(n)"
-            ],
-            correctAnswers: [2],
-            explanation: "Asymptotic complexity is denoted by O notation (Big O).",
-            theme: "Algorithm Complexity"
-        },
-        {
-            question: "45. What does O(n²) mean?",
-            options: [
-                "A) Time grows proportionally to square of data size",
-                "B) Linear growth", 
-                "C) Time doesn't depend on input",
-                "D) Algorithm executes in constant time"
-            ],
-            correctAnswers: [0],
-            explanation: "O(n²) - quadratic complexity, time grows proportionally to square of input size.",
-            theme: "Algorithm Complexity"
-        },
-        {
-            question: "46. Which sorting has worst case O(n²)?",
-            options: [
-                "A) Quick sort",
-                "B) Merge sort", 
-                "C) Bubble sort",
-                "D) Radix sort"
-            ],
-            correctAnswers: [2],
-            explanation: "Bubble sort has O(n²) complexity in worst case.",
-            theme: "Algorithm Complexity"
-        },
-        {
-            question: "47. What is an 'optimal algorithm'?",
-            options: [
-                "A) The fastest and most accurate for a given task",
-                "B) The longest", 
-                "C) Requiring more memory",
-                "D) Least understandable"
-            ],
-            correctAnswers: [0],
-            explanation: "Optimal algorithm - the most efficient algorithm for solving a specific task.",
-            theme: "Algorithm Complexity"
-        },
-        {
-            question: "48. What is the value of complexity analysis?",
-            options: [
-                "A) Allows evaluating algorithm efficiency",
-                "B) Speeds up execution", 
-                "C) Changes array structure",
-                "D) Determines programming language"
-            ],
-            correctAnswers: [0],
-            explanation: "Complexity analysis helps choose the most suitable algorithm for a task.",
-            theme: "Algorithm Complexity"
-        },
-        {
-            question: "49. What is 'recursion'?",
-            options: [
-                "A) Repeating actions without loop",
-                "B) Function calling itself", 
-                "C) Array traversal",
-                "D) Loop replacement"
-            ],
-            correctAnswers: [1],
-            explanation: "Recursion - when a function calls itself to solve subproblems.",
-            theme: "Algorithm Complexity"
-        },
-        {
-            question: "50. What is 'iteration'?",
-            options: [
-                "A) Single execution of action in a loop",
-                "B) Division algorithm", 
-                "C) Graphical representation",
-                "D) Conditional operator"
-            ],
-            correctAnswers: [0],
-            explanation: "Iteration - single execution of loop body.",
-            theme: "Algorithm Complexity"
-        }
+  <script>
+    const questions = [
+      {q: "Что такое динамическое программирование?", a: ["Метод решения задач жадным образом", "Метод перебора всех вариантов", "Метод оптимизации, использующий разбиение задачи на подзадачи", "Метод сортировки данных"], correct: 2},
+      {q: "Основная идея динамического программирования:", a: ["Использование стека", "Сохранение результатов подзадач для повторного использования", "Использование рекурсии без мемоизации", "Применение бинарного поиска"], correct: 1},
+      {q: "Что означает термин «мемоизация»?", a: ["Кэширование результатов подзадач", "Ускорение сортировки", "Минимизация использования памяти", "Параллельное вычисление"], correct: 0},
+      {q: "В чем отличие top-down и bottom-up подходов?", a: ["Top-down использует цикл, bottom-up — рекурсию", "Top-down использует рекурсию с мемоизацией, bottom-up — итерации с таблицей", "Разницы нет", "Bottom-up использует жадный метод"], correct: 1},
+      {q: "Какой тип контейнера C++ чаще всего используется для DP-таблиц?", a: ["set", "vector", "map", "queue"], correct: 1},
+      {q: "Что означает выражение O(n^2) в контексте DP?", a: ["Размер памяти", "Количество возможных решений", "Асимптотическая сложность алгоритма", "Максимальное значение"], correct: 2},
+      {q: "В задаче о рюкзаке значение dp[i][w] обычно означает:", a: ["Количество предметов", "Максимальную стоимость при весе w и первых i предметах", "Минимальный вес", "Сумму всех стоимостей"], correct: 1},
+      {q: "Как обычно инициализируют DP-массив в задачах о минимизации?", a: ["Нулями", "Единицами", "Большим числом", "Случайными значениями"], correct: 2},
+      {q: "Что произойдет, если не хранить результаты подзадач?", a: ["Алгоритм станет быстрее", "Алгоритм станет рекурсивным и медленным", "Результат не изменится", "Память не будет использоваться"], correct: 1},
+      {q: "В задаче о числах Фибоначчи DP используется для:", a: ["Быстрого вычисления n-го числа", "Сортировки последовательности", "Генерации чисел", "Проверки простоты числа"], correct: 0},
+      {q: "Какой контейнер предпочтителен для DP при неизвестных индексах?", a: ["vector", "unordered_map", "stack", "array"], correct: 1},
+      {q: "Что обычно лежит в dp[i] при задаче о наибольшей возрастающей подпоследовательности?", a: ["Количество элементов", "Длина подпоследовательности, оканчивающейся в i", "Максимальное значение массива", "Минимальное значение"], correct: 1},
+      {q: "Можно ли комбинировать DP и жадные алгоритмы?", a: ["Да", "Нет", "Только при O(1) памяти", "Только для чисел Фибоначчи"], correct: 0},
+      {q: "Какая структура часто используется при восстановлении ответа?", a: ["Отдельный массив parent", "Множество set", "Очередь", "Очередь с приоритетом"], correct: 0},
+      {q: "Что делает функция memset(dp, -1, sizeof(dp)) в DP?", a: ["Заполняет таблицу начальными значениями", "Сортирует массив", "Обнуляет память", "Удаляет массив"], correct: 0},
+      {q: "Для каких задач чаще всего применяют DP?", a: ["Оптимизационные задачи", "Поиск подстроки", "Сортировка", "Математические вычисления"], correct: 0},
+      {q: "Как можно уменьшить память DP?", a: ["Хранить только необходимые состояния", "Использовать double вместо int", "Увеличить таблицу", "Применить рекурсию без мемоизации"], correct: 0},
+      {q: "Что означает dp[i][j] в задаче о редактировании строк?", a: ["Минимальное количество операций для первых i и j символов", "Длина строки", "Максимальное количество совпадений", "Номер символа"], correct: 0},
+      {q: "Что делает рекурсия с мемоизацией?", a: ["Запоминает промежуточные результаты", "Удаляет повторяющиеся вызовы", "Ускоряет сортировку", "Генерирует массив"], correct: 0},
+      {q: "Какое условие выхода из рекурсии в DP обязательно?", a: ["Проверка границ массива", "Проверка на уже вычисленное значение", "Проверка на null", "Проверка на случайность"], correct: 1},
+      {q: "Что такое 'состояние' в DP?", a: ["Текущее значение переменной", "Набор параметров, определяющих подзадачу", "Итерация цикла", "Размер таблицы"], correct: 1},
+      {q: "Какой тип задач — 'минимальная стоимость пути в матрице'?", a: ["Одномерное DP", "Двумерное DP", "Жадная задача", "Рекурсивная без DP"], correct: 1},
+      {q: "Что происходит при неправильной инициализации DP-массива?", a: ["Ошибка компиляции", "Неверный ответ", "Программа быстрее работает", "Всё равно правильно"], correct: 1},
+      {q: "Можно ли решать DP-задачи итеративно без рекурсии?", a: ["Да", "Нет", "Только в задачах о рюкзаке", "Только при n < 100"], correct: 0},
+      {q: "Что такое 'перебор по переходам' в DP?", a: ["Проверка всех возможных состояний", "Перебор вариантов перехода из предыдущих состояний", "Сортировка таблицы", "Оптимизация памяти"], correct: 1},
+      {q: "В DP часто применяют модуль (% MOD), чтобы:", a: ["Избежать переполнения", "Сделать числа отрицательными", "Ускорить вычисления", "Сократить память"], correct: 0},
+      {q: "Что означает dp[i] = max(dp[i], dp[j] + 1)?", a: ["Вычисление суммы", "Переход по предыдущему состоянию для оптимума", "Удаление элемента", "Проверка индекса"], correct: 1},
+      {q: "Можно ли использовать DP для строк?", a: ["Да", "Нет", "Только при числах", "Только при одинаковых длинах"], correct: 0},
+      {q: "Что означает 'оптимизация по памяти' в DP?", a: ["Замена двумерной таблицы на одномерную", "Увеличение таблицы", "Рекурсия", "Использование long long"], correct: 0},
+      {q: "Почему DP часто эффективнее простого рекурсивного подхода?", a: ["Потому что сохраняет результаты подзадач", "Потому что использует меньше циклов", "Потому что проще реализовать", "Потому что работает с массивами"], correct: 0}
     ];
 
-        let currentQuestion = 0;
-        let userAnswers = Array(questions.length).fill(null);
-        let score = 0;
-        let answerSelected = false;
+    let currentQuestion = 0;
+    const answers = [];
 
-        const questionElement = document.getElementById('question');
-        const optionsElement = document.getElementById('options');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const progressElement = document.getElementById('progress');
-        const statsElement = document.getElementById('stats');
-        const questionNumberElement = document.getElementById('questionNumber');
-        const resultsElement = document.getElementById('results');
-        const finalScoreElement = document.getElementById('finalScore');
-        const resultMessageElement = document.getElementById('resultMessage');
-        const restartBtn = document.getElementById('restartBtn');
-        const feedbackElement = document.getElementById('feedback');
-        const explanationElement = document.getElementById('explanation');
-        const themeIndicator = document.getElementById('themeIndicator');
+    function renderQuestion() {
+      const q = questions[currentQuestion];
+      const quizDiv = document.getElementById("quiz");
+      quizDiv.innerHTML = `
+        <div class="question">${currentQuestion + 1}. ${q.q}</div>
+        <div class="answers">
+          ${q.a.map((opt, i) => `
+            <label>
+              <input type="radio" name="answer" value="${i}" ${answers[currentQuestion] == i ? "checked" : ""}>
+              ${opt}
+            </label>
+          `).join("")}
+        </div>
+      `;
+      document.getElementById("progress").textContent = `Вопрос ${currentQuestion + 1} из ${questions.length}`;
 
-                function loadQuestion() {
-            const question = questions[currentQuestion];
-            questionElement.textContent = question.question;
-            questionNumberElement.textContent = `Вопрос ${currentQuestion + 1}/${questions.length}`;
-            themeIndicator.textContent = question.theme;
-            
-            optionsElement.innerHTML = '';
-            answerSelected = false;
-            feedbackElement.style.display = 'none';
-            explanationElement.style.display = 'none';
-            
-            question.options.forEach((option, index) => {
-                const optionElement = document.createElement('div');
-                optionElement.className = 'option';
-                optionElement.textContent = option;
-                optionElement.onclick = () => selectOption(index);
-                optionsElement.appendChild(optionElement);
-            });
+      document.getElementById("prevBtn").style.display = currentQuestion === 0 ? "none" : "inline-block";
+      document.getElementById("nextBtn").style.display = currentQuestion === questions.length - 1 ? "none" : "inline-block";
+      document.getElementById("submitBtn").classList.toggle("hidden", currentQuestion !== questions.length - 1);
+    }
 
-            updateNavigation();
-            updateProgress();
-        }
+    document.getElementById("nextBtn").onclick = () => {
+      const selected = document.querySelector("input[name='answer']:checked");
+      if (selected) answers[currentQuestion] = +selected.value;
+      if (currentQuestion < questions.length - 1) currentQuestion++;
+      renderQuestion();
+    };
 
-        function selectOption(optionIndex) {
-            if (answerSelected) return;
-            
-            const question = questions[currentQuestion];
-            const optionElements = document.querySelectorAll('.option');
-            
-            // Для одиночного выбора - сразу проверяем
-            userAnswers[currentQuestion] = [optionIndex];
-            answerSelected = true;
-            
-            // Подсвечиваем выбранный вариант
-            optionElements.forEach((el, idx) => {
-                if (idx === optionIndex) {
-                    el.classList.add('selected');
-                }
-            });
-            
-            // Показываем правильные/неправильные ответы
-            showAnswerFeedback(optionIndex);
-            
-            updateNavigation();
-        }
+    document.getElementById("prevBtn").onclick = () => {
+      if (currentQuestion > 0) currentQuestion--;
+      renderQuestion();
+    };
 
-        function showAnswerFeedback(selectedIndex) {
-            const question = questions[currentQuestion];
-            const optionElements = document.querySelectorAll('.option');
-            const isCorrect = arraysEqual([selectedIndex], question.correctAnswers);
-            
-            // Подсвечиваем все варианты
-            optionElements.forEach((el, index) => {
-                if (question.correctAnswers.includes(index)) {
-                    el.classList.add('correct');
-                } else if (index === selectedIndex && !question.correctAnswers.includes(index)) {
-                    el.classList.add('incorrect');
-                }
-                el.style.pointerEvents = 'none'; // Блокируем дальнейшие клики
-            });
-            
-            // Показываем обратную связь
-            feedbackElement.textContent = isCorrect ? '✓ Правильно!' : '✗ Неправильно';
-            feedbackElement.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
-            feedbackElement.style.display = 'block';
-            
-            // Показываем объяснение
-            if (question.explanation) {
-                explanationElement.textContent = question.explanation;
-                explanationElement.style.display = 'block';
-            }
-            
-            // Обновляем счет
-            if (isCorrect) {
-                score++;
-            }
-        }
+    document.getElementById("submitBtn").onclick = () => {
+      const selected = document.querySelector("input[name='answer']:checked");
+      if (selected) answers[currentQuestion] = +selected.value;
 
-        function updateNavigation() {
-            prevBtn.disabled = currentQuestion === 0;
-            
-            if (currentQuestion === questions.length - 1) {
-                nextBtn.textContent = 'Завершить';
-                nextBtn.disabled = !answerSelected;
-            } else {
-                nextBtn.textContent = 'Следующий';
-                nextBtn.disabled = !answerSelected;
-            }
-        }
+      let score = 0;
+      questions.forEach((q, i) => {
+        if (answers[i] === q.correct) score++;
+      });
 
-        function updateProgress() {
-            const progress = ((currentQuestion + 1) / questions.length) * 100;
-            progressElement.style.width = `${progress}%`;
-            statsElement.textContent = `Вопрос ${currentQuestion + 1} из ${questions.length}`;
-        }
+      const percent = Math.round((score / questions.length) * 100);
+      document.getElementById("quiz").innerHTML = "";
+      document.getElementById("result").innerHTML = `✅ Правильных ответов: ${score} из ${questions.length} (${percent}%)`;
+      document.getElementById("progress").textContent = "";
+      document.getElementById("prevBtn").style.display = "none";
+      document.getElementById("nextBtn").style.display = "none";
+      document.getElementById("submitBtn").style.display = "none";
+    };
 
-        function nextQuestion() {
-            if (currentQuestion < questions.length - 1) {
-                currentQuestion++;
-                loadQuestion();
-            } else {
-                showResults();
-            }
-        }
-
-        function prevQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                loadQuestion();
-            }
-        }
-
-        function arraysEqual(a, b) {
-            if (!a || !b) return false;
-            return JSON.stringify(a.sort()) === JSON.stringify(b.sort());
-        }
-
-        function showResults() {
-            const finalScore = score;
-            document.querySelector('.question-container').style.display = 'none';
-            document.querySelector('.navigation').style.display = 'none';
-            resultsElement.style.display = 'block';
-            
-            finalScoreElement.textContent = `${finalScore}/${questions.length}`;
-            
-            let message = '';
-            const percentage = (finalScore / questions.length) * 100;
-            
-            if (percentage >= 90) {
-                message = 'Отличный результат! Вы прекрасно разбираетесь в теме! 🎉';
-            } else if (percentage >= 70) {
-                message = 'Хороший результат! Есть некоторые пробелы, но в целом хорошо! 👍';
-            } else if (percentage >= 50) {
-                message = 'Удовлетворительно. Рекомендуется повторить материал. 📚';
-            } else {
-                message = 'Нужно серьезно поработать над изучением материала. 💪';
-            }
-            resultMessageElement.textContent = message;
-        }
-
-        function restartTest() {
-            currentQuestion = 0;
-            userAnswers = Array(questions.length).fill(null);
-            score = 0;
-            
-            document.querySelector('.question-container').style.display = 'block';
-            document.querySelector('.navigation').style.display = 'flex';
-            resultsElement.style.display = 'none';
-            
-            loadQuestion();
-        }
-
-        // Инициализация
-        prevBtn.addEventListener('click', prevQuestion);
-        nextBtn.addEventListener('click', nextQuestion);
-        restartBtn.addEventListener('click', restartTest);
-
-        // Загружаем первый вопрос
-        loadQuestion();
-    </script>
+    renderQuestion();
+  </script>
 </body>
 </html>
