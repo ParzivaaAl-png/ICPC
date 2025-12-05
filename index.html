@@ -2249,13 +2249,24 @@ const questions = [
   }
 ];
 
-let mode = 'single';
-let order = [];
-let currentIndex = 0;
-let score = 0;
-let userSelections = {};
-let answered = false;
 
+// ======= УТИЛИТЫ =======
+function shuffleArrayInPlace(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+function shuffledCopy(arr) {
+  const c = arr.slice();
+  return shuffleArrayInPlace(c);
+}
+function isMulti(q) {
+  return Array.isArray(q.correctAnswers) && q.correctAnswers.length > 1;
+}
+
+// ======= ЭЛЕМЕНТЫ =======
 const qtext = document.getElementById('qtext');
 const optionsEl = document.getElementById('options');
 const prevBtn = document.getElementById('prevBtn');
@@ -2268,194 +2279,238 @@ const explainEl = document.getElementById('explain');
 const resultsEl = document.getElementById('results');
 const finalScore = document.getElementById('finalScore');
 const resultMessage = document.getElementById('resultMessage');
-const themeBtn = document.getElementById('themeBtn');
 const startModal = document.getElementById('startModal');
 const singleBtn = document.getElementById('singleBtn');
 const masteryBtn = document.getElementById('masteryBtn');
-const appWrap = document.getElementById('appWrap');
 
-function isMulti(q){ return Array.isArray(q.correctAnswers) && q.correctAnswers.length > 1; }
+// ======= СТЕЙТ =======
+let mode = 'single';                 // 'single' or 'mastery'
+let order = [];                      // очередь индексов вопросов (перемешана)
+let currentIndex = 0;                // позиция в order (0..)
+let score = 0;
+let answered = false;                // был ли проверен текущий вопрос
+let userSelections = {};             // { qidx: [origIndex, ...] }
 
-function startSession(selectedMode){
+// ======= СТАРТ СЕССИИ =======
+function startSession(selectedMode) {
   mode = selectedMode;
   startModal.style.display = 'none';
-  if(mode === 'single'){
-    order = Array.from({length: questions.length}, (_,i)=>i);
-  } else {
-    // mastery: initialize queue with all indices (will re-insert incorrects)
-    order = Array.from({length: questions.length}, (_,i)=>i);
-  }
+
+  // создаём перемешанный порядок вопросов (рандом один раз в начале)
+  order = shuffledCopy(Array.from({length: questions.length}, (_, i) => i));
+
   currentIndex = 0;
   score = 0;
   userSelections = {};
+  answered = false;
+
   renderCurrent();
 }
 
-function renderCurrent(){
-  if(currentIndex >= order.length){
+// ======= РЕНДЕР ВОПРОСА =======
+function renderCurrent() {
+  // если очередь закончилась
+  if (currentIndex >= order.length) {
     showResults();
     return;
   }
+
   const qidx = order[currentIndex];
   const q = questions[qidx];
+
+  // сброс UI
   qtext.textContent = q.question || '';
-  psmall.textContent = `Вопрос ${currentIndex+1} из ${order.length}`;
-  progressBar.style.width = ((currentIndex+1)/order.length*100) + '%';
-  ppct.textContent = Math.round((currentIndex+1)/order.length*100) + '%';
   optionsEl.innerHTML = '';
   feedbackEl.style.display = 'none';
   explainEl.style.display = 'none';
   answered = false;
+  actionBtn.disabled = true;
+
+  // прогресс
+  psmall.textContent = `Вопрос ${currentIndex + 1} из ${order.length}`;
+  const pct = Math.round(((currentIndex + 1) / order.length) * 100);
+  progressBar.style.width = pct + '%';
+  ppct.textContent = pct + '%';
 
   const multi = isMulti(q);
-  q.options.forEach((opt, idx) => {
+
+  // подготовка пар (text, originalIndex) и их перемешивание
+  const pairs = q.options.map((t, i) => ({ text: t, orig: i }));
+  shuffleArrayInPlace(pairs);
+
+  // отрисуем варианты (input.dataset.orig сохраняет оригинальный индекс)
+  pairs.forEach(pair => {
     const label = document.createElement('label');
     label.className = 'option';
+
     const input = document.createElement('input');
     input.type = multi ? 'checkbox' : 'radio';
     input.name = 'opt' + qidx;
-    input.dataset.idx = idx;
-    input.setAttribute('aria-label', opt);
+    input.dataset.orig = String(pair.orig); // оригинальный индекс варианта
+
     const span = document.createElement('span');
     span.className = 'opt-text';
-    span.textContent = opt;
+    span.textContent = pair.text;
+
     label.appendChild(input);
     label.appendChild(span);
     optionsEl.appendChild(label);
 
-    if(!multi){
-      label.addEventListener('click', ()=>{
-        if(answered) return;
-        const chosen = parseInt(input.dataset.idx,10);
-        userSelections[qidx] = [chosen];
-        evaluateSingle(qidx, chosen);
+    if (!multi) {
+      // single-select: клик по метке сразу оценивает
+      label.addEventListener('click', () => {
+        if (answered) return;
+        const chosenOrig = Number(input.dataset.orig);
+        userSelections[qidx] = [chosenOrig];
+        evaluateSingle(qidx, chosenOrig);
       });
     }
   });
 
-  if(isMulti(q)){
+  if (multi) {
     actionBtn.textContent = 'Продолжить';
-    actionBtn.disabled = true;
-    optionsEl.querySelectorAll('input').forEach(i=>i.addEventListener('change', ()=>{
-      actionBtn.disabled = optionsEl.querySelectorAll('input:checked').length === 0;
-    }));
+    actionBtn.disabled = true; // пока не выбрано ничего
+    // включаем/выключаем кнопку при выборе чекбоксов
+    optionsEl.querySelectorAll('input').forEach(inp => {
+      inp.addEventListener('change', () => {
+        actionBtn.disabled = optionsEl.querySelectorAll('input:checked').length === 0;
+      });
+    });
   } else {
-    actionBtn.textContent = (mode==='single' && currentIndex===order.length-1) ? 'Завершить' : 'Следующий';
-    actionBtn.disabled = true;
+    actionBtn.textContent = (currentIndex === order.length - 1 && mode === 'single') ? 'Завершить' : 'Следующий';
+    actionBtn.disabled = true; // будет включена после оценки (evaluateSingle)
   }
-  prevBtn.disabled = (currentIndex === 0);
+
+  prevBtn.disabled = currentIndex === 0;
 }
 
-function evaluateSingle(qidx, chosen){
+// ======= ОЦЕНКА single =======
+function evaluateSingle(qidx, chosenOrig) {
   const q = questions[qidx];
-  const correct = q.correctAnswers.includes(chosen);
-  const opts = optionsEl.querySelectorAll('.option');
-  opts.forEach((el, idx)=>{
-    el.style.pointerEvents = 'none';
-    el.classList.remove('correct','incorrect','selected');
-    if(q.correctAnswers.includes(idx)) el.classList.add('correct');
-    if(idx === chosen && !q.correctAnswers.includes(idx)) el.classList.add('incorrect');
-    if(idx === chosen) el.classList.add('selected');
+  // подсветка
+  optionsEl.querySelectorAll('.option').forEach(label => {
+    label.style.pointerEvents = 'none';
+    const orig = Number(label.querySelector('input').dataset.orig);
+    label.classList.remove('correct', 'incorrect', 'selected');
+    if (q.correctAnswers.includes(orig)) label.classList.add('correct');
+    if (orig === chosenOrig && !q.correctAnswers.includes(orig)) label.classList.add('incorrect');
+    if (orig === chosenOrig) label.classList.add('selected');
   });
+
+  const correct = q.correctAnswers.includes(chosenOrig);
   feedbackEl.textContent = correct ? '✓ Правильно' : '✗ Неправильно';
   feedbackEl.className = 'feedback ' + (correct ? 'correct' : 'incorrect');
   feedbackEl.style.display = 'block';
-  if(q.explanation){ explainEl.textContent = q.explanation; explainEl.style.display = 'block'; }
-  if(correct) score++;
+  if (q.explanation) { explainEl.textContent = q.explanation; explainEl.style.display = 'block'; }
+
+  if (correct) score++;
   answered = true;
-  actionBtn.disabled = false;
+  actionBtn.disabled = false; // теперь можно переходить
 }
 
-function evaluateMulti(qidx){
+// ======= ОЦЕНКА multi =======
+function evaluateMulti(qidx) {
   const q = questions[qidx];
-  const checked = Array.from(optionsEl.querySelectorAll('input:checked')).map(i=>parseInt(i.dataset.idx,10)).sort((a,b)=>a-b);
-  userSelections[qidx] = checked;
+  const chosen = Array.from(optionsEl.querySelectorAll('input:checked'))
+    .map(i => Number(i.dataset.orig))
+    .sort((a,b)=>a-b);
+
+  userSelections[qidx] = chosen.slice();
+
   const correctSet = q.correctAnswers.slice().sort((a,b)=>a-b);
-  const equal = JSON.stringify(checked) === JSON.stringify(correctSet);
-  const opts = optionsEl.querySelectorAll('.option');
-  opts.forEach((el, idx)=>{
-    el.style.pointerEvents = 'none';
-    el.classList.remove('correct','incorrect','selected');
-    if(correctSet.includes(idx)) el.classList.add('correct');
-    if(checked.includes(idx) && !correctSet.includes(idx)) el.classList.add('incorrect');
-    if(checked.includes(idx)) el.classList.add('selected');
+  const fullCorrect = JSON.stringify(chosen) === JSON.stringify(correctSet);
+
+  optionsEl.querySelectorAll('.option').forEach(label => {
+    label.style.pointerEvents = 'none';
+    const orig = Number(label.querySelector('input').dataset.orig);
+    label.classList.remove('correct','incorrect','selected');
+    if (correctSet.includes(orig)) label.classList.add('correct');
+    if (chosen.includes(orig) && !correctSet.includes(orig)) label.classList.add('incorrect');
+    if (chosen.includes(orig)) label.classList.add('selected');
   });
-  feedbackEl.textContent = equal ? '✓ Полностью правильно' : '✗ Неполностью / Неправильно';
-  feedbackEl.className = 'feedback ' + (equal ? 'correct' : 'incorrect');
+
+  feedbackEl.textContent = fullCorrect ? '✓ Полностью правильно' : '✗ Неполностью / Неправильно';
+  feedbackEl.className = 'feedback ' + (fullCorrect ? 'correct' : 'incorrect');
   feedbackEl.style.display = 'block';
-  if(q.explanation){ explainEl.textContent = q.explanation; explainEl.style.display = 'block'; }
-  if(equal) score++;
+  if (q.explanation) { explainEl.textContent = q.explanation; explainEl.style.display = 'block'; }
+
+  if (fullCorrect) score++;
   answered = true;
   actionBtn.disabled = false;
 }
 
-actionBtn.addEventListener('click', ()=>{
+// ======= КНОПКА ДЕЙСТВИЯ (Продолжить/Следующий/Завершить) =======
+actionBtn.addEventListener('click', () => {
+  if (currentIndex >= order.length) return;
+
   const qidx = order[currentIndex];
-  if(isMulti(questions[qidx]) && !answered){
+  const q = questions[qidx];
+
+  // если multi и ещё не оценено — сначала оценить (а последующий клик пойдёт дальше)
+  if (isMulti(q) && !answered) {
     evaluateMulti(qidx);
     return;
   }
-  if(!answered) return;
-  const qDoneIdx = order[currentIndex];
-  const qDone = questions[qDoneIdx];
 
-  // was correct?
-  let wasCorrect = false;
-  if(isMulti(qDone)){
-    const chosen = userSelections[qDoneIdx] || [];
-    const correctSet = qDone.correctAnswers.slice().sort((a,b)=>a-b);
-    wasCorrect = JSON.stringify((chosen||[]).slice().sort((a,b)=>a-b)) === JSON.stringify(correctSet);
-  } else {
-    const chosen = (userSelections[qDoneIdx] || [])[0];
-    wasCorrect = qDone.correctAnswers.includes(chosen);
+  // если single и ещё не оценено — ничего не делаем (оценка делается по клику на вариант)
+  if (!isMulti(q) && !answered) {
+    return;
   }
 
-  
-if (mode === 'mastery' && !wasCorrect) {
+  // проверяем — был ли ответ верным
+  let wasCorrect = false;
+  if (isMulti(q)) {
+    const chosen = (userSelections[qidx] || []).slice().sort((a,b)=>a-b);
+    const corr = q.correctAnswers.slice().sort((a,b)=>a-b);
+    wasCorrect = JSON.stringify(chosen) === JSON.stringify(corr);
+  } else {
+    const chosen = (userSelections[qidx] || [])[0];
+    wasCorrect = q.correctAnswers.includes(chosen);
+  }
 
-    // случайный интервал: 5, 6 или 7
-    const gap = Math.floor(Math.random() * 3) + 5;  
-
-    // вычисляем позицию, куда вставить
+  // мастерство: если неправильно — вставляем обратно через gap 5..7
+  if (mode === 'mastery' && !wasCorrect) {
+    const gap = Math.floor(Math.random() * 3) + 5; // 5,6,7
     const insertPos = Math.min(currentIndex + gap, order.length);
+    order.splice(insertPos, 0, qidx);
+  }
 
-    // возвращаем вопрос в очередь
-    order.splice(insertPos, 0, qDoneIdx);
-}
-
+  // переход к следующему
   currentIndex++;
-  if(currentIndex >= order.length){
+  // если очередь кончилась — показать результаты
+  if (currentIndex >= order.length) {
     showResults();
     return;
   }
+
   renderCurrent();
 });
 
-prevBtn.addEventListener('click', ()=>{ if(currentIndex>0){ currentIndex--; renderCurrent(); } });
+// ======= НАЗАД =======
+prevBtn.addEventListener('click', () => {
+  if (currentIndex > 0) {
+    currentIndex--;
+    renderCurrent();
+  }
+});
 
-function showResults(){
+// ======= РЕЗУЛЬТАТЫ =======
+function showResults() {
   document.querySelector('.wrap').style.display = 'none';
   resultsEl.style.display = 'block';
   finalScore.textContent = `${score} / ${questions.length}`;
-  const pct = Math.round((score/questions.length)*100);
-  resultMessage.textContent = pct >= 90 ? 'Отличный результат! 🎉' : pct >=70 ? 'Хороший результат! 👍' : pct>=50 ? 'Удовлетворительно. 📚' : 'Нужно поработать. 💪';
+  const pct = Math.round((score / questions.length) * 100);
+  resultMessage.textContent = pct >= 90 ? 'Отличный результат! 🎉' : pct >= 70 ? 'Хороший результат! 👍' : pct >= 50 ? 'Удовлетворительно. 📚' : 'Нужно поработать. 💪';
 }
 
-// start
-singleBtn.addEventListener('click', ()=> startSession('single'));
-masteryBtn.addEventListener('click', ()=> startSession('mastery'));
+// ======= СТАРТЫ РЕЖИМОВ =======
+singleBtn.addEventListener('click', () => startSession('single'));
+masteryBtn.addEventListener('click', () => startSession('mastery'));
 
-// theme toggle
-themeBtn.addEventListener('click', ()=>{
-  const isLight = document.documentElement.classList.toggle('light');
-  themeBtn.setAttribute('aria-pressed', String(isLight));
+// ======= Клавиша Enter: продвинуть (если уже оценено) или выполнить действие =======
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') actionBtn.click();
 });
-
-// keyboard Enter -> action
-document.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ actionBtn.click(); } });
-
-// focus
-singleBtn.focus();
 </script>
 </body>
 </html>
