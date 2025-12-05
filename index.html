@@ -1,112 +1,80 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Тест по Архитектуре</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Тест по Архитектуре — исправленный стабильный бар</title>
 <style>
-  :root{
-    --bg: #07101a;
-    --panel: rgba(18,24,33,0.55);
-    --card: rgba(255,255,255,0.04);
-    --accent: #2DA6FF;
-    --accent-2: #1e90ff;
-    --text: #e6eef8;
-    --muted: #98a0b3;
-    --glass-border: rgba(255,255,255,0.06);
-    --success: #2ecc71;
-    --danger: #ff6b6b;
-    --radius: 14px;
-    --shadow: 0 8px 30px rgba(2,6,23,0.6);
-  }
-  .light{
-    --bg: #f4f7fb;
-    --panel: rgba(255,255,255,0.8);
-    --card: rgba(0,0,0,0.03);
-    --accent: #2979ff;
-    --accent-2: #1e66d7;
-    --text: #081026;
-    --muted: #52606d;
-    --glass-border: rgba(0,0,0,0.06);
-    --shadow: 0 10px 30px rgba(15,23,42,0.06);
-  }
-  .auto-skip-toggle {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--muted);
-    font-size: 14px;
-    user-select: none;
-    cursor: pointer;
+:root{
+  --bg:#07101a; --panel: rgba(18,24,33,0.56);
+  --accent1:#45a8ff; --accent2:#2aa1ff; --muted:#98a0b3; --text:#e6eef8;
+  --card-shadow: 0 12px 30px rgba(2,6,23,0.6);
 }
+.light{ --bg:#f5f7fb; --panel: rgba(255,255,255,0.92); --text:#081026; --muted:#52606d; --accent1:#2979ff; --accent2:#1e66d7; }
 
-.auto-skip-toggle input {
-    transform: scale(1.2);
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--text);background:linear-gradient(180deg,var(--bg), #061018);-webkit-font-smoothing:antialiased}
+.container{max-width:1100px;margin:28px auto;padding:18px}
+.header{display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:14px;background:var(--panel);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.03);box-shadow:var(--card-shadow)}
+.title{font-weight:800;font-size:22px}
+.subtitle{color:var(--muted);font-size:13px}
+
+.card{margin-top:16px;padding:20px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);box-shadow:var(--card-shadow)}
+.progress-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.progress-small{font-size:13px;color:var(--muted);min-width:180px}
+.progress-track{flex:1;height:8px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden}
+.progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent1),var(--accent2));transition:width .35s ease}
+.progress-pct{width:48px;text-align:right;color:var(--muted);font-size:13px}
+
+.question{font-size:20px;font-weight:700;margin-bottom:12px;color:var(--text)}
+.options{display:flex;flex-direction:column;gap:10px}
+.option{display:flex;align-items:center;gap:14px;padding:14px;border-radius:12px;background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:transform .16s ease,box-shadow .16s, background .16s;user-select:none}
+.option:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.55)}
+.option .opt-text{flex:1;font-size:15px;color:var(--text)}
+.option.selected{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff;border-color:transparent;box-shadow:0 12px 30px rgba(45,166,255,0.14)}
+.option.correct{background:linear-gradient(90deg,#2ecc71,#1fbf5b);color:#fff}
+.option.incorrect{background:linear-gradient(90deg,#ff6b6b,#ff4b4b);color:#fff}
+
+.meta{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.feedback{padding:10px 12px;border-radius:10px;display:none;font-weight:700}
+.feedback.correct{background:rgba(46,204,113,0.12);color:#2ecc71}
+.feedback.incorrect{background:rgba(255,107,107,0.12);color:#ff6b6b}
+.explain{margin-left:12px;color:var(--muted);display:none}
+
+.nav{display:flex;align-items:center;gap:12px;justify-content:flex-end;margin-top:18px}
+.btn{padding:10px 16px;border-radius:12px;border:none;background:var(--accent1);color:white;font-weight:700;cursor:pointer}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--text)}
+.btn:disabled{opacity:0.45;cursor:not-allowed}
+.auto-skip-toggle{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px;cursor:pointer}
+.auto-skip-toggle input{transform:scale(1.12)}
+
+.bottom-cell { margin-top:22px; display:none; } /* hidden by default */
+.bottom-cell.visible { display:block; }  /* visible when active */
+.bottom-cell .track {
+  width:100%; height:12px; border-radius:8px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.03); overflow:hidden; position:relative; box-shadow: 0 8px 20px rgba(2,6,23,0.45);
 }
+.bottom-cell .fill { height:100%; width:0%; background: linear-gradient(90deg,var(--accent1),var(--accent2)); transition: width .05s linear; border-radius:6px; box-shadow:0 6px 16px rgba(45,166,255,0.14); }
+.bottom-cell .label { margin-top:8px; text-align:right; color:var(--muted); font-size:13px; }
 
-  html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--text);background:linear-gradient(180deg,var(--bg), #07101a);-webkit-font-smoothing:antialiased;}
-  .light body{background:linear-gradient(180deg,#fff,#f4f7fb);}
-
-  .wrap{max-width:980px;margin:28px auto;padding:18px;position:relative}
-  .theme-toggle{position:fixed;top:18px;right:18px;z-index:1200}
-  .toggle-btn{background:var(--panel);border:1px solid var(--glass-border);padding:8px 12px;border-radius:999px;color:var(--text);backdrop-filter:blur(8px);cursor:pointer;box-shadow:var(--shadow)}
-
-  .header{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:16px;background:var(--panel);backdrop-filter:blur(8px);border:1px solid var(--glass-border);}
-  .title{font-weight:700;font-size:18px}
-  .subtitle{font-size:13px;color:var(--muted)}
-
-  .card{margin-top:16px;padding:18px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);box-shadow:var(--shadow)}
-
-  .progress-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-  .progress-small{font-size:13px;color:var(--muted);min-width:130px}
-  .progress-track{flex:1;height:8px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden}
-  .progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%;transition:width .35s ease}
-  .progress-pct{width:48px;text-align:right;color:var(--muted);font-size:13px}
-
-  .question{font-size:20px;font-weight:700;margin-bottom:12px;color:var(--text)}
-
-  .options{display:flex;flex-direction:column;gap:10px}
-  .option{display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:transform .18s ease, box-shadow .18s ease;}
-  .option:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.55);}
-  .option input{transform:scale(1.06);margin-right:6px}
-  .option .opt-text{flex:1;font-size:15px;color:var(--text)}
-  .option.selected{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;border-color:transparent;box-shadow:0 12px 30px rgba(45,166,255,0.14)}
-  .option.correct{background:linear-gradient(90deg,var(--success), #1fbf5b);color:white;border-color:transparent}
-  .option.incorrect{background:linear-gradient(90deg,var(--danger), #ff4b4b);color:white;border-color:transparent}
-
-  .meta{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
-  .feedback{padding:10px 12px;border-radius:10px;display:none;font-weight:700}
-  .feedback.correct{background:rgba(46,204,113,0.12);color:var(--success)}
-  .feedback.incorrect{background:rgba(255,107,107,0.12);color:var(--danger)}
-  .explain{margin-left:12px;color:var(--muted);display:none}
-
-  .nav{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:16px}
-  .btn{padding:10px 16px;border-radius:12px;border:none;background:var(--accent);color:white;font-weight:700;cursor:pointer}
-  .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--text)}
-  .btn:disabled{opacity:0.4;cursor:not-allowed}
-
-  .results{padding:22px;text-align:center;color:var(--text)}
-  .score{font-size:36px;font-weight:800;margin-bottom:8px}
-
-  /* start modal */
-  .start-modal{position:fixed;inset:0;background:linear-gradient(rgba(3,6,10,0.6), rgba(3,6,10,0.6));display:flex;align-items:center;justify-content:center;z-index:2000}
-  .start-card{background:var(--panel);padding:22px;border-radius:14px;border:1px solid var(--glass-border);width:360px;box-shadow:var(--shadow);}
-  .start-card h2{margin:0 0 8px 0;font-size:20px}
-  .start-card p{margin:0 0 14px 0;color:var(--muted)}
-  .mode-btn{width:100%;padding:12px;border-radius:10px;border:none;margin-bottom:10px;font-weight:700;cursor:pointer}
-  .mode-single{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white}
-  .mode-mastery{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
-  @media(max-width:420px){.start-card{width:92%}}
+.results{padding:22px;text-align:center;color:var(--text);display:none}
+.score{font-size:36px;font-weight:800;margin-bottom:8px}
+.start-modal{position:fixed;inset:0;background:linear-gradient(rgba(3,6,10,0.6), rgba(3,6,10,0.6));display:flex;align-items:center;justify-content:center;z-index:2000}
+.start-card{background:var(--panel);padding:22px;border-radius:14px;border:1px solid rgba(255,255,255,0.04);width:360px;box-shadow:var(--card-shadow)}
+.mode-btn{width:100%;padding:12px;border-radius:10px;border:none;margin-bottom:10px;font-weight:700;cursor:pointer}
+.mode-single{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:white}
+.mode-mastery{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
+@media(max-width:560px){ .bottom-cell .label{display:none} .bottom-cell .track{height:10px} }
 </style>
 </head>
 <body>
-  <div class="theme-toggle"><button id="themeBtn" class="toggle-btn" aria-pressed="false" title="Переключить тему">Тема</button></div>
-
-  <div class="wrap" id="appWrap">
+  <div class="container">
     <div class="header">
-      <div style="flex:1">
+      <div>
         <div class="title">Тест по Архитектуре</div>
         <div class="subtitle">Практический тест</div>
+      </div>
+      <div>
+        <button id="themeBtn" style="background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);padding:6px 10px;border-radius:999px;cursor:pointer">Тема</button>
       </div>
     </div>
 
@@ -117,39 +85,51 @@
         <div class="progress-pct" id="ppct">0%</div>
       </div>
 
-      <div id="questionBlock">
-        <div class="question" id="qtext">...</div>
+      <div>
+        <div class="question" id="qtext">Загрузка...</div>
         <div class="options" id="options"></div>
-        <div class="meta"><div id="feedback" class="feedback"></div><div id="explain" class="explain"></div></div>
+
+        <div class="meta">
+          <div id="feedback" class="feedback"></div>
+          <div id="explain" class="explain"></div>
+        </div>
       </div>
 
       <div class="nav">
         <button id="prevBtn" class="btn ghost">Назад</button>
-        <div style="flex:1"></div>
-        <label class="auto-skip-toggle">
-            <input type="checkbox" id="autoSkip">
-            <span>Автопропуск</span>
+
+        <label class="auto-skip-toggle" title="Если включено — после ответа появится нижний бар и заполнится автоматически">
+          <input type="checkbox" id="autoSkip" />
+          <span>Автопропуск</span>
         </label>
 
         <button id="actionBtn" class="btn">Следующий</button>
       </div>
 
-      <div id="results" style="display:none" class="results">
-        <div class="score" id="finalScore">0/150</div>
+      <!-- отдельная ячейка внизу с баром -->
+      <div class="bottom-cell" id="bottomCell" aria-hidden="true">
+        <div class="track"><div class="fill" id="bottomFill"></div></div>
+        <div class="label" id="bottomLabel">0%</div>
+      </div>
+
+      <div id="results" class="results">
+        <h2>Тест завершён</h2>
+        <div class="score" id="finalScore">0/0</div>
         <div id="resultMessage"></div>
         <div style="margin-top:14px"><button id="restartBtn" class="btn">Пройти снова</button></div>
       </div>
     </div>
   </div>
 
-  <div class="start-modal" id="startModal" aria-hidden="false">
-    <div class="start-card" role="dialog" aria-modal="true">
+  <div class="start-modal" id="startModal">
+    <div class="start-card">
       <h2>Как пройти тест?</h2>
-      <p>Выберите режим: пройти один раз или улучшать ответы до полного усвоения (Mastery).</p>
+      <p>Выберите режим: пройти один раз или Mastery (повторять неверные).</p>
       <button id="singleBtn" class="mode-btn mode-single">Пройти один раз</button>
       <button id="masteryBtn" class="mode-btn mode-mastery">Mastery — повторять неверные</button>
     </div>
   </div>
+
 
 <script>
 const questions = [
@@ -2268,303 +2248,325 @@ const questions = [
   }
 ];
 
+/* ====== HELPERS ====== */
+function shuffleInPlace(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function shuffled(a){ return shuffleInPlace(a.slice()); }
+function isMulti(q){ return Array.isArray(q.correctAnswers) && q.correctAnswers.length > 1; }
 
-function shuffleArrayInPlace(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-}
-function shuffledCopy(arr) {
-    return shuffleArrayInPlace(arr.slice());
-}
-function isMulti(q) {
-    return Array.isArray(q.correctAnswers) && q.correctAnswers.length > 1;
-}
+/* ====== ELEMENTS ====== */
+const qtext = document.getElementById('qtext');
+const optionsEl = document.getElementById('options');
+const prevBtn = document.getElementById('prevBtn');
+const actionBtn = document.getElementById('actionBtn');
+const progressBar = document.getElementById('progressBar');
+const psmall = document.getElementById('psmall');
+const ppct = document.getElementById('ppct');
+const feedbackEl = document.getElementById('feedback');
+const explainEl = document.getElementById('explain');
+const resultsEl = document.getElementById('results');
+const finalScore = document.getElementById('finalScore');
+const resultMessage = document.getElementById('resultMessage');
+const startModal = document.getElementById('startModal');
+const singleBtn = document.getElementById('singleBtn');
+const masteryBtn = document.getElementById('masteryBtn');
+const autoSkipEl = document.getElementById('autoSkip');
+const bottomCell = document.getElementById('bottomCell');
+const bottomFill = document.getElementById('bottomFill');
+const bottomLabel = document.getElementById('bottomLabel');
+const restartBtn = document.getElementById('restartBtn');
+const themeBtn = document.getElementById('themeBtn');
 
-// =====================
-// ЭЛЕМЕНТЫ
-// =====================
-const qtext = document.getElementById("qtext");
-const optionsEl = document.getElementById("options");
-const prevBtn = document.getElementById("prevBtn");
-const actionBtn = document.getElementById("actionBtn");
-const progressBar = document.getElementById("progressBar");
-const psmall = document.getElementById("psmall");
-const ppct = document.getElementById("ppct");
-const feedbackEl = document.getElementById("feedback");
-const explainEl = document.getElementById("explain");
-const resultsEl = document.getElementById("results");
-const finalScore = document.getElementById("finalScore");
-const resultMessage = document.getElementById("resultMessage");
-const startModal = document.getElementById("startModal");
-const singleBtn = document.getElementById("singleBtn");
-const masteryBtn = document.getElementById("masteryBtn");
-const autoSkipEl = document.getElementById("autoSkip");
-
-// =====================
-// СТЕЙТ
-// =====================
-let mode = "single";
+/* ====== STATE ====== */
+let mode = 'single';
 let order = [];
 let currentIndex = 0;
 let score = 0;
 let answered = false;
 let userSelections = {};
 
+/* bottom state */
+let bottomAnim = null;
+let bottomStart = null;
+let bottomDuration = 0;
+let bottomActive = false; // true while filling
 
-// =====================
-// СТАРТ ТЕСТА
-// =====================
-function startSession(selectedMode) {
-    mode = selectedMode;
-    startModal.style.display = "none";
+/* hide bottom initially */
+if (bottomCell) { bottomCell.style.display = 'none'; bottomCell.classList.remove('visible'); }
 
-    order = shuffledCopy(Array.from({ length: questions.length }, (_, i) => i));
+/* ====== BOTTOM FILL (robust) ====== */
+function startBottomFill(ms){
+  if (!autoSkipEl || !autoSkipEl.checked) return; // doh
+  // if already active, don't restart
+  if (bottomActive) return;
+  bottomActive = true;
+  bottomDuration = ms;
+  bottomStart = null;
+  bottomFill.style.width = '0%';
+  bottomLabel.textContent = '0%';
+  bottomCell.style.display = 'block';
+  bottomCell.classList.add('visible');
 
-    currentIndex = 0;
-    score = 0;
-    userSelections = {};
-    answered = false;
-
-    renderCurrent();
-}
-
-
-// =====================
-// ОТОБРАЖЕНИЕ ВОПРОСА
-// =====================
-function renderCurrent() {
-    if (currentIndex >= order.length) {
-        showResults();
-        return;
-    }
-
-    const qidx = order[currentIndex];
-    const q = questions[qidx];
-
-    answered = false;
-    feedbackEl.style.display = "none";
-    explainEl.style.display = "none";
-    optionsEl.innerHTML = "";
-
-    const multi = isMulti(q);
-
-    psmall.textContent = `Вопрос ${currentIndex + 1} из ${order.length}`;
-    const pct = Math.round(((currentIndex + 1) / order.length) * 100);
-    progressBar.style.width = pct + "%";
-    ppct.textContent = pct + "%";
-
-    qtext.textContent = q.question;
-
-    let pairs = q.options.map((text, index) => ({ text, index }));
-    shuffleArrayInPlace(pairs);
-
-    pairs.forEach(pair => {
-        const label = document.createElement("label");
-        label.className = "option";
-
-        const input = document.createElement("input");
-        input.type = multi ? "checkbox" : "radio";
-        input.name = "opt" + qidx;
-        input.dataset.orig = String(pair.index);
-
-        const span = document.createElement("span");
-        span.className = "opt-text";
-        span.textContent = pair.text;
-
-        label.appendChild(input);
-        label.appendChild(span);
-        optionsEl.appendChild(label);
-
-        if (!multi) {
-            label.addEventListener("click", () => {
-                if (answered) return;
-                const chosenOrig = Number(input.dataset.orig);
-                userSelections[qidx] = [chosenOrig];
-                evaluateSingle(qidx, chosenOrig);
-            });
-        }
-    });
-
-    if (multi) {
-        actionBtn.textContent = "Продолжить";
-        actionBtn.disabled = true;
-
-        optionsEl.querySelectorAll("input").forEach(inp => {
-            inp.addEventListener("change", () => {
-                actionBtn.disabled = optionsEl.querySelectorAll("input:checked").length === 0;
-            });
-        });
+  function step(ts){
+    if (!bottomStart) bottomStart = ts;
+    const elapsed = ts - bottomStart;
+    const pct = Math.min(1, elapsed / bottomDuration);
+    const pctInt = Math.round(pct * 100);
+    bottomFill.style.width = pctInt + '%';
+    bottomLabel.textContent = pctInt + '%';
+    if (pct < 1){
+      bottomAnim = requestAnimationFrame(step);
     } else {
-        actionBtn.textContent = 
-            currentIndex === order.length - 1 && mode === "single" ? "Завершить" : "Следующий";
-        actionBtn.disabled = true;
+      bottomAnim = null;
+      bottomActive = false;
+      // only auto-advance if autoprogress still enabled
+      if (autoSkipEl && autoSkipEl.checked){
+        // advance automatically
+        proceedToNext(true);
+      } else {
+        // autoprogress was turned off during fill — keep the bar filled until user clicks or it is hidden by toggle handler
+      }
     }
-
-    prevBtn.disabled = currentIndex === 0;
+  }
+  bottomAnim = requestAnimationFrame(step);
 }
 
-
-// =====================
-// ОЦЕНКА SINGLE
-// =====================
-function evaluateSingle(qidx, chosenOrig) {
-    const q = questions[qidx];
-    const correct = q.correctAnswers.includes(chosenOrig);
-
-    optionsEl.querySelectorAll(".option").forEach(label => {
-        label.style.pointerEvents = "none";
-        const orig = Number(label.querySelector("input").dataset.orig);
-
-        if (q.correctAnswers.includes(orig)) label.classList.add("correct");
-        if (orig === chosenOrig && !correct) label.classList.add("incorrect");
-    });
-
-    feedbackEl.textContent = correct ? "✓ Правильно" : "✗ Неправильно";
-    feedbackEl.className = "feedback " + (correct ? "correct" : "incorrect");
-    feedbackEl.style.display = "block";
-
-    if (q.explanation) {
-        explainEl.textContent = q.explanation;
-        explainEl.style.display = "block";
-    }
-
-    if (correct) score++;
-
-    answered = true;
-    actionBtn.disabled = false;
-
-    // ======= АВТОПРОПУСК SINGLE =======
-    if (autoSkipEl.checked) {
-        setTimeout(() => actionBtn.click(), 3000);
-    }
+function stopBottomFill(){
+  if (bottomAnim){ cancelAnimationFrame(bottomAnim); bottomAnim = null; }
+  bottomStart = null;
+  bottomDuration = 0;
+  bottomActive = false;
+  bottomCell.classList.remove('visible');
+  // hide after tiny timeout to allow CSS transitions
+  clearTimeout(bottomCell._hideTimeout);
+  bottomCell._hideTimeout = setTimeout(()=>{
+    bottomCell.style.display = 'none';
+    bottomFill.style.width = '0%';
+    bottomLabel.textContent = '0%';
+  }, 160);
 }
 
-
-// =====================
-// ОЦЕНКА MULTI
-// =====================
-function evaluateMulti(qidx) {
-    const q = questions[qidx];
-
-    const chosen = Array.from(optionsEl.querySelectorAll("input:checked"))
-        .map(i => Number(i.dataset.orig))
-        .sort((a, b) => a - b);
-
-    userSelections[qidx] = chosen;
-
-    const correctSet = q.correctAnswers.slice().sort((a, b) => a - b);
-    const fullCorrect = JSON.stringify(chosen) === JSON.stringify(correctSet);
-
-    optionsEl.querySelectorAll(".option").forEach(label => {
-        label.style.pointerEvents = "none";
-        const orig = Number(label.querySelector("input").dataset.orig);
-
-        if (correctSet.includes(orig)) label.classList.add("correct");
-        if (chosen.includes(orig) && !correctSet.includes(orig)) label.classList.add("incorrect");
-    });
-
-    feedbackEl.textContent = fullCorrect ? "✓ Полностью правильно" : "✗ Неправильно";
-    feedbackEl.className = "feedback " + (fullCorrect ? "correct" : "incorrect");
-    feedbackEl.style.display = "block";
-
-    if (q.explanation) {
-        explainEl.textContent = q.explanation;
-        explainEl.style.display = "block";
-    }
-
-    if (fullCorrect) score++;
-
-    answered = true;
-    actionBtn.disabled = false;
-
-    // ======= АВТОПРОПУСК MULTI =======
-    if (autoSkipEl.checked) {
-        setTimeout(() => actionBtn.click(), 4500);
-    }
+function cancelBottomIfRunning(){
+  // manual cancel hides immediately
+  stopBottomFill();
 }
 
-
-// =====================
-// КНОПКА "Следующий"
-// =====================
-actionBtn.addEventListener("click", () => {
-    if (currentIndex >= order.length) return;
-
-    const qidx = order[currentIndex];
-    const q = questions[qidx];
-
-    if (isMulti(q) && !answered) {
-        evaluateMulti(qidx);
-        return;
-    }
-
-    if (!isMulti(q) && !answered) return;
-
-    let wasCorrect = false;
-
-    if (isMulti(q)) {
-        const chosen = (userSelections[qidx] || []).slice().sort((a, b) => a - b);
-        const corr = q.correctAnswers.slice().sort((a, b) => a - b);
-        wasCorrect = JSON.stringify(chosen) === JSON.stringify(corr);
-    } else {
-        wasCorrect = q.correctAnswers.includes(userSelections[qidx][0]);
-    }
-
-    if (mode === "mastery" && !wasCorrect) {
-        const gap = Math.floor(Math.random() * 3) + 5;
-        const insertPos = Math.min(currentIndex + gap, order.length);
-        order.splice(insertPos, 0, qidx);
-    }
-
-    currentIndex++;
-    renderCurrent();
-});
-
-
-// =====================
-// Кнопка НАЗАД
-// =====================
-prevBtn.addEventListener("click", () => {
-    if (currentIndex > 0) {
-        currentIndex--;
-        renderCurrent();
-    }
-});
-
-
-// =====================
-// РЕЗУЛЬТАТЫ
-// =====================
-function showResults() {
-    document.querySelector(".wrap").style.display = "none";
-    resultsEl.style.display = "block";
-
-    finalScore.textContent = `${score} / ${questions.length}`;
-
-    const pct = Math.round(score / questions.length * 100);
-    resultMessage.textContent =
-        pct >= 90 ? "Отличный результат! 🎉" :
-        pct >= 70 ? "Хорошо 👍" :
-        pct >= 50 ? "Нормально 📚" :
-        "Нужно улучшить 💪";
+/* ====== SESSION & RENDER ====== */
+function startSession(selectedMode){
+  mode = selectedMode;
+  if (startModal) startModal.style.display = 'none';
+  order = shuffled(Array.from({length: questions.length}, (_,i)=>i));
+  currentIndex = 0;
+  score = 0;
+  answered = false;
+  userSelections = {};
+  renderCurrent();
 }
 
+function renderCurrent(){
+  if (currentIndex >= order.length){ showResults(); return; }
+  const qidx = order[currentIndex];
+  const q = questions[qidx];
 
-// =====================
-// Режимы
-// =====================
-singleBtn.addEventListener("click", () => startSession("single"));
-masteryBtn.addEventListener("click", () => startSession("mastery"));
+  answered = false;
+  feedbackEl.style.display = 'none';
+  explainEl.style.display = 'none';
+  optionsEl.innerHTML = '';
+  actionBtn.disabled = true;
 
+  // top progress
+  psmall.textContent = `Вопрос ${currentIndex+1} из ${order.length}`;
+  const pct = Math.round(((currentIndex+1)/order.length)*100);
+  progressBar.style.width = pct + '%';
+  ppct.textContent = pct + '%';
 
-// ENTER = Next
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") actionBtn.click();
-});
+  qtext.textContent = q ? q.question : 'Вопросов нет';
+  if (!q) { optionsEl.innerHTML = '<div style="color:var(--muted);padding:12px;border-radius:8px;background:rgba(255,255,255,0.02)">Добавьте вопросы в массив <code>questions</code>.</div>'; prevBtn.disabled=true; actionBtn.disabled=true; return; }
+
+  const multi = isMulti(q);
+  let pairs = q.options.map((t,i)=>({t,orig:i}));
+  shuffleInPlace(pairs);
+
+  pairs.forEach(pair=>{
+    const label = document.createElement('label');
+    label.className = 'option';
+    const input = document.createElement('input');
+    input.type = multi ? 'checkbox' : 'radio';
+    input.name = 'opt'+qidx;
+    input.dataset.orig = String(pair.orig);
+    const span = document.createElement('span'); span.className='opt-text'; span.textContent = pair.t;
+    label.appendChild(input); label.appendChild(span);
+    optionsEl.appendChild(label);
+
+    if (!multi){
+      label.addEventListener('click', ()=>{
+        if (answered) return;
+        const chosen = Number(input.dataset.orig);
+        userSelections[qidx] = [chosen];
+        evaluateSingle(qidx, chosen);
+      });
+    }
+  });
+
+  if (multi){
+    actionBtn.textContent = 'Продолжить';
+    actionBtn.disabled = true;
+    optionsEl.querySelectorAll('input').forEach(inp => inp.addEventListener('change', ()=> {
+      actionBtn.disabled = optionsEl.querySelectorAll('input:checked').length === 0;
+    }));
+  } else {
+    actionBtn.textContent = (currentIndex===order.length-1 && mode==='single') ? 'Завершить' : 'Следующий';
+    actionBtn.disabled = true;
+  }
+
+  prevBtn.disabled = currentIndex===0;
+
+  // IMPORTANT: do not hide bottom while bottomActive===true
+  // If autoprogress is turned off, hide immediately
+  if (!(autoSkipEl && autoSkipEl.checked) && !bottomActive){
+    // autoprogress disabled and not actively filling -> keep hidden
+    bottomCell.style.display = 'none';
+    bottomFill.style.width = '0%';
+    bottomLabel.textContent = '0%';
+  }
+}
+
+/* ====== EVALUATION ====== */
+function evaluateSingle(qidx, chosenOrig){
+  const q = questions[qidx];
+  const correct = q.correctAnswers.includes(chosenOrig);
+
+  optionsEl.querySelectorAll('.option').forEach(label=>{
+    label.style.pointerEvents='none';
+    const orig = Number(label.querySelector('input').dataset.orig);
+    label.classList.remove('correct','incorrect','selected');
+    if (q.correctAnswers.includes(orig)) label.classList.add('correct');
+    if (orig === chosenOrig && !correct) label.classList.add('incorrect');
+    if (orig === chosenOrig) label.classList.add('selected');
+  });
+
+  feedbackEl.textContent = correct ? '✓ Правильно' : '✗ Неправильно';
+  feedbackEl.className = 'feedback ' + (correct ? 'correct' : 'incorrect');
+  feedbackEl.style.display = 'block';
+  if (q.explanation){ explainEl.textContent = q.explanation; explainEl.style.display = 'block'; }
+
+  if (correct) score++;
+  answered = true;
+  actionBtn.disabled = false;
+
+  if (autoSkipEl && autoSkipEl.checked){
+    startBottomFill(3000);
+  } else {
+    // ensure hidden if autoprogress off
+    if (!bottomActive) stopBottomFill();
+  }
+}
+
+function evaluateMulti(qidx){
+  const q = questions[qidx];
+  const chosen = Array.from(optionsEl.querySelectorAll('input:checked')).map(i=>Number(i.dataset.orig)).sort((a,b)=>a-b);
+  userSelections[qidx] = chosen.slice();
+  const corr = q.correctAnswers.slice().sort((a,b)=>a-b);
+  const full = JSON.stringify(chosen) === JSON.stringify(corr);
+
+  optionsEl.querySelectorAll('.option').forEach(label=>{
+    label.style.pointerEvents='none';
+    const orig = Number(label.querySelector('input').dataset.orig);
+    label.classList.remove('correct','incorrect','selected');
+    if (corr.includes(orig)) label.classList.add('correct');
+    if (chosen.includes(orig) && !corr.includes(orig)) label.classList.add('incorrect');
+    if (chosen.includes(orig)) label.classList.add('selected');
+  });
+
+  feedbackEl.textContent = full ? '✓ Полностью правильно' : '✗ Неправильно';
+  feedbackEl.className = 'feedback ' + (full ? 'correct' : 'incorrect');
+  feedbackEl.style.display = 'block';
+  if (q.explanation){ explainEl.textContent = q.explanation; explainEl.style.display = 'block'; }
+
+  if (full) score++;
+  answered = true;
+  actionBtn.disabled = false;
+
+  if (autoSkipEl && autoSkipEl.checked){
+    startBottomFill(4500);
+  } else {
+    if (!bottomActive) stopBottomFill();
+  }
+}
+
+/* ====== CENTRAL PROCEED: manual or auto ====== */
+function proceedToNext(isAuto){
+  if (!isAuto){
+    // manual: cancel active bottom if it is filling
+    if (bottomActive) cancelBottomIfRunning();
+  } else {
+    // isAuto: called only once when bottom finishes filling — bottomActive should already be false
+    // don't cancel/hide bottom here
+  }
+
+  if (currentIndex >= order.length) return;
+  const qidx = order[currentIndex];
+  const q = questions[qidx];
+
+  // if multi and not yet evaluated -> evaluate
+  if (isMulti(q) && !answered){
+    evaluateMulti(qidx);
+    return;
+  }
+  if (!isMulti(q) && !answered) return;
+
+  // check correctness
+  let wasCorrect = false;
+  if (isMulti(q)){
+    const chosen = (userSelections[qidx] || []).slice().sort((a,b)=>a-b);
+    const corr = q.correctAnswers.slice().sort((a,b)=>a-b);
+    wasCorrect = JSON.stringify(chosen) === JSON.stringify(corr);
+  } else {
+    wasCorrect = q.correctAnswers.includes((userSelections[qidx] || [])[0]);
+  }
+
+  if (mode === 'mastery' && !wasCorrect){
+    const gap = Math.floor(Math.random()*3)+5;
+    const insertPos = Math.min(currentIndex + gap, order.length);
+    order.splice(insertPos, 0, qidx);
+  }
+
+  currentIndex++;
+
+  if (currentIndex >= order.length){ showResults(); return; }
+  renderCurrent();
+}
+
+/* ========== UI wiring ========== */
+actionBtn.addEventListener('click', ()=> proceedToNext(false));
+prevBtn.addEventListener('click', ()=> { if (bottomActive) cancelBottomIfRunning(); if (currentIndex>0){ currentIndex--; renderCurrent(); } });
+
+if (autoSkipEl){
+  autoSkipEl.addEventListener('change', ()=>{
+    // if toggled off while filling — stop immediately and hide
+    if (!autoSkipEl.checked && bottomActive){
+      stopBottomFill();
+    }
+    // if toggled on we do nothing; next evaluation will start the bar
+  });
+}
+
+if (singleBtn) singleBtn.addEventListener('click', ()=> startSession('single'));
+if (masteryBtn) masteryBtn.addEventListener('click', ()=> startSession('mastery'));
+if (restartBtn) restartBtn.addEventListener('click', ()=> { if (startModal) startModal.style.display = 'flex'; resultsEl.style.display = 'none'; document.querySelector('.card').style.display = 'block'; });
+
+function showResults(){
+  document.querySelector('.card').style.display = 'none';
+  resultsEl.style.display = 'block';
+  finalScore.textContent = `${score} / ${questions.length}`;
+  const pct = Math.round(score / questions.length * 100);
+  resultMessage.textContent = pct >= 90 ? 'Отличный результат! 🎉' : pct >= 70 ? 'Хороший результат! 👍' : pct >= 50 ? 'Удовлетворительно. 📚' : 'Нужно поработать. 💪';
+}
+
+if (themeBtn) themeBtn.addEventListener('click', ()=> document.documentElement.classList.toggle('light'));
+document.addEventListener('keydown', (e)=>{ if (e.key === 'Enter') proceedToNext(false); });
+
+/* initial */
+if (startModal) startModal.style.display = 'flex';
 </script>
-
 </body>
 </html>
