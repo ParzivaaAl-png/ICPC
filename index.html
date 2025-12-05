@@ -3,873 +3,2325 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест по динамическому программированию - 30 вопросов</title>
+    <title>Тест — обновлённый (из architecture final exam)</title>
     <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: 'Arial', sans-serif;
-    }
-    
-    body {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        padding: 15px;
-    }
-    
-    .container {
-        max-width: 100%;
-        margin: 0 auto;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        overflow: hidden;
-    }
-    
-    .header {
-        background: #2c3e50;
-        color: white;
-        padding: 20px 15px;
-        text-align: center;
-    }
-    
-    .header h1 {
-        font-size: 20px;
-        margin-bottom: 8px;
-        line-height: 1.3;
-    }
-    
-    .progress-bar {
-        height: 5px;
-        background: #34495e;
-        margin: 12px 0;
-        border-radius: 3px;
-        overflow: hidden;
-    }
-    
-    .progress {
-        height: 100%;
-        background: #e74c3c;
-        width: 0%;
-        transition: width 0.3s ease;
-    }
-    
-    .question-container {
-        padding: 20px 15px;
-    }
-    
-    .question {
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 15px;
-        color: #2c3e50;
-        line-height: 1.4;
-    }
-    
-    .options {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .option {
-        padding: 12px 15px;
-        border: 2px solid #bdc3c7;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        background: #f8f9fa;
-        font-size: 14px;
-        line-height: 1.4;
-    }
-    
-    .option:hover {
-        background: #e9ecef;
-        border-color: #95a5a6;
-    }
-    
-    .option.selected {
-        background: #3498db;
-        color: white;
-        border-color: #2980b9;
-    }
-    
-    .option.correct {
-        background: #27ae60;
-        color: white;
-        border-color: #219652;
-    }
-    
-    .option.incorrect {
-        background: #e74c3c;
-        color: white;
-        border-color: #c0392b;
-    }
-    
-    .option:disabled {
-        cursor: not-allowed;
-    }
-    
-    .navigation {
-        padding: 15px;
-        background: #ecf0f1;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        flex: 1;
-    }
-    
-    .prev-btn {
-        background: #95a5a6;
-        color: white;
-    }
-    
-    .prev-btn:hover:not(:disabled) {
-        background: #7f8c8d;
-    }
-    
-    .next-btn {
-        background: #3498db;
-        color: white;
-    }
-    
-    .next-btn:hover:not(:disabled) {
-        background: #2980b9;
-    }
-    
-    button:disabled {
-        background: #bdc3c7;
-        cursor: not-allowed;
-    }
-    
-    .results {
-        padding: 30px 20px;
-        text-align: center;
-        display: none;
-    }
-    
-    .score {
-        font-size: 36px;
-        font-weight: bold;
-        color: #2c3e50;
-        margin: 15px 0;
-    }
-    
-    .restart-btn {
-        background: #e74c3c;
-        color: white;
-        margin-top: 20px;
-        padding: 12px 25px;
-        font-size: 16px;
-    }
-    
-    .restart-btn:hover {
-        background: #c0392b;
-    }
-    
-    .question-number {
-        color: #7f8c8d;
-        font-size: 12px;
-        margin-bottom: 8px;
-    }
-    
-    .feedback {
-        margin-top: 12px;
-        padding: 8px;
-        border-radius: 5px;
-        font-weight: bold;
-        display: none;
-        font-size: 14px;
-    }
-    
-    .feedback.correct {
-        background: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-    }
-    
-    .feedback.incorrect {
-        background: #f8d7da;
-        color: #721c24; border: 1px solid #f5c6cb;
-    }
-    
-    .explanation {
-        margin-top: 10px;
-        padding: 8px;
-        background: #e3f2fd;
-        border-radius: 5px;
-        border-left: 4px solid #2196f3;
-        display: none;
-        font-size: 13px;
-        line-height: 1.4;
-    }
-    
-    .theme-indicator {
-        background: #f39c12;
-        color: white;
-        padding: 4px 8px;
-        border-radius: 12px;
-        font-size: 11px;
-        display: inline-block;
-        margin-bottom: 8px;
-    }
-
-    /* Адаптивность для очень маленьких экранов */
-    @media (max-width: 360px) {
-        body {
-            padding: 10px;
-        }
-        
-        .header {
-            padding: 15px 10px;
-        }
-        
-        .header h1 {
-            font-size: 18px;
-        }
-        
-        .question-container {
-            padding: 15px 10px;
-        }
-        
-        .question {
-            font-size: 15px;
-        }
-        
-        .option {
-            padding: 10px 12px;
-            font-size: 13px;
-        }
-        
-        button {
-            padding: 8px 15px;
-            font-size: 13px;
-        }
-    }
-
-    /* Портретная ориентация */
-    @media (max-height: 600px) and (orientation: portrait) {
-        body {
-            padding: 10px;
-        }
-        
-        .question-container {
-            padding: 15px;
-        }
-        
-        .options {
-            gap: 6px;
-        }
-        
-        .option {
-            padding: 10px 12px;
-        }
-    }
-
-    /* Ландшафтная ориентация */
-    @media (max-height: 500px) and (orientation: landscape) {
-        .container {
-            max-height: 95vh;
-            overflow-y: auto;
-        }
-        
-        .question {
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-        
-        .options {
-            gap: 5px;
-        }
-        
-        .option {
-            padding: 8px 10px;
-            font-size: 13px;
-        }
-    }
-</style>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#667eea">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:15px}
+    .container{max-width:100%;margin:0 auto;background:#fff;border-radius:12px;box-shadow:0 5px 20px rgba(0,0,0,.2);overflow:hidden}
+    .header{background:#2c3e50;color:#fff;padding:20px 15px;text-align:center}
+    .header h1{font-size:20px;margin-bottom:8px;line-height:1.3}
+    .progress-bar{height:5px;background:#34495e;margin:12px 0;border-radius:3px;overflow:hidden}
+    .progress{height:100%;background:#e74c3c;width:0%;transition:width .3s ease}
+    .question-container{padding:20px 15px}
+    .question{font-size:16px;font-weight:bold;margin-bottom:15px;color:#2c3e50;line-height:1.4}
+    .options{display:flex;flex-direction:column;gap:8px}
+    .option{padding:12px 15px;border:2px solid #bdc3c7;border-radius:8px;cursor:pointer;transition:all .3s ease;background:#f8f9fa;font-size:14px;line-height:1.4}
+    .option:hover{background:#e9ecef;border-color:#95a5a6}
+    .option.selected{background:#3498db;color:#fff;border-color:#2980b9}
+    .option.correct{background:#27ae60;color:#fff;border-color:#219652}
+    .option.incorrect{background:#e74c3c;color:#fff;border-color:#c0392b}
+    .navigation{padding:15px;background:#ecf0f1;display:flex;justify-content:space-between;align-items:center;gap:10px}
+    button{padding:10px 20px;border:none;border-radius:6px;cursor:pointer;font-size:14px;font-weight:bold;transition:all .3s ease;flex:1}
+    .prev-btn{background:#95a5a6;color:#fff}.next-btn{background:#3498db;color:#fff}.restart-btn{background:#e74c3c;color:#fff;margin-top:20px;padding:12px 25px;font-size:16px}
+    .feedback{margin-top:12px;padding:8px;border-radius:5px;font-weight:bold;display:none;font-size:14px}
+    .feedback.correct{background:#d4edda;color:#155724;border:1px solid #c3e6cb}
+    .feedback.incorrect{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb}
+    .explanation{margin-top:10px;padding:8px;background:#e3f2fd;border-radius:5px;border-left:4px solid #2196f3;display:none;font-size:13px}
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Тест по динамическому программированию</h1>
-            <div class="progress-bar">
-                <div class="progress" id="progress"></div>
-            </div>
-            <div id="stats">Вопрос 1 из 30</div>
-        </div>
-        
-        <div class="question-container">
-            <div class="question-number" id="questionNumber">Вопрос 1/30</div>
-            <div class="theme-indicator" id="themeIndicator"></div>
-            <div class="question" id="question"></div>
-            <div class="options" id="options"></div>
-            <div class="feedback" id="feedback"></div>
-            <div class="explanation" id="explanation"></div>
-        </div>
-        
-        <div class="navigation">
-            <button class="prev-btn" id="prevBtn" disabled>Назад</button>
-            <button class="next-btn" id="nextBtn">Следующий</button>
-        </div>
-        
-        <div class="results" id="results">
-            <h2>Тест завершен!</h2>
-            <div class="score" id="finalScore">0/30</div>
-            <p id="resultMessage"></p>
-            <button class="restart-btn" id="restartBtn">Пройти тест снова</button>
-        </div>
-    </div>
+<div class="container">
+  <div class="header">
+    <h1>Тест — Обновлённый (Software Design and Architecture)</h1>
+    <div class="progress-bar"><div class="progress" id="progress"></div></div>
+    <div id="stats">Вопрос 1 из N</div>
+  </div>
+  <div class="question-container">
+    <div class="question-number" id="questionNumber">Вопрос 1/N</div>
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+    <div class="explanation" id="explanation"></div>
+  </div>
+  <div class="navigation">
+    <button class="prev-btn" id="prevBtn" disabled>Назад</button>
+    <button class="next-btn" id="nextBtn">Следующий</button>
+  </div>
+  <div class="results" id="results" style="display:none;padding:30px 20px;text-align:center">
+    <h2>Тест завершён!</h2>
+    <div class="score" id="finalScore">0/N</div>
+    <p id="resultMessage"></p>
+    <button class="restart-btn" id="restartBtn">Пройти тест снова</button>
+  </div>
+</div>
 
-    <script>
-        const questions = [
-            {
-                question: "Что такое динамическое программирование?",
-                options: [
-                    "a) Метод решения задач жадным образом",
-                    "b) Метод перебора всех вариантов", 
-                    "c) Метод оптимизации, использующий разбиение задачи на подзадачи",
-                    "d) Метод сортировки данных"
-                ],
-                correctAnswers: [2],
-                explanation: "Динамическое программирование - это метод оптимизации, который разбивает сложную задачу на более простые подзадачи и решает каждую подзадачу только один раз, сохраняя результаты.",
-                theme: "Основы DP"
-            },
-            {
-                question: "Основная идея динамического программирования:",
-                options: [
-                    "a) Использование стека",
-                    "b) Сохранение результатов подзадач для повторного использования", 
-                    "c) Использование рекурсии без мемоизации",
-                    "d) Применение бинарного поиска"
-                ],
-                correctAnswers: [1],
-                explanation: "Основная идея DP - сохранение результатов решения подзадач для избежания повторных вычислений.",
-                theme: "Основы DP"
-            },
-            {
-                question: "Что означает термин «мемоизация»?",
-                options: [
-                    "a) Кэширование результатов подзадач",
-                    "b) Ускорение сортировки", 
-                    "c) Минимизация использования памяти",
-                    "d) Параллельное вычисление"
-                ],
-                correctAnswers: [0],
-                explanation: "Мемоизация - это техника кэширования результатов выполнения функций для последующего использования.",
-                theme: "Мемоизация"
-            },
-            {
-                question: "В чем отличие top-down и bottom-up подходов?",
-                options: [
-                    "a) Top-down использует цикл, bottom-up — рекурсию",
-                    "b) Top-down использует рекурсию с мемоизацией, bottom-up — итерации с таблицей", 
-                    "c) Разницы нет",
-                    "d) Bottom-up использует жадный метод"
-                ],
-                correctAnswers: [1],
-                explanation: "Top-down (сверху вниз) - рекурсия с мемоизацией; Bottom-up (снизу вверх) - итеративное заполнение таблицы.",
-                theme: "Подходы DP"
-            },
-            {
-                question: "Какой тип контейнера C++ чаще всего используется для DP-таблиц?",
-                options: [
-                    "a) set",
-                    "b) vector", 
-                    "c) map",
-                    "d) queue"
-                ],
-                correctAnswers: [1],
-                explanation: "vector чаще всего используется благодаря эффективному доступу по индексу и управлению памятью.",
-                theme: "Реализация"
-            },
-            {
-                question: "Что означает выражение O(n^2) в контексте DP?",
-                options: [
-                    "a) Размер памяти",
-                    "b) Количество возможных решений", 
-                    "c) Асимптотическая сложность алгоритма",
-                    "d) Максимальное значение"
-                ],
-                correctAnswers: [2],
-                explanation: "O(n^2) обозначает асимптотическую временную сложность алгоритма.",
-                theme: "Сложность"
-            },
-            {
-                question: "В задаче о рюкзаке значение dp[i][w] обычно означает:",
-                options: [
-                    "a) Количество предметов",
-                    "b) Максимальную стоимость при весе w и первых i предметах", 
-                    "c) Минимальный вес",
-                    "d) Сумму всех стоимостей"
-                ],
-                correctAnswers: [1],
-                explanation: "dp[i][w] хранит максимальную стоимость, которую можно получить используя первые i предметов и рюкзак вместимостью w.",
-                theme: "Задача о рюкзаке"
-            },
-            {
-                question: "Как обычно инициализируют DP-массив в задачах о минимизации?",
-                options: [
-                    "a) Нулями",
-                    "b) Единицами", 
-                    "c) Большим числом",
-                    "d) Случайными значениями"
-                ],
-                correctAnswers: [2],
-                explanation: "В задачах минимизации массив инициализируют большим числом (например, INT_MAX), чтобы минимизация работала корректно.",
-                theme: "Инициализация"
-            },
-            {
-                question: "Что произойдет, если не хранить результаты подзадач?",
-                options: [
-                    "a) Алгоритм станет быстрее",
-                    "b) Алгоритм станет рекурсивным и медленным", 
-                    "c) Результат не изменится",
-                    "d) Память не будет использоваться"
-                ],
-                correctAnswers: [1],
-                explanation: "Без хранения результатов подзадач алгоритм будет многократно решать одни и те же подзадачи, что приведет к экспоненциальной сложности.",
-                theme: "Эффективность"
-            },
-            {
-                question: "В задаче о числах Фибоначчи DP используется для:",
-                options: [
-                    "a) Быстрого вычисления n-го числа",
-                    "b) Сортировки последовательности", 
-                    "c) Генерации чисел",
-                    "d) Проверки простоты числа"
-                ],
-                correctAnswers: [0],
-                explanation: "DP позволяет вычислить n-е число Фибоначчи за O(n) вместо O(2^n) при наивной рекурсии.",
-                theme: "Числа Фибоначчи"
-            },
-            {
-                question: "Какой контейнер предпочтителен для DP при неизвестных индексах?",
-                options: [
-                    "a) vector",
-                    "b) unordered_map", 
-                    "c) stack",
-                    "d) array"
-                ],
-                correctAnswers: [1],
-                explanation: "unordered_map позволяет использовать произвольные ключи и эффективно хранить разреженные состояния.",
-                theme: "Структуры данных"
-            },
-            {
-                question: "Что обычно лежит в dp[i] при задаче о наибольшей возрастающей подпоследовательности?",
-                options: [
-                    "a) Количество элементов",
-                    "b) Длина подпоследовательности, оканчивающейся в i", 
-                    "c) Максимальное значение массива",
-                    "d) Минимальное значение"
-                ],
-                correctAnswers: [1],
-                explanation: "dp[i] хранит длину наибольшей возрастающей подпоследовательности, оканчивающейся на элементе i.",
-                theme: "LIS"
-            },
-            {
-                question: "Можно ли комбинировать DP и жадные алгоритмы?",
-                options: [
-                    "a) Да",
-                    "b) Нет", 
-                    "c) Только при O(1) памяти",
-                    "d) Только для чисел Фибоначчи"
-                ],
-                correctAnswers: [0],
-                explanation: "Да, часто жадные выборы используются в переходах DP для оптимизации.",
-                theme: "Комбинации алгоритмов"
-            },
-            {
-                question: "Какая структура часто используется при восстановлении ответа?",
-                options: [
-                    "a) Отдельный массив parent",
-                    "b) Множество set", 
-                    "c) Очередь",
-                    "d) Очередь с приоритетом"
-                ],
-                correctAnswers: [0],
-                explanation: "Массив parent хранит информацию о том, из какого состояния было получено текущее оптимальное значение.",
-                theme: "Восстановление ответа"
-            },
-            {
-                question: "Что делает функция memset(dp, -1, sizeof(dp)) в DP?",
-                options: [
-                    "a) Заполняет таблицу начальными значениями",
-                    "b) Сортирует массив", 
-                    "c) Обнуляет память",
-                    "d) Удаляет массив"
-                ],
-                correctAnswers: [0],
-                explanation: "memset используется для инициализации DP-таблицы начальными значениями (часто -1 для обозначения непосчитанных состояний).",
-                theme: "Инициализация"
-            },
-            {
-                question: "Для каких задач чаще всего применяют DP?",
-                options: [
-                    "a) Оптимизационные задачи",
-                    "b) Поиск подстроки", 
-                    "c) Сортировка",
-                    "d) Математические вычисления"
-                ],
-                correctAnswers: [0],
-                explanation: "DP в основном применяется для оптимизационных задач: поиск максимума/минимума, подсчет количества способов и т.д.",
-                theme: "Применение"
-            },
-            {
-                question: "Как можно уменьшить память DP?",
-                options: [
-                    "a) Хранить только необходимые состояния",
-                    "b) Использовать double вместо int", 
-                    "c) Увеличить таблицу",
-                    "d) Применить рекурсию без мемоизации"
-                ],
-                correctAnswers: [0],
-                explanation: "Оптимизация памяти достигается хранением только тех состояний, которые необходимы для вычисления следующих.",
-                theme: "Оптимизация памяти"
-            },
-            {
-                question: "Что означает dp[i][j] в задаче о редактировании строк?",
-                options: [
-                    "a) Минимальное количество операций для первых i и j символов",
-                    "b) Длина строки", 
-                    "c) Максимальное количество совпадений",
-                    "d) Номер символа"
-                ],
-                correctAnswers: [0],
-                explanation: "dp[i][j] - минимальное количество операций для преобразования первых i символов первой строки в первые j символов второй.",
-                theme: "Расстояние Левенштейна"
-            },
-            {
-                question: "Что делает рекурсия с мемоизацией?",
-                options: [
-                    "a) Запоминает промежуточные результаты",
-                    "b) Удаляет повторяющиеся вызовы", 
-                    "c) Ускоряет сортировку",
-                    "d) Генерирует массив"
-                ],
-                correctAnswers: [0],
-                explanation: "Рекурсия с мемоизацией запоминает результаты вызовов функций для избежания повторных вычислений.",
-                theme: "Мемоизация"
-            },
-            {
-                question: "Какое условие выхода из рекурсии в DP обязательно?",
-                options: [
-                    "a) Проверка границ массива",
-                    "b) Проверка на уже вычисленное значение", 
-                    "c) Проверка на null",
-                    "d) Проверка на случайность"
-                ],
-                correctAnswers: [1],
-                explanation: "Проверка на уже вычисленное значение - ключевое условие для избежания повторных вычислений.",
-                theme: "Рекурсия"
-            },
-            {
-                question: "Что такое \"состояние\" в DP?",
-                options: [
-                    "a) Текущее значение переменной",
-                    "b) Набор параметров, определяющих подзадачу", 
-                    "c) Итерация цикла",
-                    "d) Размер таблицы"
-                ],
-                correctAnswers: [1],
-                explanation: "Состояние - это набор параметров, который однозначно определяет подзадачу.",
-                theme: "Основы DP"
-            },
-            {
-                question: "Какой тип задач — «минимальная стоимость пути в матрице»?",
-                options: [
-                    "a) Одномерное DP",
-                    "b) Двумерное DP", 
-                    "c) Жадная задача",
-                    "d) Рекурсивная без DP"
-                ],
-                correctAnswers: [1],
-                explanation: "Для пути в матрице обычно используется двумерное DP, где состояние определяется координатами (i, j).",
-                theme: "Задачи на матрицы"
-            },
-            {
-                question: "Что происходит при неправильной инициализации DP-массива?",
-                options: [
-                    "a) Ошибка компиляции",
-                    "b) Неверный ответ", 
-                    "c) Программа быстрее работает",
-                    "d) Всё равно правильно"
-                ],
-                correctAnswers: [1],
-                explanation: "Неправильная инициализация приводит к некорректным базовым случаям и, как следствие, к неверному ответу.",
-                theme: "Инициализация"
-            },
-            {
-                question: "Можно ли решать DP-задачи итеративно без рекурсии?",
-                options: [
-                    "a) Да",
-                    "b) Нет", 
-                    "c) Только в задачах о рюкзаке",
-                    "d) Только при n < 100"
-                ],
-                correctAnswers: [0],
-                explanation: "Да, большинство DP-задач можно решать итеративно методом bottom-up.",
-                theme: "Подходы DP"
-            },
-            {
-                question: "Что такое \"перебор по переходам\" в DP?",
-                options: [
-                    "a) Проверка всех возможных состояний",
-                    "b) Перебор вариантов перехода из предыдущих состояний", 
-                    "c) Сортировка таблицы",
-                    "d) Оптимизация памяти"
-                ],
-                correctAnswers: [1],
-                explanation: "Перебор по переходам - это анализ всех возможных способов достижения текущего состояния из предыдущих.",
-                theme: "Переходы"
-            },
-            {
-                question: "В DP часто применяют модуль (% MOD), чтобы:",
-                options: [
-                    "a) Избежать переполнения",
-                    "b) Сделать числа отрицательными", 
-                    "c) Ускорить вычисления",
-                    "d) Сократить память"
-                ],
-                correctAnswers: [0],
-                explanation: "MOD используется для работы с большими числами и избежания переполнения при вычислениях.",
-                theme: "Практика"
-            },
-            {
-                question: "Что означает dp[i] = max(dp[i], dp[j] + 1)?",
-                options: [
-                    "a) Вычисление суммы",
-                    "b) Переход по предыдущему состоянию для оптимума", 
-                    "c) Удаление элемента",
-                    "d) Проверка индекса"
-                ],
-                correctAnswers: [1],
-                explanation: "Это типичный переход в DP, где текущее состояние обновляется на основе предыдущих состояний.",
-                theme: "Переходы"
-            },
-            {
-                question: "Можно ли использовать DP для строк?",
-                options: [
-                    "a) Да",
-                    "b) Нет", 
-                    "c) Только при числах",
-                    "d) Только при одинаковых длинах"
-                ],
-                correctAnswers: [0],
-                explanation: "Да, DP широко применяется для строковых задач: поиск подпоследовательностей, палиндромов, расстояния редактирования и др.",
-                theme: "Строковые задачи"
-            },
-            {
-                question: "Что означает \"оптимизация по памяти\" в DP?",
-                options: [
-                    "a) Замена двумерной таблицы на одномерную",
-                    "b) Увеличение таблицы", 
-                    "c) Рекурсия",
-                    "d) Использование long long"
-                ],
-                correctAnswers: [0],
-                explanation: "Оптимизация по памяти часто означает уменьшение размерности DP-таблицы.",
-                theme: "Оптимизация памяти"
-            },
-            {
-                question: "Почему DP часто эффективнее простого рекурсивного подхода?",
-                options: [
-                    "a) Потому что сохраняет результаты подзадач",
-                    "b) Потому что использует меньше циклов", 
-                    "c) Потому что проще реализовать",
-                    "d) Потому что работает с массивами"
-                ],
-                correctAnswers: [0],
-                explanation: "DP эффективнее благодаря сохранению результатов подзадач, что исключает повторные вычисления.",
-                theme: "Эффективность"
-            }
-        ];
+<script>
+const questions = 
+[
+  {
+    "question": "Which of these are desirable characteristics of a software design? Choose the three correct answers",
+    "options": [
+      "reusability",
+      "flexible",
+      "tight coupling",
+      "maintainability"
+    ],
+    "correctAnswers": [
+      0,
+      1,
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "You are writing out a CRC card for a bank machine component. Under which section should you put \"Track Cash Remaining.\"",
+    "options": [
+      "Collaborator",
+      "Responsibility",
+      "Class",
+      "Risk"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "You are writing out a CRC card for a bank machine component. Under which section should you put \"Track Cash Remaining.\"",
+    "options": [
+      "Collaborator",
+      "Responsibility",
+      "Class",
+      "Risk"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which two of these are likely to be a part of conceptual design?",
+    "options": [
+      "Mockups",
+      "Abstract data types",
+      "Methods",
+      "CRC Cards"
+    ],
+    "correctAnswers": [
+      0,
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "When during the design process are you likely to produce CRC cards the most?",
+    "options": [
+      "conceptual design",
+      "after releasing the software",
+      "customer meetings",
+      "technical design"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "An object which is responsible for showing data to the user could be considered which category of object?",
+    "options": [
+      "control",
+      "representation",
+      "boundary",
+      "entity"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is a requirement of this form called? \"As a ____, I want to ____, so that ____\".",
+    "options": [
+      "conceptual mockup",
+      "user story",
+      "entity abstraction",
+      "key concept"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "You are a programmer creating software for a bank machine system. Which section of a CRC card for the bank machine component will the \"User\" go into?",
+    "options": [
+      "Responsibility",
+      "Collaborator",
+      "Object",
+      "Class"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Some of the earliest computing languages supported:",
+    "options": [
+      "main program and subroutines",
+      "objects and classes",
+      "abstract data types",
+      "local variables"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Sam identified the important attributes and behaviours of a delivery driver and put them all into a DeliveryDriver class, like \"takeOrder\", \"deliverOrder\", and \"DeliveryArea.\" She exposed some of these to other classes. She just demonstrated an important part of object-oriented design. Which of these concepts best describes what you did?",
+    "options": [
+      "decomposition",
+      "encapsulation",
+      "generalization",
+      "abstraction"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which keywords allow your classes to achieve polymorphism in Java? Choose the 2 correct answers",
+    "options": [
+      "implements",
+      "interfaces",
+      "inherits",
+      "extends"
+    ],
+    "correctAnswers": [
+      0,
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which is the proper way to show an abstract method in a UML class diagram?",
+    "options": [
+      "abstract anOperation()",
+      "«anOperation()»",
+      "#anOperation()",
+      "anOperation()"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "There are three different relationships that objects can have. Which of these best describes the relationship between a Chair and its Legs?",
+    "options": [
+      "association",
+      "aggregation",
+      "composition",
+      "formation"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which is the most desirable?",
+    "options": [
+      "high cohesion, tight coupling",
+      "low cohesion, tight coupling",
+      "high cohesion, loose coupling",
+      "low cohesion, loose coupling"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Information Hiding is closely related to one of the core design principles of object-oriented design. Which one?",
+    "options": [
+      "generalization",
+      "abstraction",
+      "decomposition",
+      "encapsulation"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "During model checking, what is the name for a violation of the desired properties of the model?",
+    "options": [
+      "Counterexample",
+      "Error",
+      "Model Gap",
+      "Redevelopment"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "When two processes cannot run because they are waiting on the same resource, it's called…",
+    "options": [
+      "Deadlock",
+      "Transition lock",
+      "Mutual lock",
+      "State lock"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "You create an object that represents a user, storing important information about them such as their preferences. What kind of object is this?",
+    "options": [
+      "boundary",
+      "entity",
+      "control",
+      "client"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "You create an object that represents a dialog box. It creates buttons and text fields, etc, for the user to interact with, and it logs those interactions. What kind of object is this?",
+    "options": [
+      "entity",
+      "display",
+      "interaction",
+      "control",
+      "boundary"
+    ],
+    "correctAnswers": [
+      4
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "You create an object that compares values from two different sources. It then updates the smaller value to be equal to the larger one. What kind of object is this?",
+    "options": [
+      "entity",
+      "control",
+      "repository",
+      "update"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these is an example of a quality tradeoff?",
+    "options": [
+      "Not delivering key features so that deadlines can be met",
+      "Limiting features knowing that they can be added later",
+      "Adding security knowing it will reduce speed",
+      "Adding preferences that allow users to switch some features on and off"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is the term for reducing a class or object to its inputs and outputs in modelling?",
+    "options": [
+      "black box thinking",
+      "pipe thinking",
+      "process thinking",
+      "filter thinking"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which one of these classes is in most need of being decomposed?",
+    "options": [
+      "Student",
+      "Store",
+      "Book",
+      "Order"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which design principle enables developers to follow the guideline D.R.Y. (\"Don't Repeat Yourself\"):",
+    "options": [
+      "generalization",
+      "decomposition",
+      "abstraction",
+      "encapsulation"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Select the object pairing that has an association relationship:",
+    "options": [
+      "Hiker - Trail",
+      "Coffee - Water",
+      "Book - Page",
+      "Tree - Root"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Select the object pairing that has an aggregation relationship:",
+    "options": [
+      "Book - Page",
+      "Pie - Crust",
+      "Stapler - Staple",
+      "Car - Road"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Select the object pairing that has a composition relationship:",
+    "options": [
+      "Tea - Sugar",
+      "Book - Page",
+      "Record Player- Record -",
+      "Bear - Forest"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "How can you apply the principle of Separation of Concerns in object-oriented programming?",
+    "options": [
+      "Split developers into teams that each deal with different parts of the software",
+      "Separate data and actions (methods) into different classes",
+      "Ensure classes are only concerned with their own data",
+      "Separate objects or components according to their role in the software"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these violates Liskov's Substitution Principle?",
+    "options": [
+      "the superclass is too general",
+      "an operation in the superclass is replaced by a different operation in the subclass",
+      "subclasses specify the abstract methods of the superclass",
+      "the subclass adds behaviour"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "For which of these situations would you use a sequence diagram?",
+    "options": [
+      "To show the collaborative behaviour of objects in your program.",
+      "To show the different modes that your program can be in.",
+      "To show all the different processes of your program.",
+      "To show the relationship between classes"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is an abstract data type?",
+    "options": [
+      "a type of data defined by the developer rather than the language",
+      "a data-centric class",
+      "variables that are assigned a type (i.e. integer, double) but does not yet have a value assigned",
+      "a data type that cannot be used directly but must be implemented as an interface"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "When is the best time to use a design pattern? Choose 2 answers.",
+    "options": [
+      "For a problem that is unique to your program",
+      "For a commonly encountered issue",
+      "When fixing spaghetti code",
+      "When explaining a solution to your fellow developers"
+    ],
+    "correctAnswers": [
+      1,
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What does it mean to \"let the subclass decide\" in the Factory Method Pattern?",
+    "options": [
+      "the subclass decides which object to create, but calls a method that is defined in the superclass to instantiate the class",
+      "the subclass will pass a parameter into a factory that determines which object is instantiated",
+      "the subclass defines the methods for concrete instantiation. As such, the type of object is determined by which subclass is instantiated"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What do we call the creation of an object, for example, with the 'new' operator in Java?",
+    "options": [
+      "object realization",
+      "class creation",
+      "concrete instantiation",
+      "manifestation"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these is NOT a common application of the Proxy Pattern?",
+    "options": [
+      "information proxy",
+      "virtual proxy",
+      "remote proxy",
+      "protection proxy"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "How does a Decorator Pattern work? Choose one.",
+    "options": [
+      "adding features to a class with a new class",
+      "expands the methods of a class with inheritance",
+      "encapsulates a class to give it a different interface",
+      "builds a behaviour by stacking objects"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What are the object types that are used in the Composite Pattern? Select the two correct answers.",
+    "options": [
+      "root",
+      "trunk",
+      "composite",
+      "branch",
+      "leaf"
+    ],
+    "correctAnswers": [
+      2,
+      4
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is the correct situation for the use of a Chain of Responsibility pattern?",
+    "options": [
+      "You need a set of objects to each contribute information on responding to a request",
+      "You have multiple potential handlers, but only one will deal with the request",
+      "You need to pass a message to multiple receivers",
+      "You need to delegate a set of tasks to a hierarchy of objects"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What design principles is the Command Pattern using?",
+    "options": [
+      "Encapsulation, generalization, loose coupling",
+      "Encapsulation, generalization, information hiding",
+      "Encapsulation, information hiding, loose coupling",
+      "Generalization, information hiding, loose coupling"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "When are you most likely to need a Mediator pattern?",
+    "options": [
+      "When you want to de-couple a class that is requesting a service from one that is providing it",
+      "When your class is sending a request that might be handled by one of several handlers.",
+      "When you have two classes with different interfaces that you must connect",
+      "When you are coordinating the activities of a set of related classes"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Marlon is coding part of the software that follows a similar sequence of steps. Depending on the type of object, these steps will be implemented in slightly different ways, but their order is always the same. Which design pattern could Marlon use?",
+    "options": [
+      "Template pattern",
+      "Mediator pattern",
+      "Command pattern",
+      "State pattern"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What are the important roles in the Command Pattern?",
+    "options": [
+      "Command, Queue, Receiver",
+      "Command, Receiver, Invoker",
+      "Sender, Receiver, Invoker",
+      "Delegate, Command, Requester"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "You have a machine performing a complex manufacturing task, with different sensors and different components of the machine represented by different classes. Which design pattern will you use to arrange the parts?",
+    "options": [
+      "Template",
+      "Command",
+      "Mediator",
+      "Chain of Responsibility"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "You have a security system class, and it has 3 modes: normal, lockdown, and open. Which pattern would you use to model the behaviour in these different modes?",
+    "options": [
+      "Template",
+      "Mediator",
+      "State",
+      "Observer"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "One of your classes represents a mailbox, while another is the owner of the mailbox. The person would like to know when new mail arrives. Which design pattern will you probably use?",
+    "options": [
+      "State",
+      "Observer",
+      "Command",
+      "Mediator"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Select the two elements of the open/closed principle:",
+    "options": [
+      "Open for modification",
+      "Closed for extension",
+      "Open for maintenance",
+      "Open for extension",
+      "Closed for modification"
+    ],
+    "correctAnswers": [
+      3,
+      4
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is the best description of the Dependency Inversion principle?",
+    "options": [
+      "Client objects depend on an Adaptor Pattern to interface with the rest of the system",
+      "Client objects depend on generalizations instead of concrete objects",
+      "Service objects subscribe to their prospective client objects as Observers, watching for a request",
+      "Client objects are dependent on a service interface that directs their requests"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these statements is true about the Composing Objects principle?",
+    "options": [
+      "The first statement is true",
+      "The second statement is true",
+      "Neither statement is true",
+      "Both statements are true"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "How can Comments be considered a code smell?",
+    "options": [
+      "Too many comments make the files too large to compile",
+      "When a comment is used to explain the rationale behind a design decision",
+      "Excessive commenting can be a coverup for bad code",
+      "They can’t! Comments help clarify code"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is the primitive obsession code smell about?",
+    "options": [
+      "Code that contains many low-level objects, without using OO principles like aggregation or inheritance",
+      "Overuse of primitive data types like int, long, float",
+      "Using many different primitive types instead of settling on a few that together capture that appropriate level of detail for your system",
+      "Using key-value pairs instead of abstract data types"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "You have a class that you keep adding to. Whenever you add new functionality, it just seems like the most natural place to put it, but it is starting to become a problem! Which code smell is this?",
+    "options": [
+      "Long Method",
+      "Large Class",
+      "Divergent Change",
+      "Speculative generality"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Why is it important to avoid message chains whenever possible?",
+    "options": [
+      "They lower cohesion in your class",
+      "The resulting code is usually rigid and complex",
+      "It's a workaround to get to private methods, which are important for encapsulation",
+      "If an unexpected object is returned, this could easily lead to runtime errors"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Joseph was developing a class for his smartphone poker game, and decided that one day he would like to be able to change the picture on the backs of the cards, so he created a Deck superclass. Since his app does not have that feature yet, Deck has only one subclass, RegularDeck. What code smell is this?",
+    "options": [
+      "Divergent Change",
+      "Refused Bequest",
+      "Primitive Obsession",
+      "Speculative Generality"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Mohsin needs to create various user objects for his University learning platform. What is the act of creating an object called?",
+    "options": [
+      "object invocation",
+      "object realization",
+      "concrete instantiation",
+      "class creation"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is the difference between the Factory Method and a Simple Factory?",
+    "options": [
+      "In Factory Method, concrete instantiation is done in a designated method, where a Simply Factory creates objects for external clients",
+      "A simple factory instantiates only one kind of object.",
+      "In the factory method pattern, the factory itself must be instantiated before it starts creating objects. This is usually done with a dedicated method",
+      "Simple factories cannot be subclassed"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "José wants to build behaviours by stacking objects and calling their behaviours with an interface. When he makes a call on this interface, the stack of objects all perform their functions in order, and the exact combination of behaviours he needs depends what objects he stacked and in which order. Which Design Pattern best fits this need?",
+    "options": [
+      "Factory Method Pattern",
+      "Singleton Pattern",
+      "Composite Pattern",
+      "Decorator Pattern"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "You need to connect to a third-party library, but you think it might change later, so you want to keep the connection loosely coupled by having your object call a consistent interface. Which Design Pattern do you need?",
+    "options": [
+      "Proxy",
+      "Facade",
+      "Adapter",
+      "Decorator"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these design principles best describes the Proxy pattern?",
+    "options": [
+      "encapsulation, because the Proxy hides some of the detail of the subject",
+      "separation of concerns, because the Proxy object has different concerns from the subject",
+      "generalization, because a proxy is a general version of the real subject",
+      "decomposition, because the Proxy object has different concerns than the subject"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Ashley has a method in her class that needs to makes a request. This request could be handled by one of several handlers. Which design pattern does she need?",
+    "options": [
+      "Facade",
+      "Decorator",
+      "Chain of Responsibility",
+      "Template"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these is NOT a good use of the Command pattern?",
+    "options": [
+      "Sending a command to a third-party service or library",
+      "Supporting undo/redo queues of commands",
+      "Building a user-interface that can be used to perform operations",
+      "Building macros, for example in an image manipulation program"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which code smell may become a problem with the Mediator design pattern?",
+    "options": [
+      "Inappropriate Intimacy",
+      "Speculative Generality",
+      "Refused Bequest",
+      "Large Class"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these methods is found in a typical Observer class?",
+    "options": [
+      "notify()",
+      "addObserver()",
+      "getState()",
+      "update()"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "In the MVC Pattern, which of these is usually made into an Observer?",
+    "options": [
+      "Model",
+      "Back-End",
+      "View",
+      "Controller"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these answers does NOT accurately complete the following sentence? “A class is considered closed to modification when…”",
+    "options": [
+      "...all the attributes and behaviours are encapsulated",
+      "...its collaborators are fixed",
+      "...it is tested to be functioning properly",
+      "...it is proven to be stable within your system"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "How does the Dependency Inversion Principle improve your software systems?",
+    "options": [
+      "Client classes become dependant on low-level concrete classes, rather than dependant on high-level generalizations",
+      "Dependency becomes inverted by having the system depend on the client classes",
+      "Client classes become dependent on high level generalizations rather than dependant on low level concrete classes",
+      "Client classes use an adapter to facilitate communication between itself and the rest of the system"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Allison has a search algorithm, and she would like to try a different implementation of it in her software. She tries replacing it everywhere it is used and this is a huge task! Which design principle could Allison have used to avoid this situation?",
+    "options": [
+      "Don't Repeat Yourself",
+      "Composing Objects Principle",
+      "Principle of Least Knowledge",
+      "Dependency Inversion"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which object-oriented design principle do Long Message Chains, a code smell, usually violate?",
+    "options": [
+      "Cohesion",
+      "Separation of Concerns",
+      "Open/Closed Principle",
+      "Principle of Least Knowledge / Law of Demeter"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What are the components of the MVC pattern?",
+    "options": [
+      "Model, View, Command",
+      "Model, View, Controller",
+      "Member, Vision, Controller",
+      "Model, Vision, Command"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Interface Segregation is a good way to avoid which code smell? Choose the best possible answer",
+    "options": [
+      "Switch Statements",
+      "Refused Bequest",
+      "Divergent Change",
+      "Long Method"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Read the following statements. Which of them are true?",
+    "options": [
+      "Both statements are true",
+      "Only the first statement is true",
+      "Neither statement is true",
+      "Only the second statement is true"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these UML diagrams might be useful for the logical view of a system? Select the 2 correct answers",
+    "options": [
+      "Deployment diagram",
+      "Class diagram",
+      "Sequence diagram",
+      "State diagram"
+    ],
+    "correctAnswers": [
+      1,
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "You need to show how your software elements are mapped to hardware nodes and execution environments. Which view do you need?",
+    "options": [
+      "development view",
+      "physical view",
+      "scenario",
+      "process view"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is the name for a physical result of the development process, such as an executable file?",
+    "options": [
+      "package",
+      "leaf",
+      "artifact",
+      "node"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these sets of keywords might be used on the lines in package diagrams?",
+    "options": [
+      "deploy, merge, include",
+      "request, import, merge",
+      "interface, export, load",
+      "merge, access, import"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these is NOT shown on an activity diagram?",
+    "options": [
+      "activities",
+      "interfaces",
+      "decisions",
+      "concurrency"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What does the component of ‘component diagram’ refer to?",
+    "options": [
+      "the basic parts of the software, which it could not run without",
+      "an independent, encapsulated unit in the system",
+      "an external part of the software system, like a library that must be imported",
+      "a general name for a \"part\" of the software system. It could be a method, variable, class, object, or grouping of any of these"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Guidelines such as \"the system should be easy and intuitive to learn\", \"the system should minimize user errors,\" and \"the system should make it easy for users to complete tasks\" fall under which category of quality attribute?",
+    "options": [
+      "usability",
+      "intuitiveness",
+      "astonishment",
+      "complexity"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Calum is leading a team of developers and would like to promote conceptual integrity. Which of these is NOT a way he could promote conceptual integrity:",
+    "options": [
+      "Split the development team into subteams for each component of the architecture",
+      "Do regular code reviews with the development team",
+      "Establish conventions, such as structural rules or naming conventions",
+      "Adopt good documentation practices"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Who are the three main groups of people involved in the architecture tradeoff analysis method?",
+    "options": [
+      "clients, designers, stakeholders",
+      "peers, outsiders, designers",
+      "evaluation team, outsiders, project team",
+      "evaluation team, project decision makers, architecture stakeholders"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Leon is analyzing the architecture and notices that under conditions of high numbers of users signing on at the same time, there is a potential that one of the architecturally significant requirements (ASRs) will not be met. What is this called?",
+    "options": [
+      "tradeoff",
+      "risk scenario",
+      "utility shortfall",
+      "non-risk scenario"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Maddie's software team is split into two subteams working on two different components that work together. These teams share one large room and are in constant contact. According to Conway's Law, what could happen if Maddie does not physically separate the two subteams?",
+    "options": [
+      "The component interfaces will not be reusable",
+      "They will not leave sufficient comments, thinking that the other team already knows the relevant details",
+      "Their components will repeat code unnecessarily",
+      "The components they produce will be very tightly coupled"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these is NOT a typical advantage of developing a product line?",
+    "options": [
+      "greatly reduced up-front development",
+      "overall cost reduction",
+      "consistency over the product line",
+      "reducing time-to-market of later products"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Andy is planning the development of a product line of eBook readers and he has to categorize the components that will be handled by each team. There is one product in the line which has a backlight for reading during the night. In the development process, where would you categorize this feature?",
+    "options": [
+      "Product-Specific",
+      "Commonality",
+      "Variation",
+      "One-Off"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these views show the functional design of the software, usually in the form of objects and the relationships between them?",
+    "options": [
+      "physical view",
+      "process view",
+      "development view",
+      "logical view"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "To which view would the Package Diagram belong? Remember that a package diagram shows the packages that make up a software and how they are related.",
+    "options": [
+      "process view",
+      "logical view",
+      "development view",
+      "physical view"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these statements about Component Diagrams is true?",
+    "options": [
+      "They are useful for clarifying the artifacts that will be produced from development",
+      "They clarify dependency relationships",
+      "They give a dynamic view of the system",
+      "They do not show third-party libraries"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these will you NOT find in a deployment diagram?",
+    "options": [
+      "component",
+      "device",
+      "class",
+      "artifact",
+      "library"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is an artifact?",
+    "options": [
+      "A physical realization of a software component",
+      "A part of a device that is nonetheless important to depict on the deployment diagram, like a hard drive",
+      "An unintended effect that the software has on the device.",
+      "Part of the development process that is important to the developers, but not the end- users"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is an abstract data type?",
+    "options": [
+      "a data schema that is defined by the developer",
+      "a data type that dynamically allows the storage of different primitives",
+      "an interface that defines how to store data in a class",
+      "a data type that is not actually storing data; instead, it is used to define interfaces"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Select the one accurate statement about layered architecture:",
+    "options": [
+      "Passthrough should be avoided at all costs",
+      "Enforcing communication only between adjacent layers and within a layer is key to good, layered architecture",
+      "Upper layers act as service providers to lower layers",
+      "Layered architecture is often based on layers of abstraction"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is the correct term for a machine that hosts a server?",
+    "options": [
+      "server-tier",
+      "Called by type: e.g. print server or media server",
+      "server-host",
+      "server-machine"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Some programs allow users to record a sequence of inputs - for example keyboard and mouse inputs - to run later. What are these called?",
+    "options": [
+      "user recorders",
+      "scripts",
+      "macros",
+      "input listeners"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Data Flow Architecture is also called...",
+    "options": [
+      "Data Transformation Architecture",
+      "Pipe and Filter Architecture",
+      "Cascade Architecture",
+      "Black Box Architecture"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these is NOT a common component of event-driven architectures?",
+    "options": [
+      "event generator",
+      "event processor",
+      "event consumer",
+      "event bus"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "1Which type of process control that we discussed is typically needed for complex systems?",
+    "options": [
+      "Feedforward Control + Feedback Control",
+      "Feedforward Control",
+      "MAPE-K",
+      "Machine Learning"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these is a drawback of n-Tier architecture?",
+    "options": [
+      "Every tier demands extra resources to manage the client/server relationships",
+      "More hardware nodes are necessary",
+      "Only asynchronous messaging is possible, leading to challenging development decisions",
+      "Limited in scale"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these is NOT an example of Interpreter type architecture?",
+    "options": [
+      "Excel formulas",
+      "Java Virtual Machine",
+      "Scripting and Macros",
+      "The kernel of an operating system"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these terms matches this definition: “The amount of time the system is operational over a set period of time?”",
+    "options": [
+      "availability",
+      "interoperability",
+      "usability",
+      "performance"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these quality attributes is most important from the developer's perspective?",
+    "options": [
+      "availability",
+      "security",
+      "usability",
+      "flexibility"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "General quality attributes like performance and security have more specific components like throughput and latency for performance. What are these called?",
+    "options": [
+      "architecturally significant requirements",
+      "sensitivity points",
+      "attribute refinement",
+      "architecture specifications"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which strategy is NOT part of delivering a high-quality system?",
+    "options": [
+      "Treat all quality attributes as equally important",
+      "Involve all stakeholders in design",
+      "Adopt good documentation practices",
+      "Set rules for design and implementation"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "True or False: You should focus on situations that are outside the normal execution path when building a quality attribute scenario.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "\"Maintenance Downtime\" is an attribute refinement of what quality attribute?",
+    "options": [
+      "Performance",
+      "Conceptual Integrity",
+      "Maintainability",
+      "Availability"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Eliza is planning a product line of media boxes. Some of these will connect to traditional television lines, whereas others will only have internet media like video-streaming services. What is this type of difference between products called?",
+    "options": [
+      "Extension",
+      "Variation",
+      "Product-Specifics",
+      "Adaptation"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Mozilla Firefox and other browsers have ecosystems of add-ons for their browsers that add functionality, for example by blocking ads or providing tools for online shopping. What is this style of variation called?",
+    "options": [
+      "Adaptation",
+      "Extension",
+      "Reference Architecture",
+      "Replacement"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "You are probably using the internet to do some of your personal banking. There is a page that shows your accounts and their balances, often called something like \"Account Summary\" or \"Account Overview.\" You must click on an account to begin managing it. Which type of web page is this?",
+    "options": [
+      "dynamic web page",
+      "web app",
+      "web service",
+      "static web page"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Another web page allows interacting with a spreadsheet in a browser. You can enter in values, sum them up, perform operations on them, format them, etc. What type of web page is this?",
+    "options": [
+      "static web page",
+      "dynamic web page",
+      "web app",
+      "web service"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Consider the two statements. Choose the one correct option.",
+    "options": [
+      "Only the first statement is correct",
+      "Both statements are correct",
+      "Neither statement is correct",
+      "Only the second statement is correct"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these is NOT a basic standard of the World Wide Web?",
+    "options": [
+      "TCP",
+      "HTTP",
+      "FTP",
+      "URL"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "There is an HTTP method that allows you to send, create or update a resource, but allows the server to decide its location and identity. Which HTTP method is this?",
+    "options": [
+      "PUT",
+      "GET",
+      "POST",
+      "SEND"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these is often used to add dynamic content to a web page?",
+    "options": [
+      "CSS",
+      "Javascript",
+      "HTML DOM",
+      "HTML"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What are the three high-level components involved in a remote procedural call?",
+    "options": [
+      "marshal, client, server",
+      "client stub, compiler, server stub",
+      "IDL source code, IDL compiler, interface headers",
+      "client, server, interface definition language"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "The process of establishing a connection between the client stub and server stub is called…",
+    "options": [
+      "binding",
+      "marshalling",
+      "interfacing",
+      "handshaking"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What are the advantages of Common Object Request Broker Architecture (CORBA)? Choose the 2 correct answers.",
+    "options": [
+      "Objects are essentially independent of their physical or virtual location.",
+      "It allows for object-oriented paradigms in distributed computing",
+      "Dynamic binding is simple",
+      "Method calls can be treated locally or remotely"
+    ],
+    "correctAnswers": [
+      0,
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is the main difference between a web service and a web application?",
+    "options": [
+      "Web applications are presented through a browser",
+      "Web services are simpler",
+      "Web services are mostly meant for business applications",
+      "Web applications dynamically generate content"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What standard is used for all aspects of web service development in this module, from describing interfaces to publishing and discovering services?",
+    "options": [
+      "XML",
+      "WSDL",
+      "SOAP",
+      "UDDI"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Your web browser has an add-on that is alerted when your favourite blog has a new post. Which messaging pattern is this?",
+    "options": [
+      "notification",
+      "request-response",
+      "one-way",
+      "solicit-response"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "An important part of a WSDL (Web Service Description Language) file is a section that describes how services are invoked. For example, this section includes the style of interaction (document or RPC), the transport protocol, and how messages are turned into XML. What is this section?",
+    "options": [
+      "services",
+      "bindings",
+      "interfaces",
+      "types"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "WS-BPEL covers what aspect of web services?",
+    "options": [
+      "encryption",
+      "publishing",
+      "composition",
+      "security"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which part of a WSDL 2.0 description gives concrete information about the ports to be used for the service?",
+    "options": [
+      "bindings",
+      "portTypes",
+      "services",
+      "interfaces"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "According to REST best practices, where should you specify what format the input and output messages are in?",
+    "options": [
+      "Parameters in the URI",
+      "XML schema",
+      "HTTP headers",
+      "sub-resources in the URI"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these is NOT used in developing RESTful web services?",
+    "options": [
+      "simple text",
+      "JSON",
+      "XML",
+      "SOAP"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "By convention, which HTML method is usually used to create a new resource?",
+    "options": [
+      "POST",
+      "DELETE",
+      "PATCH",
+      "PUT"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is the recommended way to not break functionality if your RESTful API is being used by many users?",
+    "options": [
+      "Refactor the service, keeping the API the same",
+      "version your API",
+      "Describe your service with WSDL",
+      "Subscribe your service consumers to change notifications"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these best describes microservices?",
+    "options": [
+      "Migrating business functionality into a set of services incrementally instead of all at once",
+      "Web service architectures consisting of lots of small, modular services",
+      "a variation of SOA applied on an application scale",
+      "Replicating services and modifying them to fill other roles"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Consider the two statements. Choose the one correct option.",
+    "options": [
+      "Only the first statement is true",
+      "Only the second statement is true",
+      "Both statements are true",
+      "Neither statement is true"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these examples is a web application?",
+    "options": [
+      "an online shopping platform",
+      "a website conducting a survey",
+      "a blog",
+      "online poker"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is the term for the action that converts the parameters into a standardized message on the client side?",
+    "options": [
+      "invocation",
+      "binding",
+      "marshalling",
+      "blocking"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "In what format are SOAP messages represented?",
+    "options": [
+      "JSON",
+      "SOAP formatting is not based on any other format",
+      "XML",
+      "HTML"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which part of a SOAP message can be included but is NOT required?",
+    "options": [
+      "header",
+      "envelope",
+      "body",
+      "HTTP method"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "True or False: a SOAP message must be sent over HTTP.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which type of description will a service requester need to bind to a web service?",
+    "options": [
+      "SOAP",
+      "UDDI",
+      "WS-Description",
+      "WSDL"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which section of WSDL 2.0 contains concrete information like physical ports and mapping interfaces to endpoints?",
+    "options": [
+      "bindings",
+      "services",
+      "portTypes",
+      "interfaces"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What does the types section of a WSDL 2.0 document allow developers to do?",
+    "options": [
+      "Define abstract data types",
+      "Specify document-style or RPC-style interaction",
+      "Specify which communications protocol is used (HTTP, SMTP…)",
+      "Specifies the type of interaction (request-response, solicit-response…)"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "In which section of a UDDI description will you find information like the category of business and service?",
+    "options": [
+      "blue pages",
+      "green pages",
+      "yellow pages",
+      "white pages"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Under which data structure of UDDI will you find a reference to the WSDL description?",
+    "options": [
+      "businessEntity",
+      "serviceInterface",
+      "businessService",
+      "tModel"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is the difference between coordination and composition in the context of services?",
+    "options": [
+      "coordination can only be done in a synchronous way",
+      "composition uses only objects",
+      "composition exposes a combination of services as another service",
+      "coordination is focused on pairwise interactions"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What does it mean that RESTful services are cacheable?",
+    "options": [
+      "the service logic can be stored on the client",
+      "the server can store the state of the interaction",
+      "the client can store a version of the server's response",
+      "the server can queue and prioritize requests"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these is a good name for a REST resource? In other words, which of these resource names follow best practices? Choose the 2 correct answers.",
+    "options": [
+      "/getCar/2",
+      "/car/2",
+      "/cars/2",
+      "/cars/2/tires"
+    ],
+    "correctAnswers": [
+      2,
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these elements in the HTTP header of a request specifies the format of the response?",
+    "options": [
+      "Host",
+      "Content-Encoding:",
+      "Accept:",
+      "Content-Type:"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "What is the most important difference between WS*-style web services (which utilize SOAP, WSDL, etc.) and RESTful web services?",
+    "options": [
+      "WS* are more secure",
+      "RESTful services are simpler",
+      "Their differences are very minor",
+      "They do not use the same transfer protocol"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Where are the formats of the input and output data specified, according to REST best practices?",
+    "options": [
+      "In the HTTP header",
+      "As parameters in the URL",
+      "In the HTTP request in JSON format",
+      "In the HTTP request in XML format"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Consider the following two statements about microservices architecture. Choose the one correct option",
+    "options": [
+      "Only the first statement is true.",
+      "Only the second statement is true",
+      "Both statements are true",
+      "Neither statement is true"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these formats can be used to express and structure content to be sent over the internet? Choose the 3 correct answers:",
+    "options": [
+      "CSS",
+      "XML",
+      "JSON",
+      "HTML"
+    ],
+    "correctAnswers": [
+      1,
+      2,
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Consider the following two statements about Javascript. Choose the one correct option.",
+    "options": [
+      "Only the first statement is true",
+      "Only the second statement is true",
+      "Both statements are true",
+      "Neither statement is true"
+    ],
+    "correctAnswers": [
+      0
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these responsibilities does the client stub have in a middleware-based architecture that uses RPC? Choose the 2 correct answers.",
+    "options": [
+      "Invoking the remote procedure call over the network",
+      "Establishing a connection with the server",
+      "Formatting and encoding data into standardized messages",
+      "Invoking the server application directly"
+    ],
+    "correctAnswers": [
+      0,
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these are acceptable REST URIs according to best practices? Choose the 2 correct answers.",
+    "options": [
+      "/students/",
+      "/students/3/",
+      "/student/",
+      "/getstudent/"
+    ],
+    "correctAnswers": [
+      0,
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "How can you pass parameters in a REST call?",
+    "options": [
+      "In the HTTP header",
+      "In the URL",
+      "In XML",
+      "In the SOAP header"
+    ],
+    "correctAnswers": [
+      1
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Which of these message patterns are typical of asynchronous messaging?",
+    "options": [
+      "request-response",
+      "solicit-response",
+      "one-way",
+      "notification"
+    ],
+    "correctAnswers": [
+      2
+    ],
+    "explanation": "",
+    "theme": ""
+  },
+  {
+    "question": "Consider the two statements. Choose the one correct option",
+    "options": [
+      "Only the first statement is true",
+      "Only the second statement is true",
+      "Both statements are true",
+      "Neither statement is true"
+    ],
+    "correctAnswers": [
+      3
+    ],
+    "explanation": "",
+    "theme": ""
+  }
+]
+;
 
-        let currentQuestion = 0;
-        let userAnswers = Array(questions.length).fill(null);
-        let score = 0;
-        let answerSelected = false;
+let currentQuestion = 0;
+let userAnswers = Array(questions.length).fill(null);
+let score = 0;
+let answerSelected = false;
 
-        const questionElement = document.getElementById('question');
-        const optionsElement = document.getElementById('options');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const progressElement = document.getElementById('progress');
-        const statsElement = document.getElementById('stats');
-        const questionNumberElement = document.getElementById('questionNumber');
-        const resultsElement = document.getElementById('results');
-        const finalScoreElement = document.getElementById('finalScore');
-        const resultMessageElement = document.getElementById('resultMessage');
-        const restartBtn = document.getElementById('restartBtn');
-        const feedbackElement = document.getElementById('feedback');
-        const explanationElement = document.getElementById('explanation');
-        const themeIndicator = document.getElementById('themeIndicator');
+const questionElement = document.getElementById('question');
+const optionsElement = document.getElementById('options');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const progressElement = document.getElementById('progress');
+const statsElement = document.getElementById('stats');
+const questionNumberElement = document.getElementById('questionNumber');
+const resultsElement = document.getElementById('results');
+const finalScoreElement = document.getElementById('finalScore');
+const resultMessageElement = document.getElementById('resultMessage');
+const restartBtn = document.getElementById('restartBtn');
+const feedbackElement = document.getElementById('feedback');
+const explanationElement = document.getElementById('explanation');
 
-        function loadQuestion() {
-            const question = questions[currentQuestion];
-            questionElement.textContent = question.question;
-            questionNumberElement.textContent = `Вопрос ${currentQuestion + 1}/${questions.length}`;
-            themeIndicator.textContent = question.theme;
-            
-            optionsElement.innerHTML = '';
-            answerSelected = false;
-            feedbackElement.style.display = 'none';
-            explanationElement.style.display = 'none';
-            
-            question.options.forEach((option, index) => {
-                const optionElement = document.createElement('div');
-                optionElement.className = 'option';
-                optionElement.textContent = option;
-                optionElement.onclick = () => selectOption(index);
-                optionsElement.appendChild(optionElement);
-            });
+function loadQuestion() {
+    const question = questions[currentQuestion];
+    questionElement.textContent = question.question;
+    questionNumberElement.textContent = `Вопрос ${currentQuestion + 1}/${questions.length}`;
+    optionsElement.innerHTML = '';
+    answerSelected = false;
+    feedbackElement.style.display = 'none';
+    explanationElement.style.display = 'none';
 
-            updateNavigation();
-            updateProgress();
+    question.options.forEach((option, index) => {
+        const optionElement = document.createElement('div');
+        optionElement.className = 'option';
+        optionElement.textContent = option;
+        optionElement.onclick = () => selectOption(index);
+        optionsElement.appendChild(optionElement);
+    });
+
+    updateNavigation();
+    updateProgress();
+}
+
+function selectOption(optionIndex) {
+    if (answerSelected) return;
+    const question = questions[currentQuestion];
+    const optionElements = document.querySelectorAll('.option');
+    userAnswers[currentQuestion] = [optionIndex];
+    answerSelected = true;
+    optionElements.forEach((el, idx) => {
+        if (idx === optionIndex) el.classList.add('selected');
+    });
+    showAnswerFeedback(optionIndex);
+    updateNavigation();
+}
+
+function showAnswerFeedback(selectedIndex) {
+    const question = questions[currentQuestion];
+    const optionElements = document.querySelectorAll('.option');
+    const isCorrect = arraysEqual([selectedIndex], question.correctAnswers);
+    optionElements.forEach((el, index) => {
+        if (question.correctAnswers.includes(index)) {
+            el.classList.add('correct');
+        } else if (index === selectedIndex && !question.correctAnswers.includes(index)) {
+            el.classList.add('incorrect');
         }
+        el.style.pointerEvents = 'none';
+    });
+    feedbackElement.textContent = isCorrect ? '✓ Правильно!' : '✗ Неправильно';
+    feedbackElement.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+    feedbackElement.style.display = 'block';
+    if (question.explanation) {
+        explanationElement.textContent = question.explanation;
+        explanationElement.style.display = 'block';
+    }
+    if (isCorrect) score++;
+}
 
-        function selectOption(optionIndex) {
-            if (answerSelected) return;
-            
-            const question = questions[currentQuestion];
-            const optionElements = document.querySelectorAll('.option');
-            
-            userAnswers[currentQuestion] = [optionIndex];
-            answerSelected = true;
-            
-            optionElements.forEach((el, idx) => {
-                if (idx === optionIndex) {
-                    el.classList.add('selected');
-                }
-            });
-            
-            showAnswerFeedback(optionIndex);
-            updateNavigation();
-        }
+function updateNavigation() {
+    prevBtn.disabled = currentQuestion === 0;
+    if (currentQuestion === questions.length - 1) {
+        nextBtn.textContent = 'Завершить';
+        nextBtn.disabled = !answerSelected;
+    } else {
+        nextBtn.textContent = 'Следующий';
+        nextBtn.disabled = !answerSelected;
+    }
+}
 
-        function showAnswerFeedback(selectedIndex) {
-            const question = questions[currentQuestion];
-            const optionElements = document.querySelectorAll('.option');
-            const isCorrect = arraysEqual([selectedIndex], question.correctAnswers);
-            
-            optionElements.forEach((el, index) => {
-                if (question.correctAnswers.includes(index)) {
-                    el.classList.add('correct');
-                } else if (index === selectedIndex && !question.correctAnswers.includes(index)) {
-                    el.classList.add('incorrect');
-                }
-                el.style.pointerEvents = 'none';
-            });
-            
-            feedbackElement.textContent = isCorrect ? '✓ Правильно!' : '✗ Неправильно';
-            feedbackElement.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
-            feedbackElement.style.display = 'block';
-            
-            if (question.explanation) {
-                explanationElement.textContent = question.explanation;
-                explanationElement.style.display = 'block';
-            }
-            
-            if (isCorrect) {
-                score++;
-            }
-        }
+function updateProgress() {
+    const progress = ((currentQuestion + 1) / questions.length) * 100;
+    progressElement.style.width = `${progress}%`;
+    statsElement.textContent = `Вопрос ${currentQuestion + 1} из ${questions.length}`;
+}
 
-        function updateNavigation() {
-            prevBtn.disabled = currentQuestion === 0;
-            
-            if (currentQuestion === questions.length - 1) {
-                nextBtn.textContent = 'Завершить';
-                nextBtn.disabled = !answerSelected;
-            } else {
-                nextBtn.textContent = 'Следующий';
-                nextBtn.disabled = !answerSelected;
-            }
-        }
-
-        function updateProgress() {
-            const progress = ((currentQuestion + 1) / questions.length) * 100;
-            progressElement.style.width = `${progress}%`;
-            statsElement.textContent = `Вопрос ${currentQuestion + 1} из ${questions.length}`;
-        }
-
-        function nextQuestion() {
-            if (currentQuestion < questions.length - 1) {
-                currentQuestion++;
-                loadQuestion();
-            } else {
-                showResults();
-            }
-        }
-
-        function prevQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                loadQuestion();
-            }
-        }
-
-        function arraysEqual(a, b) {
-            if (!a || !b) return false;
-            return JSON.stringify(a.sort()) === JSON.stringify(b.sort());
-        }
-
-        function showResults() {
-            const finalScore = score;
-            document.querySelector('.question-container').style.display = 'none';
-            document.querySelector('.navigation').style.display = 'none';
-            resultsElement.style.display = 'block';
-            
-            finalScoreElement.textContent = `${finalScore}/${questions.length}`;
-            
-            let message = '';
-            const percentage = (finalScore / questions.length) * 100;
-            
-            if (percentage >= 90) {
-                message = 'Отличный результат! Вы прекрасно разбираетесь в динамическом программировании! 🎉';
-            } else if (percentage >= 70) {
-                message = 'Хороший результат! Есть некоторые пробелы, но в целом хорошо! 👍';
-            } else if (percentage >= 50) {
-                message = 'Удовлетворительно. Рекомендуется повторить материал по DP. 📚';
-            } else {
-                message = 'Нужно серьезно поработать над изучением динамического программирования. 💪';
-            }
-            resultMessageElement.textContent = message;
-        }
-
-        function restartTest() {
-            currentQuestion = 0;
-            userAnswers = Array(questions.length).fill(null);
-            score = 0;
-            
-            document.querySelector('.question-container').style.display = 'block';
-            document.querySelector('.navigation').style.display = 'flex';
-            resultsElement.style.display = 'none';
-            
-            loadQuestion();
-        }
-
-        prevBtn.addEventListener('click', prevQuestion);
-        nextBtn.addEventListener('click', nextQuestion);
-        restartBtn.addEventListener('click', restartTest);
-
+function nextQuestion() {
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
         loadQuestion();
-    </script>
+    } else {
+        showResults();
+    }
+}
+
+function prevQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        loadQuestion();
+    }
+}
+
+function arraysEqual(a, b) {
+    if (!a || !b) return false;
+    return JSON.stringify(a.sort()) === JSON.stringify(b.sort());
+}
+
+function showResults() {
+    const finalScore = score;
+    document.querySelector('.question-container').style.display = 'none';
+    document.querySelector('.navigation').style.display = 'none';
+    resultsElement.style.display = 'block';
+    finalScoreElement.textContent = `${finalScore}/${questions.length}`;
+    let message = '';
+    const percentage = (finalScore / questions.length) * 100;
+    if (percentage >= 90) {
+        message = 'Отличный результат! 🎉';
+    } else if (percentage >= 70) {
+        message = 'Хороший результат! 👍';
+    } else if (percentage >= 50) {
+        message = 'Удовлетворительно. 📚';
+    } else {
+        message = 'Нужно поработать. 💪';
+    }
+    resultMessageElement.textContent = message;
+}
+
+function restartTest() {
+    currentQuestion = 0;
+    userAnswers = Array(questions.length).fill(null);
+    score = 0;
+    document.querySelector('.question-container').style.display = 'block';
+    document.querySelector('.navigation').style.display = 'flex';
+    resultsElement.style.display = 'none';
+    loadQuestion();
+}
+
+prevBtn.addEventListener('click', prevQuestion);
+nextBtn.addEventListener('click', nextQuestion);
+restartBtn.addEventListener('click', restartTest);
+
+loadQuestion();
+</script>
 </body>
 </html>
