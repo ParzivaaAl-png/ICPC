@@ -626,7 +626,7 @@
 - a data type that dynamically allows the storage of different primitives
 - an interface that defines how to store data in a class
 - a data type that is not actually storing data; instead, it is used to define interfaces
-Правильный ответ: 1
+Правильный ответ: 4
 
 **90. Select the one accurate statement about layered architecture:**
 - Passthrough should be avoided at all costs
