@@ -1,0 +1,1062 @@
+**1. Which of these are desirable characteristics of a software design? Choose the three correct answers**
+- reusability
+- flexible
+- tight coupling
+- maintainability
+Правильный ответ: 1, 2, 4
+
+**2. You are writing out a CRC card for a bank machine component. Under which section should you put "Track Cash Remaining."**
+- Collaborator
+- Responsibility
+- Class
+- Risk
+Правильный ответ: 2
+
+**3. You are writing out a CRC card for a bank machine component. Under which section should you put "Track Cash Remaining."**
+- Collaborator
+- Responsibility
+- Class
+- Risk
+Правильный ответ: 2
+
+**4. Which two of these are likely to be a part of conceptual design?**
+- Mockups
+- Abstract data types
+- Methods
+- CRC Cards
+Правильный ответ: 1, 4
+
+**5. When during the design process are you likely to produce CRC cards the most?**
+- conceptual design
+- after releasing the software
+- customer meetings
+- technical design
+Правильный ответ: 1
+
+**6. An object which is responsible for showing data to the user could be considered which category of object?**
+- control
+- representation
+- boundary
+- entity
+Правильный ответ: 3
+
+**7. What is a requirement of this form called? "As a _____, I want to _____, so that _____".**
+- conceptual mockup
+- user story
+- entity abstraction
+- key concept
+Правильный ответ: 2
+
+**8. You are a programmer creating software for a bank machine system. Which section of a CRC card for the bank machine component will the "User" go into?**
+- Responsibility
+- Collaborator
+- Object
+- Class
+Правильный ответ: 2
+
+**9. Some of the earliest computing languages supported:**
+- main program and subroutines
+- objects and classes
+- abstract data types
+- local variables
+Правильный ответ: 1
+
+**10. Sam identified the important attributes and behaviours of a delivery driver and put them all into a DeliveryDriver class, like "takeOrder", "deliverOrder", and "DeliveryArea." She exposed some of these to other classes. She just demonstrated an important part of object-oriented design. Which of these concepts best describes what you did?**
+- decomposition
+- encapsulation
+- generalization
+- abstraction
+Правильный ответ: 2
+
+**11. Which keywords allow your classes to achieve polymorphism in Java? Choose the 2 correct answers**
+- implements
+- interfaces
+- inherits
+- extends
+Правильный ответ: 1, 4
+
+**12. Which is the proper way to show an abstract method in a UML class diagram?**
+- abstract anOperation()
+- «anOperation()»
+- #anOperation()
+- anOperation()
+Правильный ответ: 4
+
+**13. There are three different relationships that objects can have. Which of these best describes the relationship between a Chair and its Legs?**
+- association
+- aggregation
+- composition
+- formation
+Правильный ответ: 3
+
+**14. Which is the most desirable?**
+- high cohesion, tight coupling
+- low cohesion, tight coupling
+- high cohesion, loose coupling
+- low cohesion, loose coupling
+Правильный ответ: 3
+
+**15. Information Hiding is closely related to one of the core design principles of object-oriented design. Which one?**
+- generalization
+- abstraction
+- decomposition
+- encapsulation
+Правильный ответ: 4
+
+**16. During model checking, what is the name for a violation of the desired properties of the model?**
+- Counterexample
+- Error
+- Model Gap
+- Redevelopment
+Правильный ответ: 1
+
+**17. When two processes cannot run because they are waiting on the same resource, it's called...**
+- Deadlock
+- Transition lock
+- Mutual lock
+- State lock
+Правильный ответ: 1
+
+**18. You create an object that represents a user, storing important information about them such as their preferences. What kind of object is this?**
+- boundary
+- entity
+- control
+- client
+Правильный ответ: 2
+
+**19. You create an object that represents a dialog box. It creates buttons and text fields, etc, for the user to interact with, and it logs those interactions. What kind of object is this?**
+- entity
+- display
+- interaction
+- control
+- boundary
+Правильный ответ: 5
+
+**20. You create an object that compares values from two different sources. It then updates the smaller value to be equal to the larger one. What kind of object is this?**
+- entity
+- control
+- repository
+- update
+Правильный ответ: 2
+
+**21. Which of these is an example of a quality tradeoff?**
+- Not delivering key features so that deadlines can be met
+- Limiting features knowing that they can be added later
+- Adding security knowing it will reduce speed
+- Adding preferences that allow users to switch some features on and off
+Правильный ответ: 3
+
+**22. What is the term for reducing a class or object to its inputs and outputs in modelling?**
+- black box thinking
+- pipe thinking
+- process thinking
+- filter thinking
+Правильный ответ: 1
+
+**23. Which one of these classes is in most need of being decomposed?**
+- Student
+- Store
+- Book
+- Order
+Правильный ответ: 2
+
+**24. Which design principle enables developers to follow the guideline D.R.Y. ("Don't Repeat Yourself"):**
+- generalization
+- decomposition
+- abstraction
+- encapsulation
+Правильный ответ: 1
+
+**25. Select the object pairing that has an association relationship:**
+- Hiker - Trail
+- Coffee - Water
+- Book - Page
+- Tree - Root
+Правильный ответ: 1
+
+**26. Select the object pairing that has an aggregation relationship:**
+- Book - Page
+- Pie - Crust
+- Stapler - Staple
+- Car - Road
+Правильный ответ: 3
+
+**27. Select the object pairing that has a composition relationship:**
+- Tea - Sugar
+- Book - Page
+- Record Player- Record
+- Bear - Forest
+Правильный ответ: 2
+
+**28. How can you apply the principle of Separation of Concerns in object-oriented programming?**
+- Split developers into teams that each deal with different parts of the software
+- Separate data and actions (methods) into different classes
+- Ensure classes are only concerned with their own data
+- Separate objects or components according to their role in the software
+Правильный ответ: 4
+
+**29. Which of these violates Liskov's Substitution Principle?**
+- the superclass is too general
+- an operation in the superclass is replaced by a different operation in the subclass
+- subclasses specify the abstract methods of the superclass
+- the subclass adds behaviour
+Правильный ответ: 2
+
+**30. For which of these situations would you use a sequence diagram?**
+- To show the collaborative behaviour of objects in your program.
+- To show the different modes that your program can be in.
+- To show all the different processes of your program.
+- To show the relationship between classes
+Правильный ответ: 1
+
+**31. What is an abstract data type?**
+- a type of data defined by the developer rather than the language
+- a data-centric class
+- variables that are assigned a type (i.e. integer, double) but does not yet have a value assigned
+- a data type that cannot be used directly but must be implemented as an interface
+Правильный ответ: 1
+
+**32. When is the best time to use a design pattern? Choose 2 answers.**
+- For a problem that is unique to your program
+- For a commonly encountered issue
+- When fixing spaghetti code
+- When explaining a solution to your fellow developers
+Правильный ответ: 2, 4
+
+**33. What does it mean to "let the subclass decide" in the Factory Method Pattern?**
+- the subclass decides which object to create, but calls a method that is defined in the superclass to instantiate the class
+- the subclass will pass a parameter into a factory that determines which object is instantiated
+- the subclass defines the methods for concrete instantiation. As such, the type of object is determined by which subclass is instantiated
+Правильный ответ: 3
+
+**34. What do we call the creation of an object, for example, with the 'new' operator in Java?**
+- object realization
+- class creation
+- concrete instantiation
+- manifestation
+Правильный ответ: 3
+
+**35. Which of these is NOT a common application of the Proxy Pattern?**
+- information proxy
+- virtual proxy
+- remote proxy
+- protection proxy
+Правильный ответ: 1
+
+**36. How does a Decorator Pattern work? Choose one.**
+- adding features to a class with a new class
+- expands the methods of a class with inheritance
+- encapsulates a class to give it a different interface
+- builds a behaviour by stacking objects
+Правильный ответ: 4
+
+**37. What are the object types that are used in the Composite Pattern? Select the two correct answers.**
+- root
+- trunk
+- composite
+- branch
+- leaf
+Правильный ответ: 3, 5
+
+**38. What is the correct situation for the use of a Chain of Responsibility pattern?**
+- You need a set of objects to each contribute information on responding to a request
+- You have multiple potential handlers, but only one will deal with the request
+- You need to pass a message to multiple receivers
+- You need to delegate a set of tasks to a hierarchy of objects
+Правильный ответ: 2
+
+**39. What design principles is the Command Pattern using?**
+- Encapsulation, generalization, loose coupling
+- Encapsulation, generalization, information hiding
+- Encapsulation, information hiding, loose coupling
+- Generalization, information hiding, loose coupling
+Правильный ответ: 1
+
+**40. When are you most likely to need a Mediator pattern?**
+- When you want to de-couple a class that is requesting a service from one that is providing it
+- When your class is sending a request that might be handled by one of several handlers.
+- When you have two classes with different interfaces that you must connect
+- When you are coordinating the activities of a set of related classes
+Правильный ответ: 4
+
+**41. Marlon is coding part of the software that follows a similar sequence of steps. Depending on the type of object, these steps will be implemented in slightly different ways, but their order is always the same. Which design pattern could Marlon use?**
+- Template pattern
+- Mediator pattern
+- Command pattern
+- State pattern
+Правильный ответ: 1
+
+**42. What are the important roles in the Command Pattern?**
+- Command, Queue, Receiver
+- Command, Receiver, Invoker
+- Sender, Receiver, Invoker
+- Delegate, Command, Requester
+Правильный ответ: 2
+
+**43. You have a machine performing a complex manufacturing task, with different sensors and different components of the machine represented by different classes. Which design pattern will you use to arrange the parts?**
+- Template
+- Command
+- Mediator
+- Chain of Responsibility
+Правильный ответ: 3
+
+**44. You have a security system class, and it has 3 modes: normal, lockdown, and open. Which pattern would you use to model the behaviour in these different modes?**
+- Template
+- Mediator
+- State
+- Observer
+Правильный ответ: 3
+
+**45. One of your classes represents a mailbox, while another is the owner of the mailbox. The person would like to know when new mail arrives. Which design pattern will you probably use?**
+- State
+- Observer
+- Command
+- Mediator
+Правильный ответ: 2
+
+**46. Select the two elements of the open/closed principle:**
+- Open for modification
+- Closed for extension
+- Open for maintenance
+- Open for extension
+- Closed for modification
+Правильный ответ: 4, 5
+
+**47. What is the best description of the Dependency Inversion principle?**
+- Client objects depend on an Adaptor Pattern to interface with the rest of the system
+- Client objects depend on generalizations instead of concrete objects
+- Service objects subscribe to their prospective client objects as Observers, watching for a request
+- Client objects are dependent on a service interface that directs their requests
+Правильный ответ: 2
+
+**48. Which of these statements is true about the Composing Objects principle?**
+- it provides behaviour with aggregation instead of inheritance
+- it leads to tighter coupling
+- The first statement is true
+- The second statement is true
+- Neither statement is true
+- Both statements are true
+Правильный ответ: 1
+
+**49. How can Comments be considered a code smell?**
+- Too many comments make the files too large to compile
+- When a comment is used to explain the rationale behind a design decision
+- Excessive commenting can be a coverup for bad code
+- They can't! Comments help clarify code
+Правильный ответ: 3
+
+**50. What is the primitive obsession code smell about?**
+- Code that contains many low-level objects, without using OO principles like aggregation or inheritance
+- Overuse of primitive data types like int, long, float
+- Using many different primitive types instead of settling on a few that together capture that appropriate level of detail for your system
+- Using key-value pairs instead of abstract data types
+Правильный ответ: 2
+
+**51. You have a class that you keep adding to. Whenever you add new functionality, it just seems like the most natural place to put it, but it is starting to become a problem! Which code smell is this?**
+- Long Method
+- Large Class
+- Divergent Change
+- Speculative generality
+Правильный ответ: 2
+
+**52. Why is it important to avoid message chains whenever possible?**
+- They lower cohesion in your class
+- The resulting code is usually rigid and complex
+- It's a workaround to get to private methods, which are important for encapsulation
+- If an unexpected object is returned, this could easily lead to runtime errors
+Правильный ответ: 2
+
+**53. Joseph was developing a class for his smartphone poker game, and decided that one day he would like to be able to change the picture on the backs of the cards, so he created a Deck superclass. Since his app does not have that feature yet, Deck has only one subclass, RegularDeck. What code smell is this?**
+- Divergent Change
+- Refused Bequest
+- Primitive Obsession
+- Speculative Generality
+Правильный ответ: 4
+
+**54. Mohsin needs to create various user objects for his University learning platform. What is the act of creating an object called?**
+- object invocation
+- object realization
+- concrete instantiation
+- class creation
+Правильный ответ: 3
+
+**55. What is the difference between the Factory Method and a Simple Factory?**
+- In Factory Method, concrete instantiation is done in a designated method, where a Simply Factory creates objects for external clients
+- A simple factory instantiates only one kind of object.
+- In the factory method pattern, the factory itself must be instantiated before it starts creating objects. This is usually done with a dedicated method
+- Simple factories cannot be subclassed
+Правильный ответ: 1
+
+**56. José wants to build behaviours by stacking objects and calling their behaviours with an interface. When he makes a call on this interface, the stack of objects all perform their functions in order, and the exact combination of behaviours he needs depends what objects he stacked and in which order. Which Design Pattern best fits this need?**
+- Factory Method Pattern
+- Singleton Pattern
+- Composite Pattern
+- Decorator Pattern
+Правильный ответ: 4
+
+**57. You need to connect to a third-party library, but you think it might change later, so you want to keep the connection loosely coupled by having your object call a consistent interface. Which Design Pattern do you need?**
+- Proxy
+- Facade
+- Adapter
+- Decorator
+Правильный ответ: 3
+
+**58. Which of these design principles best describes the Proxy pattern?**
+- encapsulation, because the Proxy hides some of the detail of the subject
+- separation of concerns, because the Proxy object has different concerns from the subject
+- generalization, because a proxy is a general version of the real subject
+- decomposition, because the Proxy object has different concerns than the subject
+Правильный ответ: 1
+
+**59. Ashley has a method in her class that needs to makes a request. This request could be handled by one of several handlers. Which design pattern does she need?**
+- Facade
+- Decorator
+- Chain of Responsibility
+- Template
+Правильный ответ: 3
+
+**60. Which of these is NOT a good use of the Command pattern?**
+- Sending a command to a third-party service or library
+- Supporting undo/redo queues of commands
+- Building a user-interface that can be used to perform operations
+- Building macros, for example in an image manipulation program
+Правильный ответ: 1
+
+**61. Which code smell may become a problem with the Mediator design pattern?**
+- Inappropriate Intimacy
+- Speculative Generality
+- Refused Bequest
+- Large Class
+Правильный ответ: 4
+
+**62. Which of these methods is found in a typical Observer class?**
+- notify()
+- addObserver()
+- getState()
+- update()
+Правильный ответ: 4
+
+**63. In the MVC Pattern, which of these is usually made into an Observer?**
+- Model
+- Back-End
+- View
+- Controller
+Правильный ответ: 3
+
+**64. Which of these answers does NOT accurately complete the following sentence? "A class is considered closed to modification when..."**
+- ...all the attributes and behaviours are encapsulated
+- ...its collaborators are fixed
+- ...it is tested to be functioning properly
+- ...it is proven to be stable within your system
+Правильный ответ: 2
+
+**65. How does the Dependency Inversion Principle improve your software systems?**
+- Client classes become dependant on low-level concrete classes, rather than dependant on high-level generalizations
+- Dependency becomes inverted by having the system depend on the client classes
+- Client classes become dependent on high level generalizations rather than dependant on low level concrete classes
+- Client classes use an adapter to facilitate communication between itself and the rest of the system
+Правильный ответ: 3
+
+**66. Allison has a search algorithm, and she would like to try a different implementation of it in her software. She tries replacing it everywhere it is used and this is a huge task! Which design principle could Allison have used to avoid this situation?**
+- Don't Repeat Yourself
+- Composing Objects Principle
+- Principle of Least Knowledge
+- Dependency Inversion
+Правильный ответ: 4
+
+**67. Which object-oriented design principle do Long Message Chains, a code smell, usually violate?**
+- Cohesion
+- Separation of Concerns
+- Open/Closed Principle
+- Principle of Least Knowledge / Law of Demeter
+Правильный ответ: 4
+
+**68. What are the components of the MVC pattern?**
+- Model, View, Command
+- Model, View, Controller
+- Member, Vision, Controller
+- Model, Vision, Command
+Правильный ответ: 2
+
+**69. Interface Segregation is a good way to avoid which code smell? Choose the best possible answer**
+- Switch Statements
+- Refused Bequest
+- Divergent Change
+- Long Method
+Правильный ответ: 2
+
+**70. Read the following statements. Which of them are true?**
+- Project managers are stakeholders in the architecture
+- End users are stakeholders in the architecture
+- Both statements are true
+- Only the first statement is true
+- Neither statement is true
+- Only the second statement is true
+Правильный ответ: 1
+
+**71. Which of these UML diagrams might be useful for the logical view of a system? Select the 2 correct answers**
+- Deployment diagram
+- Class diagram
+- Sequence diagram
+- State diagram
+Правильный ответ: 2, 4
+
+**72. You need to show how your software elements are mapped to hardware nodes and execution environments. Which view do you need?**
+- development view
+- physical view
+- scenario
+- process view
+Правильный ответ: 2
+
+**73. What is the name for a physical result of the development process, such as an executable file?**
+- package
+- leaf
+- artifact
+- node
+Правильный ответ: 3
+
+**74. Which of these sets of keywords might be used on the lines in package diagrams?**
+- deploy, merge, include
+- request, import, merge
+- interface, export, load
+- merge, access, import
+Правильный ответ: 4
+
+**75. Which of these is NOT shown on an activity diagram?**
+- activities
+- interfaces
+- decisions
+- concurrency
+Правильный ответ: 2
+
+**76. What does the component of 'component diagram' refer to?**
+- the basic parts of the software, which it could not run without
+- an independent, encapsulated unit in the system
+- an external part of the software system, like a library that must be imported
+- a general name for a "part" of the software system. It could be a method, variable, class, object, or grouping of any of these
+Правильный ответ: 2
+
+**77. Guidelines such as "the system should be easy and intuitive to learn", "the system should minimize user errors," and "the system should make it easy for users to complete tasks" fall under which category of quality attribute?**
+- usability
+- intuitiveness
+- astonishment
+- complexity
+Правильный ответ: 1
+
+**78. Calum is leading a team of developers and would like to promote conceptual integrity. Which of these is NOT a way he could promote conceptual integrity:**
+- Split the development team into subteams for each component of the architecture
+- Do regular code reviews with the development team
+- Establish conventions, such as structural rules or naming conventions
+- Adopt good documentation practices
+Правильный ответ: 1
+
+**79. Who are the three main groups of people involved in the architecture tradeoff analysis method?**
+- clients, designers, stakeholders
+- peers, outsiders, designers
+- evaluation team, outsiders, project team
+- evaluation team, project decision makers, architecture stakeholders
+Правильный ответ: 4
+
+**80. Leon is analyzing the architecture and notices that under conditions of high numbers of users signing on at the same time, there is a potential that one of the architecturally significant requirements (ASRs) will not be met. What is this called?**
+- tradeoff
+- risk scenario
+- utility shortfall
+- non-risk scenario
+Правильный ответ: 2
+
+**81. Maddie's software team is split into two subteams working on two different components that work together. These teams share one large room and are in constant contact. According to Conway's Law, what could happen if Maddie does not physically separate the two subteams?**
+- The component interfaces will not be reusable
+- They will not leave sufficient comments, thinking that the other team already knows the relevant details
+- Their components will repeat code unnecessarily
+- The components they produce will be very tightly coupled
+Правильный ответ: 4
+
+**82. Which of these is NOT a typical advantage of developing a product line?**
+- greatly reduced up-front development
+- overall cost reduction
+- consistency over the product line
+- reducing time-to-market of later products
+Правильный ответ: 1
+
+**83. Andy is planning the development of a product line of eBook readers and he has to categorize the components that will be handled by each team. There is one product in the line which has a backlight for reading during the night. In the development process, where would you categorize this feature?**
+- Product-Specific
+- Commonality
+- Variation
+- One-Off
+Правильный ответ: 3
+
+**84. Which of these views show the functional design of the software, usually in the form of objects and the relationships between them?**
+- physical view
+- process view
+- development view
+- logical view
+Правильный ответ: 4
+
+**85. To which view would the Package Diagram belong? Remember that a package diagram shows the packages that make up a software and how they are related.**
+- process view
+- logical view
+- development view
+- physical view
+Правильный ответ: 3
+
+**86. Which of these statements about Component Diagrams is true?**
+- They are useful for clarifying the artifacts that will be produced from development
+- They clarify dependency relationships
+- They give a dynamic view of the system
+- They do not show third-party libraries
+Правильный ответ: 2
+
+**87. Which of these will you NOT find in a deployment diagram?**
+- component
+- device
+- class
+- artifact
+- library
+Правильный ответ: 3
+
+**88. What is an artifact?**
+- A physical realization of a software component
+- A part of a device that is nonetheless important to depict on the deployment diagram, like a hard drive
+- An unintended effect that the software has on the device.
+- Part of the development process that is important to the developers, but not the end- users
+Правильный ответ: 1
+
+**89. What is an abstract data type?**
+- a data schema that is defined by the developer
+- a data type that dynamically allows the storage of different primitives
+- an interface that defines how to store data in a class
+- a data type that is not actually storing data; instead, it is used to define interfaces
+Правильный ответ: 1
+
+**90. Select the one accurate statement about layered architecture:**
+- Passthrough should be avoided at all costs
+- Enforcing communication only between adjacent layers and within a layer is key to good, layered architecture
+- Upper layers act as service providers to lower layers
+- Layered architecture is often based on layers of abstraction
+Правильный ответ: 4
+
+**91. What is the correct term for a machine that hosts a server?**
+- server-tier
+- Called by type: e.g. print server or media server
+- server-host
+- server-machine
+Правильный ответ: 3
+
+**92. Some programs allow users to record a sequence of inputs - for example keyboard and mouse inputs - to run later. What are these called?**
+- user recorders
+- scripts
+- macros
+- input listeners
+Правильный ответ: 3
+
+**93. Data Flow Architecture is also called...**
+- Data Transformation Architecture
+- Pipe and Filter Architecture
+- Cascade Architecture
+- Black Box Architecture
+Правильный ответ: 2
+
+**94. Which of these is NOT a common component of event-driven architectures?**
+- event generator
+- event processor
+- event consumer
+- event bus
+Правильный ответ: 2
+
+**95. Which type of process control that we discussed is typically needed for complex systems?**
+- Feedforward Control + Feedback Control
+- Feedforward Control
+- MAPE-K
+- Machine Learning
+Правильный ответ: 3
+
+**96. Which of these is a drawback of n-Tier architecture?**
+- Every tier demands extra resources to manage the client/server relationships
+- More hardware nodes are necessary
+- Only asynchronous messaging is possible, leading to challenging development decisions
+- Limited in scale
+Правильный ответ: 1
+
+**97. Which of these is NOT an example of Interpreter type architecture?**
+- Excel formulas
+- Java Virtual Machine
+- Scripting and Macros
+- The kernel of an operating system
+Правильный ответ: 4
+
+**98. Which of these terms matches this definition: "The amount of time the system is operational over a set period of time?"**
+- availability
+- interoperability
+- usability
+- performance
+Правильный ответ: 1
+
+**99. Which of these quality attributes is most important from the developer's perspective?**
+- availability
+- security
+- usability
+- flexibility
+Правильный ответ: 4
+
+**100. General quality attributes like performance and security have more specific components like throughput and latency for performance. What are these called?**
+- architecturally significant requirements
+- sensitivity points
+- attribute refinement
+- architecture specifications
+Правильный ответ: 3
+
+**101. Which strategy is NOT part of delivering a high-quality system?**
+- Treat all quality attributes as equally important
+- Involve all stakeholders in design
+- Adopt good documentation practices
+- Set rules for design and implementation
+Правильный ответ: 1
+
+**102. True or False: You should focus on situations that are outside the normal execution path when building a quality attribute scenario.**
+- True
+- False
+Правильный ответ: 1
+
+**103. "Maintenance Downtime" is an attribute refinement of what quality attribute?**
+- Performance
+- Conceptual Integrity
+- Maintainability
+- Availability
+Правильный ответ: 4
+
+**104. Eliza is planning a product line of media boxes. Some of these will connect to traditional television lines, whereas others will only have internet media like video-streaming services. What is this type of difference between products called?**
+- Extension
+- Variation
+- Product-Specifics
+- Adaptation
+Правильный ответ: 2
+
+**105. Mozilla Firefox and other browsers have ecosystems of add-ons for their browsers that add functionality, for example by blocking ads or providing tools for online shopping. What is this style of variation called?**
+- Adaptation
+- Extension
+- Reference Architecture
+- Replacement
+Правильный ответ: 2
+
+**106. You are probably using the internet to do some of your personal banking. There is a page that shows your accounts and their balances, often called something like "Account Summary" or "Account Overview." You must click on an account to begin managing it. Which type of web page is this?**
+- dynamic web page
+- web app
+- web service
+- static web page
+Правильный ответ: 1
+
+**107. Another web page allows interacting with a spreadsheet in a browser. You can enter in values, sum them up, perform operations on them, format them, etc. What type of web page is this?**
+- static web page
+- dynamic web page
+- web app
+- web service
+Правильный ответ: 3
+
+**108. Consider the two statements. Choose the one correct option.**
+- JSON is a markup language
+- JSON can easily be converted into a Javascript object
+- Only the first statement is correct
+- Both statements are correct
+- Neither statement is correct
+- Only the second statement is correct
+Правильный ответ: 4
+
+**109. Which of these is NOT a basic standard of the World Wide Web?**
+- TCP
+- HTTP
+- FTP
+- URL
+Правильный ответ: 3
+
+**110. There is an HTTP method that allows you to send, create or update a resource, but allows the server to decide its location and identity. Which HTTP method is this?**
+- PUT
+- GET
+- POST
+- SEND
+Правильный ответ: 3
+
+**111. Which of these is often used to add dynamic content to a web page?**
+- CSS
+- Javascript
+- HTML DOM
+- HTML
+Правильный ответ: 2
+
+**112. What are the three high-level components involved in a remote procedural call?**
+- marshal, client, server
+- client stub, compiler, server stub
+- IDL source code, IDL compiler, interface headers
+- client, server, interface definition language
+Правильный ответ: 4
+
+**113. The process of establishing a connection between the client stub and server stub is called...**
+- binding
+- marshalling
+- interfacing
+- handshaking
+Правильный ответ: 1
+
+**114. What are the advantages of Common Object Request Broker Architecture (CORBA)? Choose the 2 correct answers.**
+- Objects are essentially independent of their physical or virtual location.
+- It allows for object-oriented paradigms in distributed computing
+- Dynamic binding is simple
+- Method calls can be treated locally or remotely
+Правильный ответ: 1, 2
+
+**115. What is the main difference between a web service and a web application?**
+- Web applications are presented through a browser
+- Web services are simpler
+- Web services are mostly meant for business applications
+- Web applications dynamically generate content
+Правильный ответ: 1
+
+**116. What standard is used for all aspects of web service development in this module, from describing interfaces to publishing and discovering services?**
+- XML
+- WSDL
+- SOAP
+- UDDI
+Правильный ответ: 4
+
+**117. Your web browser has an add-on that is alerted when your favourite blog has a new post. Which messaging pattern is this?**
+- notification
+- request-response
+- one-way
+- solicit-response
+Правильный ответ: 1
+
+**118. An important part of a WSDL (Web Service Description Language) file is a section that describes how services are invoked. For example, this section includes the style of interaction (document or RPC), the transport protocol, and how messages are turned into XML. What is this section?**
+- services
+- bindings
+- interfaces
+- types
+Правильный ответ: 2
+
+**119. WS-BPEL covers what aspect of web services?**
+- encryption
+- publishing
+- composition
+- security
+Правильный ответ: 3
+
+**120. Which part of a WSDL 2.0 description gives concrete information about the ports to be used for the service?**
+- bindings
+- portTypes
+- services
+- interfaces
+Правильный ответ: 3
+
+**121. According to REST best practices, where should you specify what format the input and output messages are in?**
+- Parameters in the URI
+- XML schema
+- HTTP headers
+- sub-resources in the URI
+Правильный ответ: 3
+
+**122. Which of these is NOT used in developing RESTful web services?**
+- simple text
+- JSON
+- XML
+- SOAP
+Правильный ответ: 4
+
+**123. By convention, which HTML method is usually used to create a new resource?**
+- POST
+- DELETE
+- PATCH
+- PUT
+Правильный ответ: 1
+
+**124. What is the recommended way to not break functionality if your RESTful API is being used by many users?**
+- Refactor the service, keeping the API the same
+- version your API
+- Describe your service with WSDL
+- Subscribe your service consumers to change notifications
+Правильный ответ: 2
+
+**125. Which of these best describes microservices?**
+- Migrating business functionality into a set of services incrementally instead of all at once
+- Web service architectures consisting of lots of small, modular services
+- a variation of SOA applied on an application scale
+- Replicating services and modifying them to fill other roles
+Правильный ответ: 3
+
+**126. Consider the two statements. Choose the one correct option.**
+- Microservices must be in the same language and framework
+- Microservices can be replicated for scaling
+- Only the first statement is true
+- Only the second statement is true
+- Both statements are true
+- Neither statement is true
+Правильный ответ: 2
+
+**127. Which of these examples is a web application?**
+- an online shopping platform
+- a website conducting a survey
+- a blog
+- online poker
+Правильный ответ: 4
+
+**128. What is the term for the action that converts the parameters into a standardized message on the client side?**
+- invocation
+- binding
+- marshalling
+- blocking
+Правильный ответ: 3
+
+**129. In what format are SOAP messages represented?**
+- JSON
+- SOAP formatting is not based on any other format
+- XML
+- HTML
+Правильный ответ: 3
+
+**130. Which part of a SOAP message can be included but is NOT required?**
+- header
+- envelope
+- body
+- HTTP method
+Правильный ответ: 1
+
+**131. True or False: a SOAP message must be sent over HTTP.**
+- True
+- False
+Правильный ответ: 2
+
+**132. Which type of description will a service requester need to bind to a web service?**
+- SOAP
+- UDDI
+- WS-Description
+- WSDL
+Правильный ответ: 4
+
+**133. Which section of WSDL 2.0 contains concrete information like physical ports and mapping interfaces to endpoints?**
+- bindings
+- services
+- portTypes
+- interfaces
+Правильный ответ: 2
+
+**134. What does the types section of a WSDL 2.0 document allow developers to do?**
+- Define abstract data types
+- Specify document-style or RPC-style interaction
+- Specify which communications protocol is used (HTTP, SMTP...)
+- Specifies the type of interaction (request-response, solicit-response...)
+Правильный ответ: 1
+
+**135. In which section of a UDDI description will you find information like the category of business and service?**
+- blue pages
+- green pages
+- yellow pages
+- white pages
+Правильный ответ: 3
+
+**136. Under which data structure of UDDI will you find a reference to the WSDL description?**
+- businessEntity
+- serviceInterface
+- businessService
+- tModel
+Правильный ответ: 4
+
+**137. What is the difference between coordination and composition in the context of services?**
+- coordination can only be done in a synchronous way
+- composition uses only objects
+- composition exposes a combination of services as another service
+- coordination is focused on pairwise interactions
+Правильный ответ: 3
+
+**138. What does it mean that RESTful services are cacheable?**
+- the service logic can be stored on the client
+- the server can store the state of the interaction
+- the client can store a version of the server's response
+- the server can queue and prioritize requests
+Правильный ответ: 3
+
+**139. Which of these is a good name for a REST resource? In other words, which of these resource names follow best practices? Choose the 2 correct answers.**
+- /getCar/2
+- /car/2
+- /cars/2
+- /cars/2/tires
+Правильный ответ: 3, 4
+
+**140. Which of these elements in the HTTP header of a request specifies the format of the response?**
+- Host
+- Content-Encoding:
+- Accept:
+- Content-Type:
+Правильный ответ: 3
+
+**141. What is the most important difference between WS*-style web services (which utilize SOAP, WSDL, etc.) and RESTful web services?**
+- WS* are more secure
+- RESTful services are simpler
+- Their differences are very minor
+- They do not use the same transfer protocol
+Правильный ответ: 2
+
+**142. Where are the formats of the input and output data specified, according to REST best practices?**
+- In the HTTP header
+- As parameters in the URL
+- In the HTTP request in JSON format
+- In the HTTP request in XML format
+Правильный ответ: 1
+
+**143. Consider the following two statements about microservices architecture. Choose the one correct option**
+- Communication between microservices is stateless
+- Testing microservice architecture is complex
+- Only the first statement is true.
+- Only the second statement is true
+- Both statements are true
+- Neither statement is true
+Правильный ответ: 3
+
+**144. Which of these formats can be used to express and structure content to be sent over the internet? Choose the 3 correct answers:**
+- CSS
+- XML
+- JSON
+- HTML
+Правильный ответ: 2, 3, 4
+
+**145. Consider the following two statements about Javascript. Choose the one correct option.**
+- It can allow you to generate content within the browser
+- A Javascript file must be sent in addition to an HTML file
+- Only the first statement is true
+- Only the second statement is true
+- Both statements are true
+- Neither statement is true
+Правильный ответ: 1
+
+**146. Which of these responsibilities does the client stub have in a middleware-based architecture that uses RPC? Choose the 2 correct answers.**
+- Invoking the remote procedure call over the network
+- Establishing a connection with the server
+- Formatting and encoding data into standardized messages
+- Invoking the server application directly
+Правильный ответ: 1, 3
+
+**147. Which of these are acceptable REST URIs according to best practices? Choose the 2 correct answers.**
+- /students/
+- /students/3/
+- /student/
+- /getstudent/
+Правильный ответ: 1, 2
+
+**148. How can you pass parameters in a REST call?**
+- In the HTTP header 
+- In the URL
+- In XML
+- In the SOAP header
+Правильный ответ: 2
+
+**149. Which of these message patterns are typical of asynchronous messaging?**
+- request-response
+- solicit-response
+- one-way
+- notification
+Правильный ответ: 3
+
+**150. Consider the two statements. Choose the one correct option**
+- WSDL can be used to describe non-XML based web services
+- A WSDL document can import other WSDL documents to gain access to their specifications
+- Only the first statement is true
+- Only the second statement is true
+- Both statements are true
+- Neither statement is true
+Правильный ответ: 4
