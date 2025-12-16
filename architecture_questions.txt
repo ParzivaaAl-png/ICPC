@@ -1052,9 +1052,9 @@
 - notification
 Правильный ответ: 3
 
-**150. Consider the two statements. Choose the one correct option**
-- WSDL can be used to describe non-XML based web services
-- A WSDL document can import other WSDL documents to gain access to their specifications
+**150. Consider the two statements. Choose the one correct option
+ 1.WSDL can be used to describe non-XML based web services
+ 2.WSDL document can import other WSDL documents to gain access to their specifications**
 - Only the first statement is true
 - Only the second statement is true
 - Both statements are true
