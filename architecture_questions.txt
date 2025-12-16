@@ -329,9 +329,7 @@
 - Client objects are dependent on a service interface that directs their requests
 Правильный ответ: 2
 
-**48. Which of these statements is true about the Composing Objects principle?
- 1.It provides behaviour with aggregation instead of inheritance
- 2.It leads to tighter coupling**
+**48. Which of these statements is true about the Composing Objects principle? 1.It provides behaviour with aggregation instead of inheritance 2.It leads to tighter coupling**
 - The first statement is true
 - The second statement is true
 - Neither statement is true
@@ -485,9 +483,7 @@
 - Long Method
 Правильный ответ: 2
 
-**70. Read the following statements. Which of them are true?
- 1.Project managers are stakeholders in the architecture
- 2.End users are stakeholders in the architecture**
+**70. Read the following statements. Which of them are true? 1.Project managers are stakeholders in the architecture 2.End users are stakeholders in the architecture**
 - Both statements are true
 - Only the first statement is true
 - Neither statement is true
@@ -752,9 +748,7 @@
 - web service
 Правильный ответ: 3
 
-**108. Consider the two statements. Choose the one correct option.
- 1.JSON is a markup language
- 2.JSON can easily be converted into a Javascript object**
+**108. Consider the two statements. Choose the one correct option. 1.JSON is a markup language 2.JSON can easily be converted into a Javascript object**
 - Only the first statement is correct
 - Both statements are correct
 - Neither statement is correct
@@ -880,9 +874,7 @@
 - Replicating services and modifying them to fill other roles
 Правильный ответ: 3
 
-**126. Consider the two statements. Choose the one correct option.
- 1.Microservices must be in the same language and framework
- 2.Microservices can be replicated for scaling**
+**126. Consider the two statements. Choose the one correct option. 1.Microservices must be in the same language and framework 2.Microservices can be replicated for scaling**
 - Only the first statement is true
 - Only the second statement is true
 - Both statements are true
@@ -999,9 +991,7 @@
 - In the HTTP request in XML format
 Правильный ответ: 1
 
-**143. Consider the following two statements about microservices architecture. Choose the one correct option
- 1.Communication between microservices is stateless
- 2.Testing microservice architecture is complex**
+**143. Consider the following two statements about microservices architecture. Choose the one correct option 1.Communication between microservices is stateless 2.Testing microservice architecture is complex**
 - Only the first statement is true.
 - Only the second statement is true
 - Both statements are true
@@ -1015,9 +1005,7 @@
 - HTML
 Правильный ответ: 2, 3, 4
 
-**145. Consider the following two statements about Javascript. Choose the one correct option.**
-- It can allow you to generate content within the browser
-- A Javascript file must be sent in addition to an HTML file
+**145. Consider the following two statements about Javascript. Choose the one correct option. 1.It can allow you to generate content within the browser 2.A Javascript file must be sent in addition to an HTML file**
 - Only the first statement is true
 - Only the second statement is true
 - Both statements are true
@@ -1052,9 +1040,7 @@
 - notification
 Правильный ответ: 3
 
-**150. Consider the two statements. Choose the one correct option
- 1.WSDL can be used to describe non-XML based web services
- 2.WSDL document can import other WSDL documents to gain access to their specifications**
+**150. Consider the two statements. Choose the one correct option 1.WSDL can be used to describe non-XML based web services 2.WSDL document can import other WSDL documents to gain access to their specifications**
 - Only the first statement is true
 - Only the second statement is true
 - Both statements are true
