@@ -27,7 +27,7 @@ html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Seg
 .progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent1),var(--accent2));transition:width .35s ease}
 .progress-pct{width:48px;text-align:right;color:var(--muted);font-size:13px}
 
-.question{font-size:20px;font-weight:700;margin-bottom:12px;color:var(--text)}
+.question{font-size:20px;font-weight:700;margin-bottom:12px;color:var(--text);white-space:pre-line}
 .options{display:flex;flex-direction:column;gap:10px}
 .option{display:flex;align-items:center;gap:14px;padding:14px;border-radius:12px;background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:transform .16s ease,box-shadow .16s, background .16s;user-select:none}
 .option:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.55)}
@@ -59,10 +59,11 @@ html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Seg
 .bottom-cell .fill { height:100%; width:0%; background: linear-gradient(90deg,var(--accent1),var(--accent2)); transition: width .05s linear; border-radius:6px; box-shadow:0 6px 16px rgba(45,166,255,0.14); }
 .bottom-cell .label { margin-top:8px; text-align:right; color:var(--muted); font-size:13px; }
 
-.results{padding:22px;text-align:center;color:var(--text);display:none}
+.results{padding:22px;text-align:center;color:var(--text);display:none;margin-top:20px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);box-shadow:var(--card-shadow)}
 .score{font-size:36px;font-weight:800;margin-bottom:8px}
-.result-details{margin:20px 0;padding:15px;background:rgba(255,255,255,0.02);border-radius:10px;}
-.result-details div{margin:5px 0;}
+.result-details{margin:20px 0;padding:15px;background:rgba(255,255,255,0.02);border-radius:10px;text-align:left;max-width:400px;margin-left:auto;margin-right:auto}
+.result-details div{margin:10px 0;display:flex;justify-content:space-between}
+.result-details span{font-weight:bold;color:var(--accent1)}
 
 .start-modal{position:fixed;inset:0;background:linear-gradient(rgba(3,6,10,0.6), rgba(3,6,10,0.6));display:flex;align-items:center;justify-content:center;z-index:2000}
 .start-card{background:var(--panel);padding:22px;border-radius:14px;border:1px solid rgba(255,255,255,0.04);width:360px;box-shadow:var(--card-shadow)}
@@ -93,7 +94,8 @@ html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Seg
       </div>
     </div>
 
-    <div class="card">
+    <!-- Блок с вопросами -->
+    <div class="card" id="questionCard">
       <div class="progress-row">
         <div class="progress-small" id="psmall">Вопрос 1 из N</div>
         <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
@@ -128,23 +130,24 @@ html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Seg
         <div class="track"><div class="fill" id="bottomFill"></div></div>
         <div class="label" id="bottomLabel">0%</div>
       </div>
+    </div>
 
-      <div id="results" class="results">
-        <h2>Тест завершён</h2>
-        <div class="score" id="finalScore">0/0</div>
-        <div id="resultMessage"></div>
-        
-        <div class="result-details">
-          <div>Правильных ответов: <span id="correctAnswers">0</span></div>
-          <div>Неправильных ответов: <span id="wrongAnswers">0</span></div>
-          <div>Процент правильных ответов: <span id="percentage">0%</span></div>
-          <div>Пройдено вопросов: <span id="totalAnswered">0</span></div>
-        </div>
-        
-        <div style="margin-top:14px">
-          <button id="restartBtn" class="btn">Пройти снова</button>
-          <button id="backToSubjectsBtn" class="btn ghost" style="margin-left:8px">Выбрать другой тест</button>
-        </div>
+    <!-- Отдельный блок с результатами -->
+    <div id="results" class="results">
+      <h2>Тест завершён</h2>
+      <div class="score" id="finalScore">0/0</div>
+      <div id="resultMessage"></div>
+      
+      <div class="result-details">
+        <div>Правильных ответов: <span id="correctAnswers">0</span></div>
+        <div>Неправильных ответов: <span id="wrongAnswers">0</span></div>
+        <div>Процент правильных ответов: <span id="percentage">0%</span></div>
+        <div>Пройдено вопросов: <span id="totalAnswered">0</span></div>
+      </div>
+      
+      <div style="margin-top:14px">
+        <button id="restartBtn" class="btn">Пройти снова</button>
+        <button id="backToSubjectsBtn" class="btn ghost" style="margin-left:8px">Выбрать другой тест</button>
       </div>
     </div>
   </div>
@@ -283,6 +286,7 @@ const testSubtitle = document.getElementById('testSubtitle');
 const confirmModal = document.getElementById('confirmModal');
 const confirmCancelBtn = document.getElementById('confirmCancelBtn');
 const confirmFinishBtn = document.getElementById('confirmFinishBtn');
+const questionCard = document.getElementById('questionCard');
 
 // ====== ИНИЦИАЛИЗАЦИЯ ВЫБОРА ПРЕДМЕТОВ ======
 function initSubjectSelection() {
@@ -408,14 +412,22 @@ function parseQuestions(text, subject) {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
     
-    if (line.startsWith('**') && line.includes('**')) {
-      // Начало нового вопроса
+    // Ищем начало вопроса (строки, которые начинаются с числа и точки или содержат **)
+    if ((/^\d+\./.test(line) && line.includes('?')) || (line.startsWith('**') && line.includes('**'))) {
+      // Если есть текущий вопрос, сохраняем его
       if (currentQuestion && currentQuestion.question) {
         questions.push(currentQuestion);
       }
-      const questionText = line.replace(/\*\*/g, '').trim();
-      // Убираем номер вопроса из текста, если он есть
+      
+      // Извлекаем текст вопроса
+      let questionText = line;
+      if (line.startsWith('**') && line.includes('**')) {
+        questionText = line.replace(/\*\*/g, '').trim();
+      }
+      
+      // Убираем номер вопроса из начала, если есть
       const cleanQuestion = questionText.replace(/^\d+\.\s*/, '');
+      
       currentQuestion = {
         question: cleanQuestion,
         questionNumber: questionNumber++,
@@ -423,26 +435,44 @@ function parseQuestions(text, subject) {
         correctAnswers: [],
         explanation: ''
       };
-    } else if (line.startsWith('- ') && currentQuestion) {
-      // Вариант ответа
-      const option = line.substring(2).trim();
-      currentQuestion.options.push(option);
-    } else if (line.startsWith('<!-- -->') && currentQuestion) {
-      // Разделитель вариантов (пропускаем)
-    } else if (line.includes('Правильный ответ:') || line.includes('Correct answer:')) {
-      // Правильный ответ
-      if (currentQuestion) {
-        const match = line.match(/\d+/g);
-        if (match) {
-          // Преобразуем номера ответов в индексы (0-based)
-          currentQuestion.correctAnswers = match.map(num => parseInt(num) - 1);
-        }
+      
+      // Проверяем следующие строки на наличие продолжения вопроса (утверждений)
+      let j = i + 1;
+      while (j < lines.length && 
+             lines[j].trim() && 
+             !lines[j].trim().startsWith('- ') && 
+             !lines[j].includes('Правильный ответ:') && 
+             !lines[j].includes('Correct answer:') &&
+             !/^\d+\./.test(lines[j].trim())) {
+        currentQuestion.question += '\n' + lines[j].trim();
+        j++;
+        i++;
       }
-    } else if (line && currentQuestion && line.length > 0 && 
-               !line.startsWith('- ') && 
-               !line.includes('Правильный ответ:') &&
-               !line.includes('Correct answer:')) {
-      // Объяснение или продолжение вопроса
+    }
+    // Ищем варианты ответов (начинаются с "- ")
+    else if (line.startsWith('- ') && currentQuestion) {
+      currentQuestion.options.push(line.substring(2).trim());
+    }
+    // Ищем правильный ответ
+    else if ((line.includes('Правильный ответ:') || line.includes('Correct answer:')) && currentQuestion) {
+      const answerMatch = line.match(/[\d,\[\]]+/);
+      if (answerMatch) {
+        const answers = answerMatch[0];
+        // Обрабатываем разные форматы: "1", "[1]", "1,2", "[1,2]"
+        const answerNumbers = answers.replace(/[\[\]]/g, '').split(',').map(num => {
+          const parsed = parseInt(num.trim());
+          return isNaN(parsed) ? 0 : parsed - 1; // Преобразуем в 0-based индекс
+        }).filter(num => num >= 0);
+        
+        currentQuestion.correctAnswers = answerNumbers.length === 1 ? [answerNumbers[0]] : answerNumbers;
+      }
+    }
+    // Собираем объяснение (если есть)
+    else if (currentQuestion && line && 
+             !line.startsWith('- ') && 
+             !line.includes('Правильный ответ:') && 
+             !line.includes('Correct answer:') &&
+             !/^\d+\./.test(line)) {
       if (currentQuestion.explanation) {
         currentQuestion.explanation += ' ' + line;
       } else {
@@ -461,12 +491,27 @@ function parseQuestions(text, subject) {
     return createFallbackQuestions(subject);
   }
   
+  console.log(`Загружено ${questions.length} вопросов для предмета "${subject}"`);
   return questions;
 }
 
 function createFallbackQuestions(subject) {
-  // Резервные вопросы на случай проблем с парсингом
+  // Для тестирования - создаем пример вопроса
   const fallbackQuestions = {
+    'Архитектура ПО': [
+      {
+        question: "48. Which of these statements is true about the Composing Objects principle?\n1.It provides behaviour with aggregation instead of inheritance\n2.It leads to tighter couplings",
+        questionNumber: 48,
+        options: [
+          "The first statement is true",
+          "The second statement is true", 
+          "Neither statement is true",
+          "Both statements are true"
+        ],
+        correctAnswers: [0],
+        explanation: "Правильный ответ: 1"
+      }
+    ],
     'Spring Framework': [
       {
         question: "Что такое Spring Framework?",
@@ -474,25 +519,11 @@ function createFallbackQuestions(subject) {
         options: [
           "Фреймворк для разработки веб-приложений на Java",
           "База данных",
-          "Язык программирования",
+          "Язык программирования", 
           "Операционная система"
         ],
         correctAnswers: [0],
         explanation: "Spring Framework - это фреймворк для разработки приложений на Java."
-      }
-    ],
-    'Архитектура ПО': [
-      {
-        question: "Что такое архитектура программного обеспечения?",
-        questionNumber: 1,
-        options: [
-          "Структура системы, её компоненты и их взаимодействие",
-          "Внешний вид интерфейса",
-          "Скорость работы программы",
-          "Размер кодовой базы"
-        ],
-        correctAnswers: [0],
-        explanation: "Архитектура ПО определяет структуру системы и взаимодействие её компонентов."
       }
     ],
     'Кибербезопасность': [
@@ -536,6 +567,10 @@ async function startSession(selectedMode, savedState = null) {
   
   testTitle.textContent = `Тест: ${selectedSubject}`;
   testSubtitle.textContent = `Режим: ${mode === 'single' ? 'Один раз' : 'Mastery'}`;
+  
+  // Показываем карточку с вопросами, скрываем результаты
+  questionCard.style.display = 'block';
+  resultsEl.style.display = 'none';
   
   if (savedState) {
     // Восстанавливаем из сохраненного состояния
@@ -590,6 +625,7 @@ function renderCurrent(){
   progressBar.style.width = pct + '%';
   ppct.textContent = pct + '%';
 
+  // Форматируем текст вопроса с сохранением переносов строк
   qtext.textContent = q ? q.question : 'Вопросов нет';
   if (!q) { 
     optionsEl.innerHTML = '<div style="color:var(--muted);padding:12px;border-radius:8px;background:rgba(255,255,255,0.02)">Вопрос не найден.</div>'; 
@@ -733,10 +769,13 @@ function proceedToNext(isAuto){
   const qidx = order[currentIndex];
   const q = currentQuestions[qidx];
 
+  // Если это множественный выбор и ответ еще не дан
   if (isMulti(q) && !answered){
     evaluateMulti(qidx);
     return;
   }
+  
+  // Если это одиночный выбор и ответ еще не дан
   if (!isMulti(q) && !answered) return;
 
   let wasCorrect = false;
@@ -748,6 +787,7 @@ function proceedToNext(isAuto){
     wasCorrect = q.correctAnswers.includes((userSelections[qidx] || [])[0]);
   }
 
+  // В режиме Mastery добавляем неправильно отвеченные вопросы в конец
   if (mode === 'mastery' && !wasCorrect){
     const gap = Math.floor(Math.random() * 3) + 5;
     const insertPos = Math.min(currentIndex + gap, order.length);
@@ -766,18 +806,29 @@ function proceedToNext(isAuto){
 
 // ====== РЕЗУЛЬТАТЫ ======
 function showResults(){
-  document.querySelector('.card').style.display = 'none';
-  resultsEl.style.display = 'block';
-  finalScore.textContent = `${score} / ${totalQuestionsInTest}`;
+  // Останавливаем таймер, если он активен
+  stopBottomFill();
   
+  // Обновляем заголовок и подзаголовок
+  testTitle.textContent = `Результаты: ${selectedSubject}`;
+  testSubtitle.textContent = `Тест завершен (${mode === 'single' ? 'Один раз' : 'Mastery'})`;
+  
+  // Скрываем карточку с вопросами, показываем результаты
+  questionCard.style.display = 'none';
+  resultsEl.style.display = 'block';
+  
+  // Считаем статистику
   const wrongAnswers = questionsAnswered - score;
   const percentage = totalQuestionsInTest > 0 ? Math.round((score / totalQuestionsInTest) * 100) : 0;
   
+  // Обновляем данные на странице
+  finalScore.textContent = `${score} / ${totalQuestionsInTest}`;
   correctAnswersEl.textContent = score;
   wrongAnswersEl.textContent = wrongAnswers;
   percentageEl.textContent = percentage + '%';
   totalAnsweredEl.textContent = questionsAnswered + ' из ' + totalQuestionsInTest;
   
+  // Формируем сообщение
   let message = '';
   if (percentage >= 90) message = 'Отличный результат! 🎉';
   else if (percentage >= 70) message = 'Хороший результат! 👍';
@@ -800,13 +851,13 @@ function hideConfirmFinishModal() {
 
 function finishTest() {
   hideConfirmFinishModal();
-  showSubjectSelection(); // Переход на главную страницу после завершения
+  showResults(); // Переход к результатам после завершения
 }
 
 function showSubjectSelection(){
+  // Скрываем результаты и карточку с вопросами
   resultsEl.style.display = 'none';
-  document.querySelector('.card').style.display = 'block';
-  finishBtn.style.display = 'none'; // Скрываем кнопку завершения
+  questionCard.style.display = 'none';
   
   testTitle.textContent = 'Выбор теста';
   testSubtitle.textContent = 'Выберите предмет для тестирования';
@@ -841,9 +892,18 @@ function checkSavedSession() {
 
 // ====== ОБРАБОТЧИКИ СОБЫТИЙ ======
 actionBtn.addEventListener('click', () => {
+  const qidx = order[currentIndex];
+  const q = currentQuestions[qidx];
+  
+  // Если это последний вопрос в режиме "один раз"
   if (currentIndex === order.length - 1 && mode === 'single') {
-    // Если это последний вопрос в режиме "один раз"
-    finishTest(); // Переход на главную после завершения
+    // Если это множественный выбор и ответ еще не дан
+    if (isMulti(q) && !answered) {
+      evaluateMulti(qidx);
+      return;
+    }
+    // Если ответ уже дан или это одиночный выбор
+    showResults();
   } else {
     proceedToNext(false);
   }
@@ -872,6 +932,11 @@ singleBtn.addEventListener('click', () => startSession('single'));
 masteryBtn.addEventListener('click', () => startSession('mastery'));
 
 restartBtn.addEventListener('click', () => {
+  // Скрываем результаты
+  resultsEl.style.display = 'none';
+  // Показываем карточку с вопросами
+  questionCard.style.display = 'block';
+  // Начинаем новую сессию
   if (selectedSubject) {
     startSession(mode);
   } else {
@@ -896,7 +961,6 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'F5' || (e.ctrlKey && e.key === 'r')) {
     e.preventDefault();
-    // Можно показать сообщение, но лучше просто ничего не делать
   }
 });
 
