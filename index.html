@@ -27,7 +27,7 @@ html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Seg
 .progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent1),var(--accent2));transition:width .35s ease}
 .progress-pct{width:48px;text-align:right;color:var(--muted);font-size:13px}
 
-.question{font-size:20px;font-weight:700;margin-bottom:12px;color:var(--text);white-space:pre-line}
+.question{font-size:20px;font-weight:700;margin-bottom:12px;color:var(--text);white-space:pre-line;line-height:1.4}
 .options{display:flex;flex-direction:column;gap:10px}
 .option{display:flex;align-items:center;gap:14px;padding:14px;border-radius:12px;background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:transform .16s ease,box-shadow .16s, background .16s;user-select:none}
 .option:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.55)}
@@ -94,13 +94,12 @@ html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Seg
       </div>
     </div>
 
-    <div class="card">
+    <!-- Блок с вопросами -->
+    <div class="card" id="questionCard">
       <div class="progress-row">
         <div class="progress-small" id="psmall">Вопрос 1 из N</div>
-        <div id="results" class="results"> </div>
         <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
         <div class="progress-pct" id="ppct">0%</div>
-        
       </div>
 
       <div>
@@ -131,23 +130,24 @@ html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Seg
         <div class="track"><div class="fill" id="bottomFill"></div></div>
         <div class="label" id="bottomLabel">0%</div>
       </div>
+    </div>
 
-      <div id="results" class="results">
-        <h2>Тест завершён</h2>
-        <div class="score" id="finalScore">0/0</div>
-        <div id="resultMessage"></div>
-        
-        <div class="result-details">
-          <div>Правильных ответов: <span id="correctAnswers">0</span></div>
-          <div>Неправильных ответов: <span id="wrongAnswers">0</span></div>
-          <div>Процент правильных ответов: <span id="percentage">0%</span></div>
-          <div>Пройдено вопросов: <span id="totalAnswered">0</span></div>
-        </div>
-        
-        <div style="margin-top:14px">
-          <button id="restartBtn" class="btn">Пройти снова</button>
-          <button id="backToSubjectsBtn" class="btn ghost" style="margin-left:8px">Выбрать другой тест</button>
-        </div>
+    <!-- Отдельный блок с результатами -->
+    <div id="results" class="results">
+      <h2>Тест завершён</h2>
+      <div class="score" id="finalScore">0/0</div>
+      <div id="resultMessage"></div>
+      
+      <div class="result-details">
+        <div>Правильных ответов: <span id="correctAnswers">0</span></div>
+        <div>Неправильных ответов: <span id="wrongAnswers">0</span></div>
+        <div>Процент правильных ответов: <span id="percentage">0%</span></div>
+        <div>Пройдено вопросов: <span id="totalAnswered">0</span></div>
+      </div>
+      
+      <div style="margin-top:14px">
+        <button id="restartBtn" class="btn">Пройти снова</button>
+        <button id="backToSubjectsBtn" class="btn ghost" style="margin-left:8px">Выбрать другой тест</button>
       </div>
     </div>
   </div>
@@ -286,6 +286,7 @@ const testSubtitle = document.getElementById('testSubtitle');
 const confirmModal = document.getElementById('confirmModal');
 const confirmCancelBtn = document.getElementById('confirmCancelBtn');
 const confirmFinishBtn = document.getElementById('confirmFinishBtn');
+const questionCard = document.getElementById('questionCard');
 
 // ====== ИНИЦИАЛИЗАЦИЯ ВЫБОРА ПРЕДМЕТОВ ======
 function initSubjectSelection() {
@@ -397,7 +398,7 @@ async function loadQuestionsFromFile(subject) {
     return parseQuestions(text, subject);
   } catch (error) {
     console.error('Ошибка загрузки вопросов:', error);
-    alert(`Не удалось загрузить вопросы для предмета "${subject}". Проверьте наличие файла ${fileName}`);
+    alert(`Не удалось загрузить вопросы для предмета "${subject}". Созданы тестовые вопросы.`);
     return [];
   }
 }
@@ -452,18 +453,31 @@ function parseQuestions(text, subject) {
     else if (line.startsWith('- ') && currentQuestion) {
       currentQuestion.options.push(line.substring(2).trim());
     }
-    // Ищем правильный ответ
+    // Ищем правильный ответ - исправленная версия для лучшей обработки множественных ответов
     else if ((line.includes('Правильный ответ:') || line.includes('Correct answer:')) && currentQuestion) {
-      const answerMatch = line.match(/[\d,\[\]]+/);
-      if (answerMatch) {
-        const answers = answerMatch[0];
-        // Обрабатываем разные форматы: "1", "[1]", "1,2", "[1,2]"
-        const answerNumbers = answers.replace(/[\[\]]/g, '').split(',').map(num => {
-          const parsed = parseInt(num.trim());
-          return isNaN(parsed) ? 0 : parsed - 1; // Преобразуем в 0-based индекс
-        }).filter(num => num >= 0);
+      // Ищем все числа в строке после указателя ответа
+      const answerText = line.replace(/Правильный ответ:|Correct answer:/gi, '').trim();
+      // Извлекаем все числа из строки
+      const numbers = answerText.match(/\d+/g);
+      
+      if (numbers && numbers.length > 0) {
+        const answerNumbers = numbers.map(num => {
+          const parsed = parseInt(num);
+          // Преобразуем в 0-индексацию и проверяем валидность
+          if (isNaN(parsed) || parsed < 1) {
+            console.warn(`Неверный номер ответа: ${num} в вопросе ${currentQuestion.questionNumber}`);
+            return -1;
+          }
+          return parsed - 1; // Преобразуем в 0-based индекс
+        }).filter(num => num >= 0 && num < currentQuestion.options.length);
         
-        currentQuestion.correctAnswers = answerNumbers.length === 1 ? [answerNumbers[0]] : answerNumbers;
+        // Сортируем для удобства сравнения
+        answerNumbers.sort((a, b) => a - b);
+        currentQuestion.correctAnswers = answerNumbers;
+        
+        // Для отладки
+        console.log(`Вопрос ${currentQuestion.questionNumber}: правильные ответы (0-индекс)`, answerNumbers, 
+                   `из ${currentQuestion.options.length} вариантов`);
       }
     }
     // Собираем объяснение (если есть)
@@ -495,7 +509,7 @@ function parseQuestions(text, subject) {
 }
 
 function createFallbackQuestions(subject) {
-  // Для тестирования - создаем пример вопроса
+  // Для тестирования - создаем пример вопроса с исправленной 0-индексацией
   const fallbackQuestions = {
     'Архитектура ПО': [
       {
@@ -507,8 +521,8 @@ function createFallbackQuestions(subject) {
           "Neither statement is true",
           "Both statements are true"
         ],
-        correctAnswers: [0],
-        explanation: "Правильный ответ: 1"
+        correctAnswers: [0], // Первый вариант верный (0-индексация)
+        explanation: "Правильный ответ: Первое утверждение верно. Принцип композиции объектов предпочитает использование агрегации вместо наследования."
       }
     ],
     'Spring Framework': [
@@ -521,8 +535,20 @@ function createFallbackQuestions(subject) {
           "Язык программирования", 
           "Операционная система"
         ],
-        correctAnswers: [0],
+        correctAnswers: [0], // 0-индексация
         explanation: "Spring Framework - это фреймворк для разработки приложений на Java."
+      },
+      {
+        question: "Что такое Dependency Injection?",
+        questionNumber: 2,
+        options: [
+          "Паттерн проектирования для внедрения зависимостей",
+          "Метод шифрования данных",
+          "Способ хранения данных в БД",
+          "Алгоритм сортировки"
+        ],
+        correctAnswers: [0], // 0-индексация
+        explanation: "Dependency Injection - это паттерн проектирования, при котором зависимости передаются объекту извне."
       }
     ],
     'Кибербезопасность': [
@@ -535,7 +561,7 @@ function createFallbackQuestions(subject) {
           "Управление базами данных",
           "Разработка пользовательских интерфейсов"
         ],
-        correctAnswers: [0],
+        correctAnswers: [0], // 0-индексация
         explanation: "Кибербезопасность занимается защитой компьютерных систем и сетей."
       }
     ]
@@ -559,13 +585,17 @@ async function startSession(selectedMode, savedState = null) {
   currentQuestions = await loadQuestionsFromFile(selectedSubject);
   
   if (!currentQuestions || currentQuestions.length === 0) {
-    alert(`Не удалось загрузить вопросы для предмета "${selectedSubject}"`);
-    showSubjectSelection();
-    return;
+    alert(`Не удалось загрузить вопросы для предмета "${selectedSubject}". Созданы тестовые вопросы.`);
+    // Создаем тестовые вопросы
+    currentQuestions = createFallbackQuestions(selectedSubject);
   }
   
   testTitle.textContent = `Тест: ${selectedSubject}`;
   testSubtitle.textContent = `Режим: ${mode === 'single' ? 'Один раз' : 'Mastery'}`;
+  
+  // Показываем карточку с вопросами, скрываем результаты
+  questionCard.style.display = 'block';
+  resultsEl.style.display = 'none';
   
   if (savedState) {
     // Восстанавливаем из сохраненного состояния
@@ -630,6 +660,10 @@ function renderCurrent(){
   }
 
   const multi = isMulti(q);
+  
+  // Для отладки
+  console.log(`Вопрос ${q.questionNumber}: правильные ответы (0-индекс)`, q.correctAnswers, 'isMulti:', multi, 'вариантов:', q.options.length);
+  
   let pairs = q.options.map((t, i) => ({t, orig: i}));
   shuffleInPlace(pairs);
 
@@ -650,9 +684,35 @@ function renderCurrent(){
     if (!multi){
       label.addEventListener('click', () => {
         if (answered) return;
+        // Снимаем выделение с других радио-кнопок
+        optionsEl.querySelectorAll('input[type="radio"]').forEach(inp => {
+          inp.checked = false;
+          inp.parentElement.classList.remove('selected');
+        });
+        
+        // Выделяем выбранную
+        input.checked = true;
+        label.classList.add('selected');
+        
         const chosen = Number(input.dataset.orig);
         userSelections[qidx] = [chosen];
         evaluateSingle(qidx, chosen);
+      });
+    } else {
+      // Для множественного выбора добавляем обработчик изменения состояния чекбокса
+      label.addEventListener('click', (e) => {
+        if (answered) return;
+        // Переключаем состояние чекбокса
+        input.checked = !input.checked;
+        if (input.checked) {
+          label.classList.add('selected');
+        } else {
+          label.classList.remove('selected');
+        }
+        e.stopPropagation();
+        
+        // Активируем кнопку "Продолжить", если выбран хотя бы один вариант
+        actionBtn.disabled = optionsEl.querySelectorAll('input:checked').length === 0;
       });
     }
   });
@@ -660,9 +720,6 @@ function renderCurrent(){
   if (multi){
     actionBtn.textContent = 'Продолжить';
     actionBtn.disabled = true;
-    optionsEl.querySelectorAll('input').forEach(inp => inp.addEventListener('change', () => {
-      actionBtn.disabled = optionsEl.querySelectorAll('input:checked').length === 0;
-    }));
   } else {
     actionBtn.disabled = true;
   }
@@ -808,12 +865,9 @@ function showResults(){
   testTitle.textContent = `Результаты: ${selectedSubject}`;
   testSubtitle.textContent = `Тест завершен (${mode === 'single' ? 'Один раз' : 'Mastery'})`;
   
-  // Прячем основную карточку с вопросами
-  document.querySelector('.card').style.display = 'none';
-  
-  // Показываем блок с результатами
+  // Скрываем карточку с вопросами, показываем результаты
+  questionCard.style.display = 'none';
   resultsEl.style.display = 'block';
-  finishBtn.style.display = 'none'; // Скрываем кнопку завершения
   
   // Считаем статистику
   const wrongAnswers = questionsAnswered - score;
@@ -853,9 +907,9 @@ function finishTest() {
 }
 
 function showSubjectSelection(){
+  // Скрываем результаты и карточку с вопросами
   resultsEl.style.display = 'none';
-  document.querySelector('.card').style.display = 'block';
-  finishBtn.style.display = 'none'; // Скрываем кнопку завершения
+  questionCard.style.display = 'none';
   
   testTitle.textContent = 'Выбор теста';
   testSubtitle.textContent = 'Выберите предмет для тестирования';
@@ -893,11 +947,17 @@ actionBtn.addEventListener('click', () => {
   const qidx = order[currentIndex];
   const q = currentQuestions[qidx];
   
+  // Если это множественный выбор и ответ еще не дан
+  if (isMulti(q) && !answered) {
+    evaluateMulti(qidx);
+    return;
+  }
+  
   // Если это последний вопрос в режиме "один раз"
   if (currentIndex === order.length - 1 && mode === 'single') {
-    // Если это множественный выбор и ответ еще не дан
-    if (isMulti(q) && !answered) {
-      evaluateMulti(qidx);
+    // Если это одиночный выбор и ответ еще не дан
+    if (!isMulti(q) && !answered) {
+      // Для одиночного выбора пользователь должен был уже выбрать ответ
       return;
     }
     // Если ответ уже дан или это одиночный выбор
@@ -933,7 +993,7 @@ restartBtn.addEventListener('click', () => {
   // Скрываем результаты
   resultsEl.style.display = 'none';
   // Показываем карточку с вопросами
-  document.querySelector('.card').style.display = 'block';
+  questionCard.style.display = 'block';
   // Начинаем новую сессию
   if (selectedSubject) {
     startSession(mode);
