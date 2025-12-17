@@ -94,12 +94,13 @@ html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Seg
       </div>
     </div>
 
-    <!-- Блок с вопросами -->
-    <div class="card" id="questionCard">
+    <div class="card">
       <div class="progress-row">
         <div class="progress-small" id="psmall">Вопрос 1 из N</div>
+        <div id="results" class="results"> </div>
         <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
         <div class="progress-pct" id="ppct">0%</div>
+        
       </div>
 
       <div>
@@ -130,24 +131,23 @@ html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Seg
         <div class="track"><div class="fill" id="bottomFill"></div></div>
         <div class="label" id="bottomLabel">0%</div>
       </div>
-    </div>
 
-    <!-- Отдельный блок с результатами -->
-    <div id="results" class="results">
-      <h2>Тест завершён</h2>
-      <div class="score" id="finalScore">0/0</div>
-      <div id="resultMessage"></div>
-      
-      <div class="result-details">
-        <div>Правильных ответов: <span id="correctAnswers">0</span></div>
-        <div>Неправильных ответов: <span id="wrongAnswers">0</span></div>
-        <div>Процент правильных ответов: <span id="percentage">0%</span></div>
-        <div>Пройдено вопросов: <span id="totalAnswered">0</span></div>
-      </div>
-      
-      <div style="margin-top:14px">
-        <button id="restartBtn" class="btn">Пройти снова</button>
-        <button id="backToSubjectsBtn" class="btn ghost" style="margin-left:8px">Выбрать другой тест</button>
+      <div id="results" class="results">
+        <h2>Тест завершён</h2>
+        <div class="score" id="finalScore">0/0</div>
+        <div id="resultMessage"></div>
+        
+        <div class="result-details">
+          <div>Правильных ответов: <span id="correctAnswers">0</span></div>
+          <div>Неправильных ответов: <span id="wrongAnswers">0</span></div>
+          <div>Процент правильных ответов: <span id="percentage">0%</span></div>
+          <div>Пройдено вопросов: <span id="totalAnswered">0</span></div>
+        </div>
+        
+        <div style="margin-top:14px">
+          <button id="restartBtn" class="btn">Пройти снова</button>
+          <button id="backToSubjectsBtn" class="btn ghost" style="margin-left:8px">Выбрать другой тест</button>
+        </div>
       </div>
     </div>
   </div>
@@ -286,7 +286,6 @@ const testSubtitle = document.getElementById('testSubtitle');
 const confirmModal = document.getElementById('confirmModal');
 const confirmCancelBtn = document.getElementById('confirmCancelBtn');
 const confirmFinishBtn = document.getElementById('confirmFinishBtn');
-const questionCard = document.getElementById('questionCard');
 
 // ====== ИНИЦИАЛИЗАЦИЯ ВЫБОРА ПРЕДМЕТОВ ======
 function initSubjectSelection() {
@@ -568,10 +567,6 @@ async function startSession(selectedMode, savedState = null) {
   testTitle.textContent = `Тест: ${selectedSubject}`;
   testSubtitle.textContent = `Режим: ${mode === 'single' ? 'Один раз' : 'Mastery'}`;
   
-  // Показываем карточку с вопросами, скрываем результаты
-  questionCard.style.display = 'block';
-  resultsEl.style.display = 'none';
-  
   if (savedState) {
     // Восстанавливаем из сохраненного состояния
     order = savedState.order;
@@ -813,9 +808,12 @@ function showResults(){
   testTitle.textContent = `Результаты: ${selectedSubject}`;
   testSubtitle.textContent = `Тест завершен (${mode === 'single' ? 'Один раз' : 'Mastery'})`;
   
-  // Скрываем карточку с вопросами, показываем результаты
-  questionCard.style.display = 'none';
+  // Прячем основную карточку с вопросами
+  document.querySelector('.card').style.display = 'none';
+  
+  // Показываем блок с результатами
   resultsEl.style.display = 'block';
+  finishBtn.style.display = 'none'; // Скрываем кнопку завершения
   
   // Считаем статистику
   const wrongAnswers = questionsAnswered - score;
@@ -855,9 +853,9 @@ function finishTest() {
 }
 
 function showSubjectSelection(){
-  // Скрываем результаты и карточку с вопросами
   resultsEl.style.display = 'none';
-  questionCard.style.display = 'none';
+  document.querySelector('.card').style.display = 'block';
+  finishBtn.style.display = 'none'; // Скрываем кнопку завершения
   
   testTitle.textContent = 'Выбор теста';
   testSubtitle.textContent = 'Выберите предмет для тестирования';
@@ -935,7 +933,7 @@ restartBtn.addEventListener('click', () => {
   // Скрываем результаты
   resultsEl.style.display = 'none';
   // Показываем карточку с вопросами
-  questionCard.style.display = 'block';
+  document.querySelector('.card').style.display = 'block';
   // Начинаем новую сессию
   if (selectedSubject) {
     startSession(mode);
