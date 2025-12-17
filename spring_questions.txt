@@ -7,11 +7,10 @@
 
 **2. You have an EmployeeService bean that has a three argument a constructor of; public EmployeeService(String s, Integer i, Boolean b). Using XML how would you configure this bean?**
 - All the above
-<!-- -->
 - <bean id="emplService" class="EmployeeServiceImpl"> <constructor-arg index="2" value="true"/> <constructor-arg index="0" value="hello"/> <constructor-arg value="3"/> </bean>
 - <bean id="emplService" class="EmployeeServiceImpl"> <constructor-arg name="b" value="true"/> <constructor-arg value="hello"/> <constructor-arg type="int" value="3"/> </bean>
 - <bean id="emplService" class="EmployeeServiceImpl"> <constructor-arg name="b" value="true"/> <constructor-arg index="0" value="hello"/> <constructor-arg value="3"/> </bean>
-Правильный ответ: 3
+Правильный ответ: 2
 
 **3. What are key advantages of using the Spring framework?**
 - All of the above
@@ -60,7 +59,7 @@
 - Index
 - Constructor name
 - Order within type
-Правильный ответ: 1, 2
+Правильный ответ: 1, 2, 3, 4
 
 **10. XML configuration file tags and grammar is controlled by; pick all that apply**
 - Java jars
@@ -74,7 +73,7 @@
 - All of the above
 - @Bean(name="emplService") and annotate method "init" in EmployeeServiceImpl with @PostConstruct
 - @Bean(name="emplService", init-method="init")
-Правильный ответ: 3
+Правильный ответ: 4
 
 **12. Using Annotations, how could you inject a bean that implements the Interface EmployeeDao, whose id is "emplDao" into a Spring Managed bean of "employeeService"? Assume that there are multiple beans that implement EmployeeDao in your application and you are annotating the property  employeeDaoImpl (field).**
 - @Value("emplDao")
@@ -95,7 +94,7 @@
 - Can only be used on setters
 - Is not a Spring Annotation
 - Does the same as @Autowired as it can try to resolve a bean by-type
-Правильный ответ: 2
+Правильный ответ: 1
 
 **15. We mentioned that after setter injection in a bean lifecycle, we can define an initializer by implementing what Interface**
 - ApplicationContextAware
@@ -116,7 +115,7 @@
 - Compile time checking
 - Get rid of XML
 - Type Safety
-Правильный ответ: 2, 4
+Правильный ответ: 1
 
 **18. What annotation can we use for simple value injection**
 - @Component
@@ -172,7 +171,7 @@
 - Validated
 - Type Safe
 - Just injecting into a Controller as a Java Dependency i.e. the class and not a Spring annotation dependency
-Правильный ответ: 1, 2, 3
+Правильный ответ: 1, 2, 3, 4
 
 **26. What Annotation must you place upon a class to be picked up by Spring Boot package-based component scan to be part of the DispatcherServlet HandlerMappings matching Url to method in such a class?**
 - @GetMapping
@@ -235,7 +234,7 @@
 - @PathVariable("user-agent") String agent)
 - @RequestParam("user-agent") Optional<String> optional)
 - @RequestHeader("user-agent") Optional<String> optional)
-Правильный ответ: 1
+Правильный ответ: 4
 
 **35. How can you extract the request payload and inject it into a RestController method for processing**
 - @RequestBody
@@ -249,7 +248,7 @@
 - DispatcherServlet
 - ViewResolver
 - HandlerMappings
-Правильный ответ: 1
+Правильный ответ: 2
 
 **37. Attributes in the Model are passed through to the request and then that object is dispatched to the selected view. If I place in the Model an attribute i.e. model.addAttribute("message", "hello"), how can I access that in a Thymleaf web page**
 - "${message}"
@@ -319,14 +318,14 @@
 - Defines an expression that represents and entry point into the application
 - Defines additional behavior to apply when a method is executed in the application
 - Defines when an Advice should be applied, such as a method invocation
-Правильный ответ: 4
+Правильный ответ: 2
 
 **47. When would you use an @Around advice? Select all that apply.**
 - To change the return object from a target bean
 - To get at the target method arguments
 - To catch and log Exceptions and force a throw of a more general Exception
 - To block access to a target bean
-Правильный ответ: 1, 2, 3, 4
+Правильный ответ: 1, 2
 
 **48. Which Advice would you use to always log the return from a target bean method execution.**
 - @AfterReturning
@@ -340,7 +339,7 @@
 - @Transactional(noRollbackFor = CheckedException.class, propagation =Propagation. REQUIRES_NEW)
 - @Transactional(propagation= REQUIRED)
 - @Transactional(noRollbackFor = CheckedException.class, propagation =Propagation.REQUIRED)
-Правильный ответ: 2
+Правильный ответ: 4
 
 **50. What are cross-cutting concerns in Spring AOP**
 - Behavior which we want to have in a core business modules of an application
@@ -403,7 +402,7 @@
 - LOGGING   
 - ROUTING
 - PRE
-Правильный ответ: 2, 3, 4
+Правильный ответ: 3, 4
 
 **59. Which Netflix OSS project provides functionality for stopping cascade failures across services by implementing the circuit Breaker Pattern?**
 - Hystrix 
