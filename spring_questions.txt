@@ -3,417 +3,417 @@
 - <bean id="myID" name="another, andAnother" class="EmployeeServiceImpl"/>
 - <bean id="myID" class="EmployeeServiceImpl"/>
 - <bean id="myID another, andAnother" class="EmployeeServiceImpl"/>
-Правильный ответ: 2
+Правильный ответ: 1
 
 **2. You have an EmployeeService bean that has a three argument a constructor of; public EmployeeService(String s, Integer i, Boolean b). Using XML how would you configure this bean?**
 - All the above
 - <bean id="emplService" class="EmployeeServiceImpl"> <constructor-arg index="2" value="true"/> <constructor-arg index="0" value="hello"/> <constructor-arg value="3"/> </bean>
 - <bean id="emplService" class="EmployeeServiceImpl"> <constructor-arg name="b" value="true"/> <constructor-arg value="hello"/> <constructor-arg type="int" value="3"/> </bean>
 - <bean id="emplService" class="EmployeeServiceImpl"> <constructor-arg name="b" value="true"/> <constructor-arg index="0" value="hello"/> <constructor-arg value="3"/> </bean>
-Правильный ответ: 2
+Правильный ответ: 1
 
 **3. What are key advantages of using the Spring framework?**
 - All of the above
 - Promotes decoupling and reusability
 - Code is coupled to Spring
 - Object dependencies are clearly defined in the application code itself
-Правильный ответ: 2
+Правильный ответ: 1
 
 **4. What are we defining here? A principle where the control of a program, i.e. delegations from one object to another, are inverted: instead of the programmer controlling the flow in code, external sources (framework, services, configuration resources) take control of it.**
 - Inversion of control
 - Inheritance
 - Code to the interface
 - Dependency injection
-Правильный ответ: 1
+Правильный ответ: 0
 
 **5. What are we defining here? A design pattern where class X is dependent on Y. So rather than creating object of Y within the class "X", we can inject the dependencies via a constructor or setter injection.**
 - Dependency injection
 - Inheritance
 - Inversion of control
 - Code to the interface
-Правильный ответ: 1
+Правильный ответ: 0
 
 **6. What types of dependency injection are there in XML configurations**
 - Constructor
 - Method injection
 - Setter
 - Field
-Правильный ответ: 1, 3
+Правильный ответ: 0, 2
 
 **7. ApplicationContext implementations have what type of built in class type to read metadata**
 - JSON Parser
 - Resource
 - InputStreamReader
 - FileReader
-Правильный ответ: 2
+Правильный ответ: 1
 
 **8. In an XML configuration file, what bean tag attribute do you use to ensure that the bean definition creates different managed bean instances per request**
 - it's the default there is no need to add an attribute
 - scope=request
 - scope=prototype
 - scope=singleton
-Правильный ответ: 3
+Правильный ответ: 2
 
 **9. Constructor argument Resolution in an XML file can be achieved by, pick all that apply**
 - Type
 - Index
 - Constructor name
 - Order within type
-Правильный ответ: 1, 2, 3, 4
+Правильный ответ: 0, 1, 2, 3
 
 **10. XML configuration file tags and grammar is controlled by; pick all that apply**
 - Java jars
 - Schemas
 - Namespaces
 - Java code
-Правильный ответ: 2, 3
+Правильный ответ: 1, 2
 
 **11. You are to define a bean definition "getServiceBean ()", in a Java configuration class for EmployeeServiceImpl with a name of "emplService" and a public initializer method of "init". Which is a correct approach to doing this?**
 - @Bean(name="emplService") and execute the init() method inside the Bean definition method itself before returning the service bean
 - All of the above
 - @Bean(name="emplService") and annotate method "init" in EmployeeServiceImpl with @PostConstruct
 - @Bean(name="emplService", init-method="init")
-Правильный ответ: 4
+Правильный ответ: 3
 
 **12. Using Annotations, how could you inject a bean that implements the Interface EmployeeDao, whose id is "emplDao" into a Spring Managed bean of "employeeService"? Assume that there are multiple beans that implement EmployeeDao in your application and you are annotating the property  employeeDaoImpl (field).**
 - @Value("emplDao")
 - @Autowired (name="emplDao")
 - @Resource(name="emplDao")
 - @Named("emplDao")
-Правильный ответ: 3
+Правильный ответ: 2
 
 **13. You are writing a JUnit test class for your application using a Java Configuration class AppConfig, it is also to have an Initializer (the class MyInitiaizer) where you have tailored System Properties for use in the test. Which is the Annotation approach that you will take**
 - @ExtendWith(SpringExtension.class) and @ContextConfiguration(classes=AppConfig.class)
 - ExtendWith(SpringExtension.class) and @ContextConfiguration(locations=AppConfig.class, initializer=MyInitializer.class)
 - @ExtendWith(SpringExtension.class) and @ContextConfiguration(classes=AppConfig.class, initializer=MyInitializer.class)
 - ExtendWith(SpringExtension.class) and @ContextConfiguration(classes=AppConfig.class, initializer="MyInitializer")
-Правильный ответ: 3
+Правильный ответ: 2
 
 **14. Which of the following is false about JSR 250 @Resource annotation?**
 - Can be used on constructors
 - Can only be used on setters
 - Is not a Spring Annotation
 - Does the same as @Autowired as it can try to resolve a bean by-type
-Правильный ответ: 1
+Правильный ответ: 0
 
 **15. We mentioned that after setter injection in a bean lifecycle, we can define an initializer by implementing what Interface**
 - ApplicationContextAware
 - DisposableBean
 - InitializingBean
 - BeanPostProcessor
-Правильный ответ: 3
+Правильный ответ: 2
 
 **16. Which of these annotations are JSR330**
 - @Override
 - @Inject
 - @Resource
 - @Autowired
-Правильный ответ: 2
+Правильный ответ: 1
 
 **17. What were the motivations behind Java Configurations; pick all that apply**
 - Externalize the configuration
 - Compile time checking
 - Get rid of XML
 - Type Safety
-Правильный ответ: 1
+Правильный ответ: 0
 
 **18. What annotation can we use for simple value injection**
 - @Component
 - @Value
 - @Configuration
 - @Scope
-Правильный ответ: 2
+Правильный ответ: 1
 
 **19. What tag from the context namespace do you use to register the BeanPostProcessors that scan for annotations or spring managed bean**
 - property
 - component-scan
 - annotation-config
 - bean
-Правильный ответ: 3
+Правильный ответ: 2
 
 **20. Which annotation do you use @Qualifier with**
 - @PostConstruct
 - @Resource
 - @Autowired
 - @Inject
-Правильный ответ: 3
+Правильный ответ: 2
 
 **21. What Design Pattern does the Spring DispatcherServlet implement?**
 - FrontController
 - Proxy
 - Model
 - Model View Controller
-Правильный ответ: 1
+Правильный ответ: 0
 
 **22. What are Spring Boot Starter dependencies? Select all that apply.**
 - Application dependencies that "drag" in the actual jars for the Spring Boot Application
 - They build and define the starter project structure for a Spring Boot Application
 - They contain no code of their own but are virtual dependencies
 - The core dependencies that provide the basis of a Spring Boot Application
-Правильный ответ: 1, 3
+Правильный ответ: 0, 2
 
 **23. Under which directory would you find configuration files in a Spring Boot Project using all default configurations?**
 - src/main/resources/static
 - src/main/resources/js
 - src/main/resources/template
 - src/main/resources/config
-Правильный ответ: 4
+Правильный ответ: 3
 
 **24. What Annotations does the single annotation @SpringBootApplication on a SpringBootApplication Runnable class replace to automatically configure a WebApplicationContext including the DispatcherServlet and auto scanning for Controllers? Choose the three that apply.**
 - @Autowired
 - @Configuration
 - @ComponentScan
 - @EnableAutoConfiguration
-Правильный ответ: 2, 3, 4
+Правильный ответ: 1, 2, 3
 
 **25. Why are @ConfigurationProperties annotated Java classes preferred over @Value ("${...}") when it comes to injecting items in from the Spring Environment? Select all that apply.**
 - Can populate complex objects
 - Validated
 - Type Safe
 - Just injecting into a Controller as a Java Dependency i.e. the class and not a Spring annotation dependency
-Правильный ответ: 1, 2, 3, 4
+Правильный ответ: 0, 1, 2, 3
 
 **26. What Annotation must you place upon a class to be picked up by Spring Boot package-based component scan to be part of the DispatcherServlet HandlerMappings matching Url to method in such a class?**
 - @GetMapping
 - @SpringBootApplication
 - @RestController
 - @Configuration
-Правильный ответ: 3
+Правильный ответ: 2
 
 **27. What Annotation must you place upon a method in a RestController class to be tied to an HTTP GET?**
 - @Configuration
 - @SpringBootApplication
 - @GetMapping
 - @RestController
-Правильный ответ: 3
+Правильный ответ: 2
 
-**28. What Annotations does the @SpringBootApplicaiotn annotation replace?**
+**28. What Annotations does the @SpringBootApplication annotation replace?**
 - @ComponentScan
 - @EnableAutoConfiguration
 - @SpringBootConfiguration
 - @RestController
-Правильный ответ: 1, 2, 3
+Правильный ответ: 0, 1, 2
 
 **29. What notation format can we use to define parent child relationships in configuration files to populate the Spring Environment Object?**
 - Properties i.e. key value pairs
 - Java
 - Yaml
 - text
-Правильный ответ: 3
+Правильный ответ: 2
 
 **30. Spring MVC Uses WHAT to invoke RestController Methods and convert request parameters and response payloads through provided Converters?**
 - HandlerMappings
 - HandlerAdapters
 - ViewResolvers
 - ExceptionHandlers
-Правильный ответ: 2
+Правильный ответ: 1
 
 **31. How would you inject into a Controller method an optional parameter from the request i.e. url?id=55 where the id parameter may or may not be present**
 - Annotate the method argument with @RequestParam("id") int id
 - Annotate the method argument with @PathVariable("id") Optional<Integer> optional
 - Annotate the method argument with @RequestParam("id") Optional<Integer> optional
 - Annotate the method argument with @PathVariable("id") int id
-Правильный ответ: 3
+Правильный ответ: 2
 
 **32. When accessing a Rest Service at url /abc with an HTTP GET, using RestTemplate, what method would you use to get at the response body immediately.**
 - String string = new RestTemplate().getForObject(/abc, String.class);
 - ResponseEntity<String> responseEntity = new ResponseEntity<String> responseEntity = new RestTemplate().exchange("/abc", HttpMethod.GET, null, String.class);
 - ResponseEntity<String> entity = new RestTemplate().getForEntity(/abc, String.class);
 - String string = new RestTemplate().exchange/abc, null, String.class);
-Правильный ответ: 1
+Правильный ответ: 0
 
 **33. What attribute would you add to a @GetMapping ("/") annotated RestController method to return XML or json**
 - @GetMapping("/")
 - @GetMapping(path="/", produces=MediaType.APPLICATION_XML
 - @GetMapping(path="/", produces={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-- @GetMapping(path="/", consumes=={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON _VALUE})
-Правильный ответ: 3
+- @GetMapping(path="/", consumes=={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+Правильный ответ: 2
 
 **34. How can you extract the Header "user-agent" out of the request in a RestController method, to be available in that method for processing**
 - @RequestHeader("user-agent") String agent)
 - @PathVariable("user-agent") String agent)
 - @RequestParam("user-agent") Optional<String> optional)
 - @RequestHeader("user-agent") Optional<String> optional)
-Правильный ответ: 4
+Правильный ответ: 3
 
 **35. How can you extract the request payload and inject it into a RestController method for processing**
 - @RequestBody
 - @RequestParam
 - @Pathvariable
 - @Header
-Правильный ответ: 1
+Правильный ответ: 0
 
 **36. Who creates the Model object**
 - HandlerAdapter
 - DispatcherServlet
 - ViewResolver
 - HandlerMappings
-Правильный ответ: 2
+Правильный ответ: 1
 
 **37. Attributes in the Model are passed through to the request and then that object is dispatched to the selected view. If I place in the Model an attribute i.e. model.addAttribute("message", "hello"), how can I access that in a Thymleaf web page**
 - "${message}"
 - "${model.getHello()}"
 - "${hello}"
 - "message"
-Правильный ответ: 1
+Правильный ответ: 0
 
 **38. How would I define the port of a Spring boot application if I did not want the default 8080 but 8081**
 - In the application.yaml file enter the key value pair of port=8081
 - Place the attribute "port" the @Controller annotation
 - In the application,properties file enter the key value pair of server.servlet.context-path=8081
 - In the application,properties file enter the key value pair of server.port=8081
-Правильный ответ: 4
+Правильный ответ: 3
 
 **39. What is the @RequestMapping annotation used for**
 - It identifies what the payload is for a Request
 - It defines the Response types from a Controller
 - It defines the Url relationship between a Controller and an HTTP Request and can be placed at the Class level or method level.
 - It annotates the class as a Controller
-Правильный ответ: 3
+Правильный ответ: 2
 
 **40. How does Spring Boot wire up the WebApplicationContext components (select all that apply)**
 - The WebApplicationContext components are dragged into your application via Spring boot Starters in the pom.xml
 - It has a series of opinionated defaults that without further enhancement will render a WebApplicationContext
 - You can override these defaults
 - You have to code up the dependencies yourself
-Правильный ответ: 1, 2, 3
+Правильный ответ: 0, 1, 2
 
 **41. Using Annotations, how could you annotate a JPA EntityManager of a Spring  managed bean to provide Transactionally based interactions with a database?**
 - @PersistenceContext
 - @PersistenceUnit
 - @Inject
 - @Value("#{entityManager}")
-Правильный ответ: 1
+Правильный ответ: 0
 
 **42. How would you provide an implementation of the Spring data JpaRepository to? inject into your Spring managed beans? Pick all that apply.**
 - Create a class that extends JpaRespository and provide implementations of its methods
 - Provide a class that extends EntityManager an inherit its methods
 - Create an interface that extends JpaRepository
 - Provide the maven dependency for spring-boot-starter-data-jpa in your pom
-Правильный ответ: 3, 4
+Правильный ответ: 2, 3
 
 **43. How do you Annotate a Repository to be a Restful service itself where json collections is wrapped in the element "course" and its url is "/courses?**
 - @RepositoryRestResource(collectionResourceRel = "course")
 - @RestController
 - @RepositoryRestResource(collectionResourceRel = "course", path = "courses")
 - @RepositoryRestResource
-Правильный ответ: 3
+Правильный ответ: 2
 
 **44. How would you define a query method in a JpaRepository<Student, Long> to get all students by their  firstName and lastName by equality and return a Collection of Students**
 - Collection<Student> findByFirstNameEqualAndlastNameEqual(String s1, String s2);
 - Collection<Student> getByFirstNameAndlastName(String s1, String s2);
 - Collection<Student> findByFirstAndLast(String s1, String s2);
 - Collection<Student> findByFirstNameAndlastName(String s1, String s2);
-Правильный ответ: 4
+Правильный ответ: 3
 
 **45. What annotation defines a class as a subset of a JPA Entity Resource when exposing a JpaRepository through REST**
 - @Projection
 - @Component
 - @Controller
 - @Entity
-Правильный ответ: 1
+Правильный ответ: 0
 
 **46. In Aspect Oriented Programming using Spring, what is a Joinpoint?**
 - A class that implements enterprise application concerns that cut across multiple classes
 - Defines an expression that represents and entry point into the application
 - Defines additional behavior to apply when a method is executed in the application
 - Defines when an Advice should be applied, such as a method invocation
-Правильный ответ: 2
+Правильный ответ: 1
 
 **47. When would you use an @Around advice? Select all that apply.**
 - To change the return object from a target bean
 - To get at the target method arguments
 - To catch and log Exceptions and force a throw of a more general Exception
 - To block access to a target bean
-Правильный ответ: 1, 2
+Правильный ответ: 0, 1
 
 **48. Which Advice would you use to always log the return from a target bean method execution.**
 - @AfterReturning
 - @After
 - @Before
 - @AfterThrowing
-Правильный ответ: 1
+Правильный ответ: 0
 
 **49. How would you annotate a method to Guarantee that it will run in its own transaction and rollback on a CheckedException**
 - @Tranactional
 - @Transactional(noRollbackFor = CheckedException.class, propagation =Propagation. REQUIRES_NEW)
 - @Transactional(propagation= REQUIRED)
 - @Transactional(noRollbackFor = CheckedException.class, propagation =Propagation.REQUIRED)
-Правильный ответ: 4
+Правильный ответ: 3
 
 **50. What are cross-cutting concerns in Spring AOP**
 - Behavior which we want to have in a core business modules of an application
 - Behavior that is External to the application
 - Behavior in one class only
 - Behavior which is applicable throughout the application
-Правильный ответ: 4
+Правильный ответ: 3
 
 **51. What does the yaml configuration property in a eureka Service, eureka.instance.leaseExpirationDurationInSeconds define?**
 - Eureka is to advertise the IP addresses of services rather than their hostnames.
 - Removes, a service from the Eureka Registry after the Eureka Service has not received 3 consecutive missing heartbeats of the desired number of seconds.
 - The host name of the Eureka Service.
 - The period between heart beats from registered services to the Eureka instance to inform Eureka that the service is still available.
-Правильный ответ: 2
+Правильный ответ: 1
 
 **52. Which annotation enables you to register a service with a running Eureka Service?**
 - @EnableDiscoveryClient 
 - @EnableEurekaServer
 - @RibbonClient
 - @EnableZuulProxy
-Правильный ответ: 1
+Правильный ответ: 0
 
 **53. Which annotation enables you to launch a running Eureka Service, ready to accept registration?**
 - @RibbonClient 
 - @EnableZuulProxy 
 - @EnableEurekaServer
 - @EnableDiscoveryClient
-Правильный ответ: 3
+Правильный ответ: 2
 
 **54. Which if the following is not an independent objective of a Microservice architecture?**
 - Deployable
 - Scalable
 - A monolithic executable component
 - Replaceable
-Правильный ответ: 3
+Правильный ответ: 2
 
 **55. Spring Cloud Netflix provides Netflix OSS integrations for Spring Boot apps through auto configuration for binding to the Spring Environment. What org.springframework.cloud artifact enables this to happen?**
 - spring-cloud-starter-feign 
 - spring-cloud-starter-hystrix
 - spring-cloud-starter-ribbon
 - spring-cloud-starter-eureka-server  
-Правильный ответ: 4
+Правильный ответ: 3
 
 **56. Which of the following best describes Service Discovery?**
 - Maximize the availability of a service across multiple servers.
 - The client is responsible for determining network locations by querying a service registry.
 - A service that controls the flow of scaled service instances.
 - Prevent an application from repeatedly trying to execute an operation that's likely to fail.
-Правильный ответ: 2
+Правильный ответ: 1
 
 **57. Which type of Service in Netflix OSS is used to provide client side load balancing for services to delegate to other services?**
 - Ribbon 
 - Feign
 - Zuul 
 - Eureka 
-Правильный ответ: 1
+Правильный ответ: 0
 
 **58. What type of filters can a Zuul service provide? (Select all that apply)**
 - EXCEPTION
 - LOGGING   
 - ROUTING
 - PRE
-Правильный ответ: 3, 4
+Правильный ответ: 2, 3
 
 **59. Which Netflix OSS project provides functionality for stopping cascade failures across services by implementing the circuit Breaker Pattern?**
 - Hystrix 
 - Zuul
 - Ribbon
 - Feign
-Правильный ответ: 1
+Правильный ответ: 0
 
 **60. Which Netflix OSS project provides functionality for Routing services?**
 - Hystrix 
 - Feign
 - Zuul 
 - Ribbon 
-Правильный ответ: 3
+Правильный ответ: 2
