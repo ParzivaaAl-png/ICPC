@@ -1,4 +1,4 @@
-**1. Fill in the blank: Cybersecurity aims to protect networks, devices, people, and data from ______ or unauthorized access.**
+**1. Fill in the blank: Cybersecurity aims to protect networks, devices, people, and data from _____ or unauthorized access.**
 - criminal exploitation
 - changing business priorities
 - poor financial management
@@ -10,7 +10,7 @@
 - Installing detection software
 - Conducting a security audit
 - Ethical hacking
-Правильный ответ: 3
+Правильный ответ: 2
 
 **3. Which of the following entities may be an internal threat to an organization? Select three answers.**
 - Trusted partners
@@ -19,7 +19,7 @@
 - Employees
 Правильный ответ: 1, 2, 4
 
-**4. Fill in the blank: Identity theft is the act of stealing ______ to commit fraud while impersonating a victim.**
+**4. Fill in the blank: Identity theft is the act of stealing _____ to commit fraud while impersonating a victim.**
 - hardware
 - business records
 - personal information
@@ -40,7 +40,7 @@
 - Applying computer forensics
 Правильный ответ: 3, 4
 
-**7. Fill in the blank: Security ______ and event management (SIEM) tools enable security professionals to identify and analyze threats, risks, and vulnerabilities.**
+**7. Fill in the blank: Security _____ and event management (SIEM) tools enable security professionals to identify and analyze threats, risks, and vulnerabilities.**
 - information
 - improvement
 - identity
@@ -68,7 +68,7 @@
 - Brain virus
 Правильный ответ: 2
 
-**11. Fill in the blank: Exploiting human error to gain access to private information is an example of ______ engineering.**
+**11. Fill in the blank: Exploiting human error to gain access to private information is an example of _____ engineering.**
 - digital
 - network
 - social
@@ -103,7 +103,7 @@
 - Security information and event management (SIEM)
 Правильный ответ: 4
 
-**16. Fill in the blank: Security professionals use ______ to help them manage a security incident before, during, and after it has occurred.**
+**16. Fill in the blank: Security professionals use _____ to help them manage a security incident before, during, and after it has occurred.**
 - charts
 - playbooks
 - spreadsheets
@@ -124,42 +124,42 @@
 - By capturing and analyzing data traffic on the network
 Правильный ответ: 4
 
-**19. Fill in the blank: A security professional has been tasked with implementing strict password policies on workstations to reduce the risk of password theft. This is an example of ______.**
+**19. Fill in the blank: A security professional has been tasked with implementing strict password policies on workstations to reduce the risk of password theft. This is an example of _____.**
 - hardware changes
 - security teams
 - networking regulations
 - security controls
 Правильный ответ: 4
 
-**20. You are helping your security team consider risk when setting up a new software system. Using  the CIA triad, you focus on confidentiality, availability, and what else?**
+**20. You are helping your security team consider risk when setting up a new software system. Using the CIA triad, you focus on confidentiality, availability, and what else?**
 - Integrity
 - Intelligence
 - Inconsistencies
 - Information
 Правильный ответ: 1
 
-**21. Fill in the blank: ______ are items perceived as having value to an organization.**
+**21. Fill in the blank: _____ are items perceived as having value to an organization.**
 - Assets
 - Incidents
 - Lifecycles
 - Alerts
 Правильный ответ: 1
 
-**22. Fill in the blank: Some of the most dangerous threat actors are ______ because they often know where to find sensitive information, can access it, and may have malicious intent.**
+**22. Fill in the blank: Some of the most dangerous threat actors are _____ because they often know where to find sensitive information, can access it, and may have malicious intent.**
 - disgruntled employees
 - past vendors
 - dissatisfied customers
 - senior partners
 Правильный ответ: 1
 
-**23. A security professional is updating software on a coworker's computer and unexpectedly encounters an email containing private information about another employee. The security professional chooses to follow company guidelines regarding privacy protections and does not share the information with coworkers. Which concept does this scenario describe?**
+**23. A security professional chooses to follow company guidelines regarding privacy protections and does not share private information. Which concept does this describe?**
 - Preserving evidence
 - Business email compromise
 - Security ethics
 - Security controls
 Правильный ответ: 3
 
-**24. Fill in the blank: The ethical principle of ______ involves safeguarding an organization's human resources records that contain personal details about employees.**
+**24. Fill in the blank: The ethical principle of _____ involves safeguarding an organization’s human resources records that contain personal details about employees.**
 - non-bias
 - privacy protection
 - unlimited access
@@ -173,21 +173,21 @@
 - Restrictions
 Правильный ответ: 1
 
-**26. Fill in the blank: Linux relies on a(n) ______ as the primary user interface.**
+**26. Fill in the blank: Linux relies on a(n) _____ as the primary user interface.**
 - dashboard
 - command line
 - ciphertext
 - error log
 Правильный ответ: 2
 
-**27. Fill in the blank: A database is a ______ of organized data stored in a computer system.**
+**27. Fill in the blank: A database is a _____ of organized data stored in a computer system.**
 - collection
 - frame
 - visualization
 - model
 Правильный ответ: 1
 
-**28. Fill in the blank: Security ______ refers to an organization's ability to manage its defense of critical assets and data, as well as its ability to react to change.**
+**28. Fill in the blank: Security _____ refers to an organization’s ability to manage its defense of critical assets and data, as well as its ability to react to change.**
 - governance
 - posture
 - architecture
@@ -208,21 +208,21 @@
 - Communication and network security
 Правильный ответ: 2
 
-**31. Fill in the blank: The software development security domain involves the use of the software development lifecycle, which is an efficient process used by teams to quickly build software products and services.**
+**31. Fill in the blank: The software development security domain involves the use of the software development _____.**
 - staging
 - operations
 - lifecycle
 - functionality
 Правильный ответ: 3
 
-**32. A business experiences an attack. As a result, its critical business operations are interrupted and it faces regulatory fines. What type of consequence does this scenario describe?**
+**32. A business experiences an attack and faces regulatory fines. What type of consequence does this scenario describe?**
 - Reputation
 - Financial
 - Practical
 - Identity
 Правильный ответ: 2
 
-**33. Fill in the blank: In the Risk Management Framework (RMF), the ______ step involves knowing how systems are operating and assessing whether or not those systems support the organization's security goals.**
+**33. Fill in the blank: In the Risk Management Framework (RMF), the _____ step involves knowing how systems are operating.**
 - authorize
 - implement
 - monitor
@@ -236,7 +236,7 @@
 - As a policy to protect against phishing campaigns
 Правильный ответ: 1
 
-**35. Fill in the blank: A security professional uses ______ to verify that an employee has permission to access a resource.**
+**35. Fill in the blank: A security professional uses _____ to verify that an employee has permission to access a resource.**
 - admission
 - authorization
 - encryption
@@ -250,590 +250,590 @@
 - Fingerprint
 Правильный ответ: 4
 
-**37. You work as a security analyst for a supply chain organization and need to confirm all inventory data is correct, authentic, and reliable. Which core principle of the CIA triad are you using?**
+**37. You need to confirm inventory data is correct and reliable. Which CIA principle are you using?**
 - Integrity
 - Availability
 - Credibility
 - Confidentiality
 Правильный ответ: 1
 
-**38. A security team has just finished addressing a recent security incident. They now conduct tests to ensure that all of their repairs were successful. Which OWASP principle does this scenario describe?**
+**38. After fixing a security incident, tests are conducted to ensure repairs were successful. Which OWASP principle is this?**
 - Fix security issues correctly
 - Separation of duties
 - Principle of least privilege
 - Minimize attack surface area
 Правильный ответ: 1
 
-**39. Fill in the blank: The planning elements of an internal security audit include establishing scope and ______, then conducting a risk assessment.**
+**39. The planning elements of an internal security audit include establishing scope and _____.**
 - compliance
 - goals
 - controls
 - limitations
 Правильный ответ: 2
 
-**40. A security analyst performs an internal security audit. They review their company's existing assets, then evaluate potential risks to those assets. Which aspect of a security audit does this scenario describe?**
+**40. A security analyst evaluates potential risks to assets. Which audit aspect is this?**
 - Communicating results
 - Completing a controls assessment
 - Establishing the scope and goals
 - Assessing compliance
 Правильный ответ: 3
 
-**41. Fill in the blank: To assess the performance of a software application, security professionals use ______, including response time, availability, and failure rate.**
+**41. To assess application performance, security professionals use _____.**
 - metrics
 - dashboards
 - logs
 - SIEM tools
 Правильный ответ: 1
 
-**42. A security team chooses to implement a SIEM tool that they will install, operate, and maintain using their own physical infrastructure. What type of tool are they using?**
+**42. A SIEM installed and maintained on physical infrastructure is what type?**
 - Log-hosted
 - Hybrid
 - Self-hosted
 - Cloud-hosted
 Правильный ответ: 3
 
-**43. You are a security professional, and you want a SIEM tool that will require both on-site infrastructure and internet-based solutions. What type of tool do you choose?**
+**43. A SIEM requiring on-site and internet solutions is what type?**
 - Component-hosted
 - Self-hosted
 - Hybrid
 - Cloud-hosted
 Правильный ответ: 3
 
-**44. Fill in the blank: SIEM tools are used to search, analyze, and ______ an organization's log data to provide security information and alerts in real-time.**
+**44. SIEM tools are used to search, analyze, and _____ log data.**
 - retain
 - modify
 - release
 - separate
 Правильный ответ: 1
 
-**45. A security analyst receives an alert about hundreds of login attempts from unusual geographic locations within the last few minutes. What can the analyst use to review a timeline of the login attempts, locations, and time of activity?**
+**45. Reviewing login timelines and locations is done using _____.**
 - A playbook
 - An operating system
 - A SIEM tool dashboard
-- A network protocol analyzer (packet sniffer)
+- A packet sniffer
 Правильный ответ: 3
 
-**46. Which type of tool typically requires users to pay for usage?**
+**46. Which tool type typically requires payment?**
 - Proprietary
 - Self-hosted
 - Open-source
 - Cloud native
 Правильный ответ: 1
 
-**47. Fill in the blank: A security team ______ their playbook frequently by learning from past security incidents, then refining policies and procedures.**
+**47. A security team _____ their playbook frequently.**
 - updates
 - outlines
 - shortens
 - summarizes
 Правильный ответ: 1
 
-**48. Fill in the blank: Incident response playbooks are  ______ used to help mitigate and manage security incidents from beginning to end.**
+**48. Incident response playbooks are _____ used to manage incidents.**
 - inquiries
 - exercises
 - examinations
 - guides
 Правильный ответ: 4
 
-**49. An organization has successfully responded to a security incident. According to their established standards, the organization must share information about the incident to a specific government agency. What phase of an incident response playbook does this scenario describe?**
+**49. Sharing incident information with a government agency is what phase?**
 - Containment
 - Coordination
 - Detection and analysis
 - Preparation
 Правильный ответ: 2
 
-**50. Why is the containment phase of an incident response playbook a high priority for organizations?**
-- It demonstrates how to communicate about the breach to leadership.
-- It enables a business to determine whether a breach has occurred.
-- It outlines roles and responsibilities of all stakeholders.
-- It helps prevent ongoing risks to critical assets and data.
+**50. Why is containment a high priority?**
+- Communication to leadership
+- Determine breach occurrence
+- Outline roles
+- Prevent ongoing risks
 Правильный ответ: 4
 
-**51. Fill in the blank: During the post-incident activity phase, security teams may conduct a full-scale analysis to determine the ______ of an incident and use what they learn to improve the company's overall security posture.**
-- target
-- root cause
-- structure
-- end point
-Правильный ответ: 2
-
-**52. A security analyst wants to set the foundation for successful incident response. They outline roles and responsibilities of each security team member. What phase of an incident response playbook does this scenario describe?**
-- Preparation
-- Detection and analysis
-- Post-incident activity
-- Containment
-Правильный ответ: 1
-
-**53. What is the term for a group of connected devices?**
+**51. What is the term for a group of connected devices?**
 - Hub
 - Protocol
 - Cloud
 - Network
 Правильный ответ: 4
 
-**54. A ______ broadcasts information to every device on the network.**
+**52. A _____ broadcasts information to every device on the network.**
 - modem
 - hub
 - switch
 - router
 Правильный ответ: 2
 
-**55. What is the purpose of the protocol number of a data packet?**
+**53. What is the purpose of the protocol number of a data packet?**
 - To contain the IP and MAC addresses
 - To identify the message to be transmitted to the receiving device
 - To signal to the receiving device that the packet is finished
 - To tell the receiving device what to do with the information in the packet
 Правильный ответ: 4
 
-**56. Fill in the blank: ______ refers to the practice of using remote servers, applications, and network services that are hosted on the internet, instead of in a physical location owned by a company.**
+**54. Fill in the blank: _____ refers to using remote servers and services hosted on the internet.**
 - Cloud computing
 - Software defined networks (SDNs)
 - Hybrid cloud environment
 - Local area network (LAN)
 Правильный ответ: 1
 
-**57. Which port is used for secure internet communication?**
+**55. Which port is used for secure internet communication?**
 - 20
 - 443
 - 25
 - 40
 Правильный ответ: 2
 
-**58. Fill in the blank: The ______ layer is used to determine how data packets will interact with receiving devices, including file transfers and email services.**
+**56. Fill in the blank: The ___ layer determines how data packets interact with receiving devices.**
 - Layer 1, network access
 - Layer 2, internet
 - Layer 3, transport
 - Layer 4, application
 Правильный ответ: 4
 
-**59. A security analyst runs a command to discover a local IP address. The analyst receives the following result: 169.254.255.249. What type of address is this?**
+**57. What type of address is 169.254.255.249?**
 - IPv4
 - Ethernet
 - IPv6
 - MAC
 Правильный ответ: 1
 
-**60. Fill in the blank: fe80::ab12:cd34:ef56:0023:2345 is an example of an accurate ______ address.**
+**58. fe80::ab12:cd34:ef56:0023:2345 is an example of a(n) ___ address.**
 - IPv4
 - IPv6
 - MAC
 - Ethernet
 Правильный ответ: 2
 
-**61. What network protocol helps data get to the right place by determining the MAC address of the next router or device on its path?**
-- Transmission Control Protocol (TCP)
-- Hypertext Transfer Protocol Secure (HTTPS)
-- Address Resolution Protocol (ARP)
-- Secure Sockets Layer/Transport Layer Security (SSL/TLS)
+**59. Which protocol determines the MAC address of the next device?**
+- TCP
+- HTTPS
+- ARP
+- SSL/TLS
 Правильный ответ: 3
 
-**62. Which type of firewall analyzes network traffic for suspicious characteristics and behavior and stops them from entering the network?**
+**60. Which firewall analyzes traffic behavior and blocks suspicious activity?**
 - Stateful
 - Next-generation firewall (NGFW)
 - Stateless
 - Cloud-based
 Правильный ответ: 2
 
-**63. Which firewall offers the most security features?**
+**61. Which firewall offers the most security features?**
 - Stateless firewall
 - Next generation firewall (NGFW)
 - Documented firewall
 - Stateful firewall
 Правильный ответ: 2
 
-**64. What network security service masks a device's virtual location to keep data private while using a public network?**
+**62. What service masks a device’s virtual location on public networks?**
 - Network segmenter
 - Virtual private network (VPN)
 - Cloud service provider (CSP)
 - Domain name system (DNS)
 Правильный ответ: 2
 
-**65. What does a VPN service use to transfer encrypted data between a device and the VPN server?**
+**63. What does a VPN use to transfer encrypted data?**
 - encapsulation
 - transmission control
 - network segmentation
 - packet sniffing
 Правильный ответ: 1
 
-**66. What network zone contains the internet and other services that are outside of an organization's control?**
+**64. What network zone contains the internet and external services?**
 - Restricted
 - Controlled
 - Demilitarized
 - Uncontrolled
 Правильный ответ: 4
 
-**67. What network zone acts as a network perimeter to the internal network by isolating servers that are exposed to the internet?**
+**65. What zone isolates servers exposed to the internet?**
 - Demilitarized zone
 - Virtual private network
 - Restricted zone
 - Uncontrolled zone
 Правильный ответ: 1
 
-**68. Fill in the blank: A ______ fulfills the requests of its clients by forwarding them to other servers**
-- virtual private network (VPN)
+**66. A _____ forwards client requests to other servers.**
+- VPN
 - router
 - proxy server
 - firewall
 Правильный ответ: 3
 
-**69. What happens during a Denial of Service (DoS) attack?**
-- The data packets containing valuable information are stolen as they travel across the network.
-- The attacker successfully impersonates an authorized user and gains access to the network.
-- The network is infected with malware.
-- The target crashes and normal business operations cannot continue.
+**67. What happens during a DoS attack?**
+- Data packets are stolen
+- Attacker impersonates a user
+- Network is infected with malware
+- Target crashes and operations stop
 Правильный ответ: 4
 
-**70. A security team discovers that an attacker has taken advantage of the handshake process that is used to establish a TCP connection between a device and their server. Which DoS attack does this scenario describe?**
+**68. Exploiting the TCP handshake describes which attack?**
 - Ping of Death
 - On-path attack
 - ICMP flood
 - SYN flood attack
 Правильный ответ: 4
 
-**71. Fill in the blank: The maximum size of a correctly formatted IPv4 ICMP packet is ______, as opposed to the oversized packet that is sent during a Ping of Death attack.**
+**69. The maximum size of a correctly formatted IPv4 ICMP packet is _____.**
 - 64KB
 - 15Gb
 - 32KB
 - 64TB
 Правильный ответ: 1
 
-**72. As a security professional, you implement safeguards against attackers changing the source IP of a data packet in order to communicate over your company's network. What type of network attack are you trying to avoid?**
+**70. Changing the source IP address is which attack?**
 - Ping of Death
 - IP spoofing
 - Active packet sniffing
 - Passive packet sniffing
 Правильный ответ: 2
 
-**73. Fill in the blank: To reduce the chances of an IP spoofing attack, a security analyst can configure a ______ to reject all incoming traffic with the same source IP addresses as those owned by the organization.**
+**71. To reduce IP spoofing, configure a _____ to reject internal IPs.**
 - demilitarized zone
 - VPN
 - firewall
 - HTTPS domain address
 Правильный ответ: 3
 
-**74. In which attack would malicious actors gain access to a network, put themselves between a web browser and a web server, then sniff the packet to learn the devices' IP and MAC addresses?**
-- Packet flooding attack
+**72. Gaining access between browser and server to sniff packets is which attack?**
+- Packet flooding
 - Malware attack
 - Smurf attack
 - On-path attack
 Правильный ответ: 4
 
-**75. Fill in the blank: The ______ network attack occurs when a malicious actor takes a network transmission that was sent by an authorized user and repeats it at a later time to impersonate that user.**
+**73. Repeating a valid transmission later to impersonate a user is a _____ attack.**
 - SYN flood
 - smurf
 - on-path
 - replay
 Правильный ответ: 4
 
-**76. Which attack is a combination of a DDoS and an IP spoofing attack, during which the malicious actor overwhelms a target computer?**
+**74. Which attack combines DDoS and IP spoofing?**
 - Smurf attack
 - On-path attack
 - Ping of Death
 - Replay attack
 Правильный ответ: 1
 
-**77. Fill in the blank: ______ is the process of strengthening a system to reduce its vulnerability and attack surface.**
+**75. Fill in the blank: _____ is strengthening a system to reduce vulnerabilities.**
 - Security hardening
 - Network hardening
 - Port filtering
 - SIEM
 Правильный ответ: 1
 
-**78. What is the relationship between security hardening and an attack surface?**
-- Security hardening permanently eliminates the attack surface. 
-- Security hardening diminishes the attack surface. 
-- Security hardening expands the attack surface. 
-- Security hardening increases the attack surface.
+**76. Security hardening _____ the attack surface.**
+- permanently eliminates
+- diminishes
+- expands
+- increases
 Правильный ответ: 2
 
-**79. Fill in the blank: Installing security cameras is an example of a ______ security hardening practice.**
+**77. Installing security cameras is _____ hardening.**
 - network-focused
 - physical
 - software-based
 - virtual
 Правильный ответ: 2
 
-**80. An organization's in-house security team has been authorized to simulate an attack on the organization's website. The objective is to identify any vulnerabilities that are present. What does this scenario describe?**
-- The Ping of Death
+**78. Authorized simulated attacks to find vulnerabilities are called _____.**
+- Ping of Death
 - Penetration testing
-- A Distributed Denial of Service (DDoS) attack
+- DDoS attack
 - Packet sniffing
 Правильный ответ: 2
 
-**81. A security analyst reviews documentation about a firewall rule that includes a list of allowed and disallowed network ports. They compare it to the current firewall to ensure no changes have been made. What does this scenario describe?**
+**79. Comparing firewall rules to documentation describes _____.**
 - Checking baseline configuration
-- Upgrading the interface between computer hardware and the user
-- Responsibly managing applications
-- Verifying user identity when accessing an OS
+- Upgrading interfaces
+- Managing applications
+- Verifying user identity
 Правильный ответ: 1
 
-**82. Which OS hardening practice requires users to verify their identity in two or more ways to access a system or network?**
+**80. Which practice requires two or more identity checks?**
 - Multi-factor authentication (MFA)
 - SIEM
 - Port filtering
 - Patch updates
 Правильный ответ: 1
 
-**83. In what way might port filtering be used to protect a network from an attack?**
-- To increase the attack surface in a network
-- To create isolated subnets for different departments in an organization
-- To inspect, analyze, and react to security events based on their priority
-- To disable unused ports in order to reduce the attack surface
+**81. How does port filtering protect a network?**
+- Increase attack surface
+- Create isolated subnets
+- Analyze security events
+- Disable unused ports
 Правильный ответ: 4
 
-**84. Which network hardening practice is used to create isolated subnets for different departments in an organization?**
+**82. Creating isolated subnets is called _____.**
 - Patch updating
 - Penetration testing
 - Cloud hardening
 - Network segmentation
 Правильный ответ: 4
 
-**85. How can a security professional confirm that no unverified changes have occurred within a cloud server?**
-- Establish multifactor authentication (MFA)
-- Use port filtering to block or allow certain updates
-- Compare the server baseline image to the data in cloud servers 
-- Perform a penetration test
+**83. Confirming no unverified cloud changes occurred uses _____.**
+- MFA
+- Port filtering
+- Baseline comparison
+- Penetration test
 Правильный ответ: 3
 
-**86. What does BIOS load in order to start an operating system?**
+**84. What does BIOS load to start an OS?**
 - UEFI
-- An anti-virus application
-- The user interface
-- The bootloader
+- Anti-virus
+- User interface
+- Bootloader
 Правильный ответ: 4
 
-**87. Fill in the blank: To complete tasks on their computers, users interact with ______.**
-- the CPU
+**85. Users interact with _____ to complete tasks.**
+- CPU
 - applications
-- the bootloader
-- anti-virus software
+- bootloader
+- anti-virus
 Правильный ответ: 2
 
-**88. Fill in the blank: A ______ is a program that allows users to control functions of the operating system.**
+**86. A program that lets users control the OS is a _____.**
 - bootloader
 - user interface
 - CPU
 - UEFI chip
 Правильный ответ: 2
 
-**89. A security team suspects that an attacker has compromised their system. They examine the commands entered by the attacker to determine whether they can trace the attacker's actions to help them resolve the incident. What does this scenario describe?**
-- Reviewing a history file in a GUI
-- Examining the usage of files and applications from a start menu
-- Repeating a process using icons
-- Reviewing a history file in a CLI
+**87. Examining attacker commands in a terminal is _____.**
+- GUI history review
+- Start menu review
+- Repeating icons
+- CLI history review
 Правильный ответ: 4
 
-**90. To ensure a computer's capacity is used where it is needed most, what does an operating system manage?**
+**88. What does an OS manage to optimize capacity?**
 - BIOS and UEFI
 - Icons and graphics
 - Resources and memory
 - Viruses and malware
 Правильный ответ: 3
 
-**91. What is an effect of Linux being open source?**
-- It is the most simple OS in terms of architecture.
-- It requires a yearly subscription.
-- It allows for collaboration among a community of developers.
-- It is the easiest OS for beginners to use.
+**89. What is an effect of Linux being open source?**
+- Simplest OS
+- Requires subscription
+- Community collaboration
+- Easiest for beginners
 Правильный ответ: 3
 
-**92. What is KALI LINUX ™? (KALI LINUX ™ is a trademark of OffSec.)**
-- An open-source Linux distribution that is widely used in security
-- A component of the Linux architecture that is responsible for processing commands and outputting results
-- A component of the Linux OS that manages processes and memory
-- A subscription-based enterprise distribution of Linux
+**90. What is Kali Linux?**
+- Open-source security Linux distribution
+- Command processor
+- Process manager
+- Enterprise subscription OS
 Правильный ответ: 1
 
-**93. Fill in the blank: The ______ communicates with the kernel to execute commands.**
-- Filesystem Hierarchy Standard (FHS)
+**91. The _____ communicates with the kernel to execute commands.**
+- FHS
 - hardware
 - interface
 - shell
 Правильный ответ: 4
 
-**94. Which of the following is an example of hardware?**
+**92. Which is hardware?**
 - CPU
 - Shell
 - Applications
 - Kernel
 Правильный ответ: 1
 
-**95. What is standard input?**
-- Information received by the OS via the command line
-- Information returned by the OS through the shell
-- Data consisting of an ordered sequence of characters
-- A Linux command that outputs a specified string of text
+**93. What is standard input?**
+- Data received via command line
+- Data returned by shell
+- Ordered character sequence
+- Command output
 Правильный ответ: 1
 
-**96. Why might a security analyst use SQL?**
-- To store data in a spreadsheet
-- To efficiently find needed data in security logs
-- To create new files on their computer
-- To assign new passwords to users
+**94. Why might a security analyst use SQL?**
+- Store spreadsheet data
+- Find data in logs efficiently
+- Create files
+- Assign passwords
 Правильный ответ: 2
 
-**97. What is a primary key?**
-- A column where every row has a unique entry
-- The first column in every table
-- A column that contains null values
-- The first row in every table
+**95. What is a primary key?**
+- Column with unique values
+- First column
+- Column with nulls
+- First row
 Правильный ответ: 1
 
-**98. Both an employees table and a machines table contain an employee_id column, and you want to return only the records that share a value in this column. Which keyword should be part of your query?**
+**96. Which keyword returns shared values between tables?**
 - FULL OUTER JOIN
 - WHERE
 - BETWEEN
 - INNER JOIN
 Правильный ответ: 4
 
-**99. Which SQL keyword indicates the condition for a filter?**
+**97. Which keyword sets a filter condition?**
 - SELECT
 - FROM
 - INNER JOIN
 - WHERE
 Правильный ответ: 4
 
-**100. Fill in the blank: If you use Python code to reduce the manual effort needed to manage an access control list, this is an example of ______.**
+**98. Reducing manual effort with Python is _____.**
 - debugging
 - data analysis
 - reassignment
 - automation
 Правильный ответ: 4
 
-**101. What data type requires quotation marks (" ")?**
+**99. Which data type requires quotation marks?**
 - Integer
 - Float
 - String
 - Boolean
 Правильный ответ: 3
 
-**102. Which line of Python code would create a Boolean value of True?**
+**100. Which code creates a Boolean True?**
 - print(10<100)
 - print("True")
 - print(25<24)
 - print(["Boolean"])
 Правильный ответ: 1
 
-**103. Which line of code assigns the string "dtanaka" to a variable called username?**
+**101. Assign the string "dtanaka" to username.**
 - username("dtanaka")
 - username = "dtanaka"
 - username = dtanaka
 - "dtanaka" = username
 Правильный ответ: 2
 
-**104. What are built-in functions?**
-- Functions that return information
-- Functions that exist with Python and can be called directly
-- Functions that take parameters
-- Functions that a programmer builds for their specific needs
+**102. What are built-in functions?**
+- Return information
+- Exist with Python by default
+- Take parameters
+- Built by programmers
 Правильный ответ: 2
 
-**105. Fill in the blank: A Python file that contains additional functions, variables, classes, and any kind of runnable code is called a ______.**
+**103. A Python file with reusable code is a _____.**
 - parameter
 - module
 - built-in function
 - library
 Правильный ответ: 2
 
-**106. What is the output of the following code? print(len("125"))**
+**104. What is the output of print(len("125"))?**
 - 3
 - 10
 - 8
 - 5
 Правильный ответ: 1
 
-**107. What is the result when .upper() is applied to a string?**
-- The value of the string is reassigned to contain all uppercase letters.
-- The value of the string is reassigned to the value of the string in the line preceding it.
-- A copy of the string is returned with all uppercase letters.
-- The character that appears most frequently in the string is extracted from it and returned.
+**105. What does .upper() do?**
+- Reassigns original string
+- Copies previous line
+- Returns uppercase copy
+- Extracts frequent character
 Правильный ответ: 3
 
-**108. What is the index of the character "c" in the string "encryption"?**
+**106. What is the index of "c" in "encryption"?**
 - 3
 - 4
 - 1
 - 2
-Правильный ответ: 2
+Правильный ответ: 4
 
-**109. What are the three types of errors you will encounter while debugging?**
-- Syntax errors, logic errors, and exceptions
-- Exceptions, logic errors, iterative errors
-- Logic errors, comment errors, and iterative errors
-- Syntax errors, exceptions, and comment errors
+**107. Three types of errors when debugging are _____.**
+- Syntax, logic, exceptions
+- Exceptions, logic, iterative
+- Logic, comment, iterative
+- Syntax, exceptions, comment
 Правильный ответ: 1
 
-**110. What is parsing?**
-- The process of converting data into a more readable format
-- The process of reading data line by line
-- The process of copying data to other files
-- The process of writing data to a new file
-Правильный ответ: 2
+**108. What is parsing?**
+- Converting data format
+- Reading data line by line
+- Copying data
+- Writing new files
+Правильный ответ: 1
 
-**111. Fill in the blank: The ______ is a standard awareness document that lists the top 10 most critical security risks to web applications.**
+**109. The standard listing top web security risks is _____.**
 - Red Teaming Blog
 - Wall Street Journal
 - Programming for Security Protection
 - OWASP
 Правильный ответ: 4
 
-**112. Which security website covers security news and investigations into cyber attacks?**
+**110. Which site covers security news and investigations?**
 - Security Investigation by Krebs
-- Kreb's Security Perspective
-- Online CISO 
+- Krebs Security Perspective
+- Online CISO
 - Krebs on Security
 Правильный ответ: 4
 
-**113. Fill in the blank: ______ provides news, analysis, and research on various security and risk management topics.**
+**111. _____ provides news and research on security and risk management.**
 - CSO Online
 - Risk Management for Security Geeks
 - Who Knows Security?
-- Krebs Explains Security 
+- Krebs Explains Security
 Правильный ответ: 1
 
-**114. Fill in the blank: Although many security websites and blogs provide different relevant security tips, ______ specifically provides information on analytics and application security, mobile and cloud security, and the Internet of Things (IoT).**
+**112. Which site focuses on analytics, application, cloud, and IoT security?**
 - Krebs on Security
 - Dark Reading
 - CSO Online
-- Kreb's Cloud Security Blog
+- Kreb’s Cloud Security Blog
 Правильный ответ: 2
 
-**115. You've recently completed the Google Cybersecurity Certificate and decide it's time to connect with other security professionals. Which of the following is a great way to connect with security professionals?**
-- Searching for them on social media
-- Asking friends and family members who are not in the security industry to connect you with people they know
-- Staying away from social media
-- Calling different organizations and asking to speak with their security teams
+**113. Best way to connect with security professionals?**
+- Search social media
+- Ask non-industry friends
+- Avoid social media
+- Call organizations directly
 Правильный ответ: 1
 
-**116. Fill in the blank: ______ for the name of the CISO of an organization is a good first step to finding a CISO to follow on social media.**
-- Checking an organization's blog
-- Conducting an internet search
-- Asking friends or family members
-- Asking social media friends
+**114. Best first step to find a CISO to follow online?**
+- Check organization blog
+- Internet search
+- Ask friends
+- Ask social media friends
 Правильный ответ: 2
 
-**117. Fill in the blank: A great way to find other security analysts to connect with on LinkedIn® is to set your filter to locate ______ that focus on security-related topics that interest you.**
+**115. On LinkedIn, filter for _____ to find analysts.**
 - products
 - events
 - courses
 - human resources professionals
-Правильный ответ: 3
+Правильный ответ: 2
 
-**118. Fill in the blank: For individuals who are not active on social media, ______ is another great way to connect with security professionals.**
-- taking a class on how to foster a collaborative team environment
-- joining exclusive CFO seminars
-- taking a social media training course
-- joining different security associations
+**116. For those not on social media, connect by _____.**
+- team environment classes
+- CFO seminars
+- social media training
+- security associations
 Правильный ответ: 4
 
-**119. What is the best search term to use to find a security organization to join?**
-- "Industry associations"
-- "Top CISOs in my area"
-- "Cybersecurity industry associations"
-- "Incident response teams"
+**117. Best search term to find security organizations?**
+- Industry associations
+- Top CISOs nearby
+- Cybersecurity industry associations
+- Incident response teams
 Правильный ответ: 3
 
-**120. What does this line of code return? print(max(1,3,7))**
+**118. What does print(max(1,3,7)) return?**
 - 11
 - 3
 - 7
 - 1
 Правильный ответ: 3
+
+**119. What is a Python library?**
+- Collection of modules
+- File-specific module
+- Single Python file
+- Style guidelines
+Правильный ответ: 1
+
+**120. What is returned when multiples(2) is called?**
+- num
+- 2
+- multiples
+- 6
+Правильный ответ: 4
